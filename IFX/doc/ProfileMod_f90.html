@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>./source/ProfileMod.f90</title>
+<!-- Source: ./source/ProfileMod.f90 -->
+<!-- Generated with ROBODoc Version 4.99.36 (Apr 25 2008) -->
+</head>
+<body>
+<div id="logo">
+<a name="robo_top_of_doc"></a>
+</div> <!-- logo -->
+<div id="navigation">
+<a class="menuitem" href="./toc_index.html#top">Table of Contents</a>
+<a class="menuitem" href="./robo_sourcefiles.html#top">Sourcefiles</a>
+<a class="menuitem" href="./masterindex.html#top">Index</a>
+<a class="menuitem" href="./robo_functions.html#top">Functions</a>
+<a class="menuitem" href="./robo_modules.html#top">Modules</a>
+</div> <!-- navigation -->
+<div id="content">
+<h3>TABLE OF CONTENTS</h3>
+<ul>
+<li>1. <a href="#robo5">source/ProfileMod</a></li>
+<ul>
+<li>1.1. <a href="#robo104">ProfileMod/ProfileCheckpoint</a></li>
+<li>1.2. <a href="#robo105">ProfileMod/ProfileGetTotalTime</a></li>
+<li>1.3. <a href="#robo106">ProfileMod/ProfileInit</a></li>
+<li>1.4. <a href="#robo107">ProfileMod/ProfileNameCheckpointTransition</a></li>
+<li>1.5. <a href="#robo108">ProfileMod/ProfileWriteCheckpointCountReport</a></li>
+<li>1.6. <a href="#robo109">ProfileMod/ProfileWriteCheckpointTransitionReport</a></li>
+<li>1.7. <a href="#robo110">ProfileMod/ProfileWriteFullReport</a></li>
+</ul>
+</ul>
+<hr />
+<a name="source2fProfileMod"></a>
+<a name="robo5"></a><h2>source/ProfileMod [ Modules ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_modules.html#robo_top_of_doc">Modules</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ProfileMod</strong>: OcactFortLib <strong>ProfileMod</strong> module.
+</p>
+<p class="item_name">REVISION</p>
+<p>  Revision: 1.11
+</p>
+<p class="item_name">MODULE DESCRIPTION</p>
+<p>  The <strong>ProfileMod</strong> contains subroutines and functions used to profile a program.
+  Checkpoints are set in the program to count how many times the program
+  hits each checkpoint and times how long it takes to get from one checkpoint
+  to the next. Before using this module, call the <a href="#robo106">ProfileInit</a> subroutine to
+  initialize the <strong>ProfileMod</strong>. Near the end of the program, call one (or more)
+  of the ProfileWrite... subroutines to output the results of the profiling.
+</p>
+<p class="item_name">MODULE ROUTINES</p>
+<pre>  <a href="#robo106">ProfileInit</a>
+  <a href="#robo107">ProfileNameCheckpointTransition</a>
+  <a href="#robo104">ProfileCheckpoint</a>
+  <a href="#robo105">ProfileGetTotalTime</a>
+  <a href="#robo109">ProfileWriteCheckpointTransitionReport</a>
+  <a href="#robo108">ProfileWriteCheckpointCountReport</a>
+  <a href="#robo110">ProfileWriteFullReport</a>
+</pre>
+
+<hr />
+<a name="ProfileMod2fProfileCheckpoint"></a>
+<a name="robo104"></a><h2>ProfileMod/ProfileCheckpoint [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo5">ProfileMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ProfileCheckpoint</strong>: This subroutine is used to set the checkpoints in the
+  code.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  subroutine <strong>ProfileCheckpoint</strong>(checkpointNum)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  checkpointNum: Checkpoint number.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    integer, intent(in):: checkpointNum
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  Each checkpoint should be a distinct integer (i.e. no two calls to this
+  subroutine should have the same argument 'checkpointNum' passed
+  in). By putting these checkpoints throughout the code, this module
+  will time how long the code between the checkpoints is taking.
+  These times are written out through a call to the subroutine
+  '<a href="#robo109">ProfileWriteCheckpointTransitionReport</a>' or '<a href="#robo110">ProfileWriteFullReport</a>'.
+  See the documentation of those subroutines for more details. The
+  maximum number of checkpoints that can be put in is 50, so the
+  possible values for 'checkpointNum' are 1 through 50, inclusive.
+</p>
+
+<hr />
+<a name="ProfileMod2fProfileGetTotalTime"></a>
+<a name="robo105"></a><h2>ProfileMod/ProfileGetTotalTime [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo5">ProfileMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ProfileGetTotalTime</strong>: This function returns the current total amount of time
+  for all the checkpoint transitions.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  double precision function <strong>ProfileGetTotalTime</strong>() result(rv)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<p>  [None]
+</p>
+<p class="item_name">RETURNS</p>
+<p>  Double Precision: Total amount of time.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function returns the current total amount of time for all the
+  checkpoint transitions.
+</p>
+
+<hr />
+<a name="ProfileMod2fProfileInit"></a>
+<a name="robo106"></a><h2>ProfileMod/ProfileInit [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo5">ProfileMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ProfileInit</strong>: Initializes <a href="#robo5">ProfileMod</a>.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  subroutine <strong>ProfileInit</strong>()
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<p>  [None]
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This subroutine is used to initialize the <a href="#robo5">ProfileMod</a> and should be
+  called before any other subroutines or function in this module are
+  called.
+</p>
+
+<hr />
+<a name="ProfileMod2fProfileNameCheckpointTransition"></a>
+<a name="robo107"></a><h2>ProfileMod/ProfileNameCheckpointTransition [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo5">ProfileMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ProfileNameCheckpointTransition</strong>: This subroutine is used to set the name of
+  transitions between checkpoints.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  subroutine <strong>ProfileNameCheckpointTransition</strong>(point1, point2, name)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  point1: First checkpoint in the transition.
+</li>
+<li>  point2: Second checkpoint in the transition.
+</li>
+<li>  name: Short description of the transition.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    integer, intent(in) :: point1
+    integer, intent(in) :: point2
+    character (len = *), intent(in) :: name
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  This subroutine is used to set the name (or a description) of
+  transitions between checkpoints. The variable 'point1' is the
+  first checkpoint in the transition, and 'point2' is the second.
+  The variable 'name' should be some type of short description of
+  what happens in the code between 'point1' and 'point2'. It's
+  maximum length is 29. If it is longer than 29, a warning message
+  will be printed and it will be truncated to the first 29
+  characters. Every transitition does not need to be named. If it
+  is left un-named, it will be given an empty string as it's name.
+</p>
+
+<hr />
+<a name="ProfileMod2fProfileWriteCheckpointCountReport"></a>
+<a name="robo108"></a><h2>ProfileMod/ProfileWriteCheckpointCountReport [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo5">ProfileMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ProfileWriteCheckpointCountReport</strong>: This subroutine writes out the profiling
+  information having to do with the number of times each checkpoint was hit.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  subroutine <strong>ProfileWriteCheckpointCountReport</strong>(unit, fileName)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  unit: Unit Number.
+</li>
+<li>  fileName: (optional) Opens files, writes output, and closes the file.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    integer, intent(in) :: unit
+    character (len = *), optional, intent(in) :: fileName
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  This subroutine writes out the profiling information having to do
+  with the number of times each checkpoint was hit. The output is
+  in chart format with 2 columns:
+</p>
+<ul><li>  The first column is the checkpoint number (Note that these checkpoints
+    are set with calls to the subroutine '<a href="#robo104">ProfileCheckpoint</a>'. See the
+    documentation of that subroutine for more details.)
+</li>
+<li>  The second column is the number of times that that checkpoint was hit.
+</li>
+</ul>
+<p>  Only transitions for which there is at least 1 occurance will be printed in
+  this output chart.
+</p>
+
+<p>  If the argument 'fileName' is passed in, then this
+  subroutine will open the file (using the name specified in
+  'fileName'), write the output, and close the file when it is done.
+  If 'fileName' is not passed in, then it is expected that the user
+  will be in charge of opening (before this subroutine is called)
+  and closing (after this subroutine is called) the file.
+</p>
+
+<hr />
+<a name="ProfileMod2fProfileWriteCheckpointTransitionReport"></a>
+<a name="robo109"></a><h2>ProfileMod/ProfileWriteCheckpointTransitionReport [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo5">ProfileMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ProfileWriteCheckpointTransitionReport</strong>: This subroutine writes out the 
+  profiling information having to do with the checkpoint transitions.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  subroutine <strong>ProfileWriteCheckpointTransitionReport</strong>(unit, fileName)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  unit: Unit Number.
+</li>
+<li>  fileName: (optional) Opens files, writes output, and closes the file.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    integer, intent(in) :: unit
+    character (len = *), optional, intent(in) :: fileName
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  This subroutine writes out the profiling information having to do
+  with the checkpoint transitions. Mainly, it writes out the amount
+  of time spent for each transition and a count of the number of
+  times each transition occured. The output is in chart format
+  with 4 columns:
+</p>
+<ul><li>  The first column is the checkpoint transition. For example, "3==&gt; 4" means
+    that the code went from checkpoint 3 to checkpoint 4. (Note that these
+    checkpoints are set with calls to the subroutine '<a href="#robo104">ProfileCheckpoint</a>'. See
+    the documentation of that subroutine for more details.) 
+</li>
+<li>  The second column is the name of that transition. The names can be set
+    using calls to the subroutine '<a href="#robo107">ProfileNameCheckpointTransition</a>'. If the
+    transition was not named then this column will be empty (i.e. its name is
+    the empty string).
+</li>
+<li>  The third column is the amount of time (in seconds, to 3 decimal places)
+    that this portion of the code took.
+</li>
+<li>  The final (fourth) column is the number of times that this transition
+    occured.
+</li>
+</ul>
+<p>  Only transitions for which there is at least 1 occurance will be printed in
+  this output chart.
+</p>
+
+<p>  If the argument 'fileName' is passed in, then this subroutine will open the
+  file (using the name specified in 'fileName'), write the output, and close
+  the file when it is done. If 'fileName' is not passed in, then it is
+  expected that the user will be in charge of opening (before this
+  subroutine is called) and closing (after this subroutine is called) the file.
+</p>
+
+<hr />
+<a name="ProfileMod2fProfileWriteFullReport"></a>
+<a name="robo110"></a><h2>ProfileMod/ProfileWriteFullReport [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo5">ProfileMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ProfileWriteFullReport</strong>: This subroutine writes out all the profiling
+  information available.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  subroutine <strong>ProfileWriteFullReport</strong>(unit, fileName)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  unit: Unit Number.
+</li>
+<li>  fileName: (optional) Opens File Name, writes output, and closes the file.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    integer, intent(in) :: unit
+    character (len = *), optional, intent(in) :: fileName
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  This subroutine writes out all the profiling information available.
+  More specifically, it calls the subroutine
+  '<a href="#robo109">ProfileWriteCheckpointTransitionReport</a>' and
+  '<a href="#robo108">ProfileWriteCheckpointCountReport</a>' and writes the output to a
+  single file (associated with the unit number specified by 'unit').
+  A few separating lines are printed between the 2 sets of output.
+</p>
+
+<p>  If the argument 'fileName' is passed in, then this subroutine will
+  open the file (using the name specified in 'fileName'), write both
+  sets of output to that file, and close the file when it is done.
+  If 'fileName' is not passed in, then it is expected that the user
+  will be in charge of opening (before this subroutine is called)
+  and closing (after this subroutine is called) the file.
+</p>
+
+</div> <!-- content -->
+<div id="footer">
+<p>Generated from ./source/ProfileMod.f90 with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.36 on Tue May 09 2023 10:30:03
+</p>
+</div> <!-- footer -->
+</body>
+</html>

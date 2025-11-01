@@ -1,0 +1,1754 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>./source/ExcelInterfaceMod.f90</title>
+<!-- Source: ./source/ExcelInterfaceMod.f90 -->
+<!-- Generated with ROBODoc Version 4.99.36 (Apr 25 2008) -->
+</head>
+<body>
+<div id="logo">
+<a name="robo_top_of_doc"></a>
+</div> <!-- logo -->
+<div id="navigation">
+<a class="menuitem" href="./toc_index.html#top">Table of Contents</a>
+<a class="menuitem" href="./robo_sourcefiles.html#top">Sourcefiles</a>
+<a class="menuitem" href="./masterindex.html#top">Index</a>
+<a class="menuitem" href="./robo_functions.html#top">Functions</a>
+<a class="menuitem" href="./robo_modules.html#top">Modules</a>
+</div> <!-- navigation -->
+<div id="content">
+<h3>TABLE OF CONTENTS</h3>
+<ul>
+<li>1. <a href="#robo0">source/ExcelInterfaceMod</a></li>
+<ul>
+<li>1.1. <a href="#robo15">ExcelInterfaceMod/ExcelAddSheet</a></li>
+<li>1.2. <a href="#robo16">ExcelInterfaceMod/ExcelBegin</a></li>
+<li>1.3. <a href="#robo17">ExcelInterfaceMod/ExcelBeginNew</a></li>
+<li>1.4. <a href="#robo18">ExcelInterfaceMod/ExcelClear</a></li>
+<li>1.5. <a href="#robo19">ExcelInterfaceMod/ExcelClearContents</a></li>
+<li>1.6. <a href="#robo20">ExcelInterfaceMod/ExcelClearContentsRegion</a></li>
+<li>1.7. <a href="#robo21">ExcelInterfaceMod/ExcelCopy</a></li>
+<li>1.8. <a href="#robo22">ExcelInterfaceMod/ExcelCopyRegion</a></li>
+<li>1.9. <a href="#robo23">ExcelInterfaceMod/ExcelDeleteSheet</a></li>
+<li>1.10. <a href="#robo24">ExcelInterfaceMod/ExcelEnd</a></li>
+<li>1.11. <a href="#robo25">ExcelInterfaceMod/ExcelFixNumberStoredAsText</a></li>
+<li>1.12. <a href="#robo26">ExcelInterfaceMod/ExcelGetCalculationMode</a></li>
+<li>1.13. <a href="#robo27">ExcelInterfaceMod/ExcelGetCellFromRange</a></li>
+<li>1.14. <a href="#robo28">ExcelInterfaceMod/ExcelGetColNumFromCell</a></li>
+<li>1.15. <a href="#robo29">ExcelInterfaceMod/ExcelGetColStrFromCell</a></li>
+<li>1.16. <a href="#robo30">ExcelInterfaceMod/ExcelGetDoublePrecFromCell</a></li>
+<li>1.17. <a href="#robo31">ExcelInterfaceMod/ExcelGetDoublePrecsFromCells</a></li>
+<li>1.18. <a href="#robo32">ExcelInterfaceMod/ExcelGetFormulaFromCell</a></li>
+<li>1.19. <a href="#robo33">ExcelInterfaceMod/ExcelGetFormulasFromCells</a></li>
+<li>1.20. <a href="#robo34">ExcelInterfaceMod/ExcelGetIntFromCell</a></li>
+<li>1.21. <a href="#robo35">ExcelInterfaceMod/ExcelGetIntsFromCells</a></li>
+<li>1.22. <a href="#robo36">ExcelInterfaceMod/ExcelGetLastCell</a></li>
+<li>1.23. <a href="#robo37">ExcelInterfaceMod/ExcelGetNextCellDown</a></li>
+<li>1.24. <a href="#robo38">ExcelInterfaceMod/ExcelGetNextCellLeft</a></li>
+<li>1.25. <a href="#robo39">ExcelInterfaceMod/ExcelGetNextCellRight</a></li>
+<li>1.26. <a href="#robo40">ExcelInterfaceMod/ExcelGetNextCellUp</a></li>
+<li>1.27. <a href="#robo41">ExcelInterfaceMod/ExcelGetNumSheets</a></li>
+<li>1.28. <a href="#robo42">ExcelInterfaceMod/ExcelGetRealFromCell</a></li>
+<li>1.29. <a href="#robo43">ExcelInterfaceMod/ExcelGetRealsFromCells</a></li>
+<li>1.30. <a href="#robo44">ExcelInterfaceMod/ExcelGetRowNumFromCell</a></li>
+<li>1.31. <a href="#robo45">ExcelInterfaceMod/ExcelGetSheetName</a></li>
+<li>1.32. <a href="#robo46">ExcelInterfaceMod/ExcelGetStringFromCell</a></li>
+<li>1.33. <a href="#robo47">ExcelInterfaceMod/ExcelGetStringsFromCells</a></li>
+<li>1.34. <a href="#robo48">ExcelInterfaceMod/ExcelGetWorkbook</a></li>
+<li>1.35. <a href="#robo49">ExcelInterfaceMod/ExcelInitObjects</a></li>
+<li>1.36. <a href="#robo50">ExcelInterfaceMod/ExcelIsVisible</a></li>
+<li>1.37. <a href="#robo51">ExcelInterfaceMod/ExcelPaste</a></li>
+<li>1.38. <a href="#robo52">ExcelInterfaceMod/ExcelPasteSpecial</a></li>
+<li>1.39. <a href="#robo53">ExcelInterfaceMod/ExcelRunMacro</a></li>
+<li>1.40. <a href="#robo54">ExcelInterfaceMod/ExcelSave</a></li>
+<li>1.41. <a href="#robo55">ExcelInterfaceMod/ExcelSetCalculationMode</a></li>
+<li>1.42. <a href="#robo56">ExcelInterfaceMod/ExcelSetNumberFormat</a></li>
+<li>1.43. <a href="#robo57">ExcelInterfaceMod/ExcelSetSheetName</a></li>
+<li>1.44. <a href="#robo58">ExcelInterfaceMod/ExcelSwitchToSheet</a></li>
+<li>1.45. <a href="#robo59">ExcelInterfaceMod/ExcelTextToColumns</a></li>
+<li>1.46. <a href="#robo60">ExcelInterfaceMod/ExcelUnInitObjects</a></li>
+<li>1.47. <a href="#robo61">ExcelInterfaceMod/ExcelWriteToCells</a></li>
+</ul>
+</ul>
+<hr />
+<a name="source2fExcelInterfaceMod"></a>
+<a name="robo0"></a><h2>source/ExcelInterfaceMod [ Modules ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_modules.html#robo_top_of_doc">Modules</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ExcelInterfaceMod</strong>: OcactFortLib Excel interface module.
+</p>
+<p class="item_name">REVISION</p>
+<p>  Revision: 1.40
+</p>
+<p class="item_name">MODULE DESCRIPTION</p>
+<p>  <strong>ExcelInterfaceMod</strong> is an interface module between Fortran and Excel.
+  The subroutine <a href="#robo49">ExcelInitObjects</a> must be called before using most of the
+  routines in this module (with the exception of routines that don't use an
+  Excel workbook directly, such as <a href="#robo28">ExcelGetColNumFromCell</a> and
+  <a href="#robo37">ExcelGetNextCellDown</a>). Make sure to call <a href="#robo60">ExcelUnInitObjects</a> after all the
+  Excel work is finished.
+</p>
+
+<p>  This module contains subroutines and functions that are called
+  to perform Excel tasks, such as:
+</p>
+<ul><li>  Copy, paste, clear, and delete data in Excel files
+</li>
+<li>  Move around within Excel workbooks and worksheets
+</li>
+<li>  Read data from and write data to Excel files
+</li>
+<li>  Open, make changes, and save Excel files
+</li>
+</ul>
+<p></p>
+<p class="item_name">MODULE ROUTINES</p>
+<pre>  <a href="#robo15">ExcelAddSheet</a>
+  <a href="#robo16">ExcelBegin</a>
+  <a href="#robo17">ExcelBeginNew</a>
+  <a href="#robo18">ExcelClear</a>
+  <a href="#robo19">ExcelClearContents</a>
+  <a href="#robo20">ExcelClearContentsRegion</a>
+  <a href="#robo21">ExcelCopy</a>
+  <a href="#robo22">ExcelCopyRegion</a>
+  <a href="#robo23">ExcelDeleteSheet</a>
+  <a href="#robo24">ExcelEnd</a>
+  <a href="#robo25">ExcelFixNumberStoredAsText</a>
+  <a href="#robo26">ExcelGetCalculationMode</a>
+  <a href="#robo27">ExcelGetCellFromRange</a>
+  <a href="#robo28">ExcelGetColNumFromCell</a>
+  <a href="#robo29">ExcelGetColStrFromCell</a>
+  <a href="#robo30">ExcelGetDoublePrecFromCell</a>
+  <a href="#robo31">ExcelGetDoublePrecsFromCells</a>
+  <a href="#robo32">ExcelGetFormulaFromCell</a>
+  <a href="#robo33">ExcelGetFormulasFromCells</a>
+  <a href="#robo34">ExcelGetIntFromCell</a>
+  <a href="#robo35">ExcelGetIntsFromCells</a>
+  <a href="#robo36">ExcelGetLastCell</a>
+  <a href="#robo37">ExcelGetNextCellDown</a>
+  <a href="#robo38">ExcelGetNextCellLeft</a>
+  <a href="#robo39">ExcelGetNextCellRight</a>
+  <a href="#robo40">ExcelGetNextCellUp</a>
+  <a href="#robo41">ExcelGetNumSheets</a>
+  <a href="#robo42">ExcelGetRealFromCell</a>
+  <a href="#robo43">ExcelGetRealsFromCells</a>
+  <a href="#robo44">ExcelGetRowNumFromCell</a>
+  <a href="#robo45">ExcelGetSheetName</a>
+  <a href="#robo46">ExcelGetStringFromCell</a>
+  <a href="#robo47">ExcelGetStringsFromCells</a>
+  <a href="#robo48">ExcelGetWorkbook</a>
+  <a href="#robo49">ExcelInitObjects</a>
+  <a href="#robo50">ExcelIsVisible</a>
+  <a href="#robo51">ExcelPaste</a>
+  <a href="#robo52">ExcelPasteSpecial</a>
+  <a href="#robo53">ExcelRunMacro</a>
+  <a href="#robo54">ExcelSave</a>
+  <a href="#robo55">ExcelSetCalculationMode</a>
+  <a href="#robo56">ExcelSetNumberFormat</a>
+  <a href="#robo57">ExcelSetSheetName</a>
+  <a href="#robo58">ExcelSwitchToSheet</a>
+  <a href="#robo59">ExcelTextToColumns</a>
+  <a href="#robo60">ExcelUnInitObjects</a>
+  <a href="#robo61">ExcelWriteToCells</a>
+</pre>
+
+<hr />
+<a name="ExcelInterfaceMod2fExcelAddSheet"></a>
+<a name="robo15"></a><h2>ExcelInterfaceMod/ExcelAddSheet [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">ExcelInterfaceMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ExcelAddSheet</strong>: This subroutine will insert a worksheet in the workbook.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  subroutine <strong>ExcelAddSheet</strong>(newSheetName)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  newSheetName: (optional) Name of the new worksheet.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), optional, intent(in) :: newSheetName
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  The worksheet will be inserted immediately before the current active
+  worksheet, and will be made into the new active worksheet. If 'newSheetName'
+  is passed in, the new sheet will be given the specified name, otherwise
+  Excel will use its default naming convention for new sheets (e.g., 'Sheet1',
+  'Sheet2', etc...).
+</p>
+
+<hr />
+<a name="ExcelInterfaceMod2fExcelBegin"></a>
+<a name="robo16"></a><h2>ExcelInterfaceMod/ExcelBegin [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">ExcelInterfaceMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ExcelBegin</strong>: This subroutine is used to open an existing Excel workbook.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  subroutine <strong>ExcelBegin</strong>(excelFileName, doUpdateLinks, isReadOnly, wrPassword)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  excelFileName: Name of the existing Excel workbook to be opened.
+</li>
+<li>  doUpdateLinks: (optional) Specifies whether the Excel workbook links should
+    be updated when the file is opened.
+</li>
+<li>  isReadOnly: (optional) Opens the file in read-only or read-write mode.
+</li>
+<li>  wrPassword: (optional) Password for the password-protected Excel file.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: excelFileName
+    logical, optional, intent(in) :: doUpdateLinks
+    logical, optional, intent(in) :: isReadOnly
+    character (len = *), optional, intent(in) :: wrPassword
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  The name of the workbook should be specified in 'excelFileName', and can
+  either be a relative path name or a full path name. If the workbook
+  being opened contains links to other workbooks, then the
+  'doUpdateLinks' variable can be used to specify whether those links
+  should be updated or not upon opening. If it is not passed in (and
+  the workbook does contain links), then Excel will give a pop-up
+  dialog box prompting the user if the links should be updated or not.
+  If 'isReadOnly' is passed in and it is true, then the file will be
+  opened in read-only mode. Otherwise it will be opened in the regular
+  read-write mode. If the workbook being opened is password-protected,
+  then the password can be passed in through 'wrPassword'. Use the
+  subroutine '<a href="#robo24">ExcelEnd</a>' to close the workbook. To create a new workbook,
+  use the '<a href="#robo17">ExcelBeginNew</a>' subroutine.
+</p>
+
+<hr />
+<a name="ExcelInterfaceMod2fExcelBeginNew"></a>
+<a name="robo17"></a><h2>ExcelInterfaceMod/ExcelBeginNew [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">ExcelInterfaceMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ExcelBeginNew</strong>: This subroutine is used to open a new Excel workbook with the
+  ability to specify the number of sheets.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  subroutine <strong>ExcelBeginNew</strong>(numSheets)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  numSheets: (optional) Specifies the number of sheets in the new Excel
+    workbook.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    integer, optional, intent(in) :: numSheets
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  This subroutine is used to open a new Excel workbook. If 'numSheets'
+  is passed in, then that specifies how many sheets will be in this
+  newly created workbook. If it is omitted, then the workbook will
+  contain 1 sheet. Use the subroutine '<a href="#robo24">ExcelEnd</a>' to close the workbook.
+  To open an existing workbook, use the '<a href="#robo16">ExcelBegin</a>' subroutine.
+</p>
+
+<hr />
+<a name="ExcelInterfaceMod2fExcelClear"></a>
+<a name="robo18"></a><h2>ExcelInterfaceMod/ExcelClear [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">ExcelInterfaceMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ExcelClear</strong>: This subroutine is used to clear a cell or range of cells of its
+  formulas and formatting.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  subroutine <strong>ExcelClear</strong>(cellsAsString)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  cellAsString: Selected cell(s).
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: cellsAsString
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  The variable 'cellsAsString' can be a single cell or a range of cells
+  (1-dimensional or 2-dimensional). To clear only the formulas, but keep the
+  formatting, see the '<a href="#robo19">ExcelClearContents</a>' subroutine.
+</p>
+
+<hr />
+<a name="ExcelInterfaceMod2fExcelClearContents"></a>
+<a name="robo19"></a><h2>ExcelInterfaceMod/ExcelClearContents [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">ExcelInterfaceMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ExcelClearContents</strong>: This subroutine is used to clear a cell or range of cells
+  of its formulas, but not of its formatting.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  subroutine <strong>ExcelClearContents</strong>(cellsAsString)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  cellAsString: Selected cell(s).
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: cellsAsString
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  The variable 'cellsAsString' can be a single cell or a range of cells
+  (1-dimensional or 2-dimensional). To clear the formulas and the formatting,
+  see the '<a href="#robo18">ExcelClear</a>' subroutine.
+</p>
+
+<hr />
+<a name="ExcelInterfaceMod2fExcelClearContentsRegion"></a>
+<a name="robo20"></a><h2>ExcelInterfaceMod/ExcelClearContentsRegion [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">ExcelInterfaceMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ExcelClearContentsRegion</strong>: This subroutine is used to clear a region of cells
+  of their contents (i.e., just of their formulas, but not of their
+  formatting).
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  subroutine <strong>ExcelClearContentsRegion</strong>(cellsAsString)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  cellAsString: Selected cell(s).
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: cellsAsString
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  The variable 'cellsAsString' can be a single cell or a range of cells
+  (1-dimensional or 2-dimensional). The cell region contains the cells that 
+  are adjacent to the specified cell(s), without a blank row or column 
+  interupting. (The region can be determined by selecting the cells in 
+  'cellsAsString' and then typing ctrl-a.)
+</p>
+
+<hr />
+<a name="ExcelInterfaceMod2fExcelCopy"></a>
+<a name="robo21"></a><h2>ExcelInterfaceMod/ExcelCopy [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">ExcelInterfaceMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ExcelCopy</strong>: This subroutine is used to copy a cell or range of cells.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  subroutine <strong>ExcelCopy</strong>(cellsAsString)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  cellAsString: Selected cell(s).
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: cellsAsString
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  This subroutine is used to copy to the clipboard a cell or range of cells.
+  The variable 'cellsAsString' can be a single cell or a range of cells
+  (1-dimensional or 2-dimensional).
+</p>
+
+<hr />
+<a name="ExcelInterfaceMod2fExcelCopyRegion"></a>
+<a name="robo22"></a><h2>ExcelInterfaceMod/ExcelCopyRegion [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">ExcelInterfaceMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ExcelCopyRegion</strong>: This subroutine is used to copy a region of cells.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  subroutine <strong>ExcelCopyRegion</strong>(cellsAsString)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  cellAsString: Selected cell(s).
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: cellsAsString
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  This subroutine is used to copy a region of cells to the clipboard. The
+  variable 'cellsAsString' can be a single cell or a range of cells
+  (1-dimensional or 2-dimensional). The cell region contains the cells
+  that are adjacent to the specified cell(s), without a blank row
+  or column interupting. (The region can be determined by selecting
+  the cells in 'cellsAsString' and then typing ctrl-a.)
+</p>
+
+<hr />
+<a name="ExcelInterfaceMod2fExcelDeleteSheet"></a>
+<a name="robo23"></a><h2>ExcelInterfaceMod/ExcelDeleteSheet [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">ExcelInterfaceMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ExcelDeleteSheet</strong>: This subroutine deletes the current active worksheet from
+  the workbook.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  subroutine <strong>ExcelDeleteSheet</strong>()
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<p>  [None]
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  The worksheet that immediately follows the deleted worksheet is the new
+  active worksheet. If there is no "immediately following" worksheet (because
+  the deleted worksheet was the last one in the workbook, then the one that
+  immediately precedes the deleted worksheet will become the new active
+  worksheet. If there are no worksheets left in the workbook, then an error
+  message will be displayed and the program will stop.
+</p>
+
+<hr />
+<a name="ExcelInterfaceMod2fExcelEnd"></a>
+<a name="robo24"></a><h2>ExcelInterfaceMod/ExcelEnd [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">ExcelInterfaceMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ExcelEnd</strong>: This subroutine is used to close an Excel workbook.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  subroutine <strong>ExcelEnd</strong>(saveChanges)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  saveChanges: (optional) Option to save changes before closing an Excel
+    workbook.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    logical, optional, intent(in) :: saveChanges
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  This subroutine is used to close an Excel workbook, after it is finished
+  being used. If 'savedChanges' is passed in and it is true, then the
+  workbook will be saved before being closed. If 'savedChanges' is
+  passed in and it is false, then the workbook will be closed without
+  being saved. (To save the workbook under a different name, use the
+  '<a href="#robo54">ExcelSave</a>' subroutine.) If 'savedChanges' is not passed in, then an
+  Excel pop-up dialog box will prompt the use whether or not to save the
+  changes before closing. Note that if no changes have been made to the
+  workbook, then the dialog box will not come up.
+</p>
+
+<hr />
+<a name="ExcelInterfaceMod2fExcelFixNumberStoredAsText"></a>
+<a name="robo25"></a><h2>ExcelInterfaceMod/ExcelFixNumberStoredAsText [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">ExcelInterfaceMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ExcelFixNumberStoredAsText</strong>: This subroutine can be used to "fix" a cell, or
+  range of cells, that Excel has imported as text but should really be stored
+  as numbers.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  subroutine <strong>ExcelFixNumberStoredAsText</strong>(cellsAsString)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  cellAsString: The cell(s) to be fixed.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: cellsAsString
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  The cell, or range of cells, to be fixed is stored in 'cellsAsString'.
+  In order for this subroutine to work, cell
+  IV65536 must be empty. If it's not, the subroutine will print
+  an error message and cause the program to terminate. If there are
+  cells in the range specified by 'cellsAsString' that are regular
+  text, this subroutine will not affect them. However, if the cells
+  contain formulas, then this subroutine may corrupt them.
+</p>
+
+<hr />
+<a name="ExcelInterfaceMod2fExcelGetCalculationMode"></a>
+<a name="robo26"></a><h2>ExcelInterfaceMod/ExcelGetCalculationMode [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">ExcelInterfaceMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ExcelGetCalculationMode</strong>: This function is used to retrieve the current
+  calculation mode of Excel.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  integer function <strong>ExcelGetCalculationMode</strong>() result(int)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<p>  [None]
+</p>
+<p class="item_name">RETURNS</p>
+<p>  integer: The calculation mode of Excel, as one of the predefined integer
+  types (xlCalculationAutomatic, xlCalculationManual,
+  or xlCalculationSemiautomatic).
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  The calculation mode of Excel is a predefined integer type. There are three
+  valid calculation modes:
+</p>
+<ul><li>  xlCalculationAutomatic: Automatic - Excel automatically recalculates when
+    the workbook is opened, and at each and every change.
+</li>
+<li>  xlCalculationManual: Manual - Excel only recalculates when the user
+    requests it.
+</li>
+<li>  xlCalculationSemiautomatic: Automatic except for data tables - Same as
+    automatic, except for data tables, which are manual.
+</li>
+</ul>
+<p></p>
+
+<hr />
+<a name="ExcelInterfaceMod2fExcelGetCellFromRange"></a>
+<a name="robo27"></a><h2>ExcelInterfaceMod/ExcelGetCellFromRange [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">ExcelInterfaceMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ExcelGetCellFromRange</strong>: This function returns either the first or the second
+  cell in an Excel range.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  MAX_CHAR is set equal to 10,000.
+  character (len = MAX_CHAR) function <strong>ExcelGetCellFromRange</strong>(arrRange, &amp;
+    cellNum) result(cell)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  arrRange: Range of cells in Excel.
+</li>
+<li>  cellNum: Cell to return, either 1 or 2.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: arrRange
+    integer, intent(in) :: cellNum
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Character string of length 10000: First or second cell of 'arrRange'.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function returns either the first or the second cell in an Excel range
+  'arrRange', where the range is passed in as a character string. The 'cellNum'
+  variable must either be a 1 or a 2, which tells the function which cell to
+  return. For example, <strong>ExcelGetCellFromRange</strong>("B5:D25", 1) would return "B5",
+  and <strong>ExcelGetCellFromRange</strong>("B5:D25", 2) would return "D25". Passing in
+  a 'cellNum' other than 1 or 2 will terminate the program after printing an
+  error message.
+</p>
+
+<hr />
+<a name="ExcelInterfaceMod2fExcelGetColNumFromCell"></a>
+<a name="robo28"></a><h2>ExcelInterfaceMod/ExcelGetColNumFromCell [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">ExcelInterfaceMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ExcelGetColNumFromCell</strong>: This function returns the column number of 'cell'.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  integer function <strong>ExcelGetColNumFromCell</strong>(cell) result(colNum)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  cell: This function returns the column number of 'cell'.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: cell
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Integer: Column number of 'cell'.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function returns the column number of the cell 'cell', where the cell
+  is passed in as a character string. For example,
+  <strong>ExcelGetColNumFromCell</strong>("D25") would return 4, since the column is "D", and
+  that is the 4th column.
+</p>
+
+<hr />
+<a name="ExcelInterfaceMod2fExcelGetColStrFromCell"></a>
+<a name="robo29"></a><h2>ExcelInterfaceMod/ExcelGetColStrFromCell [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">ExcelInterfaceMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ExcelGetColStrFromCell</strong>: This function returns the column, as a string,
+  of 'cell'.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  MAX_CHAR is set equal to 10,000.
+  character (len = MAX_CHAR) function <strong>ExcelGetColStrFromCell</strong>(cell) &amp;
+    result(colStr)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  cell: This function returns the column of 'cell'.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: cell
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Character string of length 10000: Column value of 'cell'.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function returns the column, as a string, of the cell 'cell', where the
+  cell is passed in as a character string. For example,
+  '<strong>ExcelGetColStrFromCell</strong>("D25") would return "D".
+</p>
+
+<hr />
+<a name="ExcelInterfaceMod2fExcelGetDoublePrecFromCell"></a>
+<a name="robo30"></a><h2>ExcelInterfaceMod/ExcelGetDoublePrecFromCell [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">ExcelInterfaceMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ExcelGetDoublePrecFromCell</strong>: This function is used to read data from Excel.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  double precision function <strong>ExcelGetDoublePrecFromCell</strong>(cellAsString) &amp;
+    result(float)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  cellAsString: Name of cell being read.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: cellAsString
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Double Precision: Contents of the cell.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  The name of the cell being read is represented as a string in 'cellAsString'.
+  For example, 'cellAsString' can be "A15", "AM123", etc....  The contents 
+  of that cell are returned as a double precision. If the cell is empty, the
+  double precision 0.0d0 is returned.
+</p>
+
+<hr />
+<a name="ExcelInterfaceMod2fExcelGetDoublePrecsFromCells"></a>
+<a name="robo31"></a><h2>ExcelInterfaceMod/ExcelGetDoublePrecsFromCells [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">ExcelInterfaceMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ExcelGetDoublePrecsFromCells</strong>: This function is used to read data from a
+  range of cells in Excel.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  double precision function <strong>ExcelGetDoublePrecsFromCells</strong>(cellsAsString, &amp;
+    expectedSize) result(flt)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  cellAsString: Name of cells being read.
+</li>
+<li>  expectedSize: The size of the array of integers being returned.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: cellsAsString
+    integer, intent(in) :: expectedSize
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  1-dimensional array of double precisions (with the size specified by 
+  'expectedSize'): Contents in the cell range.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  The name of the cell range being read is represented as a string in
+  'cellsAsString'. For example, 'cellsAsString' can be "A15:A20",
+  "A15:E15", etc....  The contents of the cells in that range are
+  returned as an array of double precisions. If a cell is empty, the
+  double precision 0.0d0 is returned in the corresponding array slot.
+</p>
+
+<hr />
+<a name="ExcelInterfaceMod2fExcelGetFormulaFromCell"></a>
+<a name="robo32"></a><h2>ExcelInterfaceMod/ExcelGetFormulaFromCell [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">ExcelInterfaceMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ExcelGetFormulaFromCell</strong>: This function is used to read a formula from an 
+  Excel cell.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  MAX_CHAR is set equal to 10,000.
+  character (len = MAX_CHAR) function <strong>ExcelGetFormulaFromCell</strong>(cellAsString) &amp;
+    result(str)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  cellAsString: Name of cell being read.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: cellAsString
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Character String (of lenth 10000): Returns the formula of the cell.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  The name of the cell being read is represented as a string in 'cellAsString'.
+  For example 'cellAsString' can be "A15", "AM123", etc.... The formula
+  in that cell is returned as a string. This differs from
+  '<a href="#robo46">ExcelGetStringFromCell</a>' (see the documentation to that function) in
+  that it returns the formula of the cell instead of the result of
+  that formula. For example, say the cell "A1" contains "= 1 + 2".
+  Then <strong>ExcelGetFormulaFromCell</strong>("A1") will return the string "=1 + 2"
+  (padded with spaces on the right). And <a href="#robo46">ExcelGetStringFromCell</a>("A1")
+  will return the string "3" (padded with spaces on the right).
+</p>
+
+<hr />
+<a name="ExcelInterfaceMod2fExcelGetFormulasFromCells"></a>
+<a name="robo33"></a><h2>ExcelInterfaceMod/ExcelGetFormulasFromCells [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">ExcelInterfaceMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ExcelGetFormulasFromCells</strong>: This function is used to read formulas from a
+  range of cells in Excel.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  MAX_CHAR is set equal to 10,000.
+  character (len = MAX_CHAR) function <strong>ExcelGetFormulasFromCells</strong>( &amp;
+    cellsAsString, expectedSize) result(str)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  cellAsString: Name of cells being read.
+</li>
+<li>  expectedSize: The size of the array of integers being returned.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: cellsAsString
+    integer, intent(in) :: expectedSize
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  1-dimensional array of strings, each of length 10000: Formulas of the cells.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  The name of the cell range being read is represented as a string in
+  'cellsAsString'. For example, 'cellsAsString' can be "A15:A20",
+  "A15:E15", etc....  The formula in each cell is returned as a string.
+  If a cell is empty, the empty string "" is returned in the
+  corresponding array slot. See the documentation of
+  '<a href="#robo32">ExcelGetFormulaFromCell</a>' for more information about returning
+  formulas instead of values.
+</p>
+
+<hr />
+<a name="ExcelInterfaceMod2fExcelGetIntFromCell"></a>
+<a name="robo34"></a><h2>ExcelInterfaceMod/ExcelGetIntFromCell [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">ExcelInterfaceMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ExcelGetIntFromCell</strong>: This function is used to read data from Excel.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  integer function <strong>ExcelGetIntFromCell</strong>(cellAsString) result(int)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  cellAsString: Name of cell being read.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: cellAsString
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Integer: Contents of the cell.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  The name of the cell being read is represented as a string in 'cellAsString'.
+  For example, 'cellAsString' can be "A15", "AM123", etc....  The contents
+  of that cell are returned as an integer.  If the cell is empty, the integer
+  0 is returned.
+</p>
+
+<hr />
+<a name="ExcelInterfaceMod2fExcelGetIntsFromCells"></a>
+<a name="robo35"></a><h2>ExcelInterfaceMod/ExcelGetIntsFromCells [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">ExcelInterfaceMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ExcelGetIntsFromCells</strong>: This function is used to read data from a range of 
+  cells in Excel.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  integer function <strong>ExcelGetIntsFromCells</strong>(cellsAsString, expectedSize) &amp;
+    result(integ)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  cellAsString: Name of cells being read.
+</li>
+<li>  expectedSize: The size of the array of integers being returned.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: cellsAsString
+    integer, intent(in) :: expectedSize
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  1-dimensional array of integers (with the size specified by 'expectedSize'):
+  Contents in the cells.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  The name of the cell range being read is represented as a string in
+  'cellsAsString'. For example, 'cellsAsString' can be "A15:A20",
+  "A15:E15", etc....  The contents of the cells in that range are
+  returned as an array of integers. If a cell is empty, the integer 0 is
+  returned in the corresponding array slot.
+</p>
+
+<hr />
+<a name="ExcelInterfaceMod2fExcelGetLastCell"></a>
+<a name="robo36"></a><h2>ExcelInterfaceMod/ExcelGetLastCell [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">ExcelInterfaceMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ExcelGetLastCell</strong>: This function is used to retrieve the "last cell" of the
+  currently active worksheet.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  MAX_CHAR is set equal to 10,000.
+  character (len = MAX_CHAR) function <strong>ExcelGetLastCell</strong>() result(lastCellStr)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<p>  [None]
+</p>
+<p class="item_name">RETURNS</p>
+<p>  Character string (of length 10000): Last cell of the worksheet.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  The "last cell" means, as defined by Excel, the bottom-most and right-most
+  cell used. This is equivalent to pressing ctrl-end while in Excel. The string
+  representing the last cell is returned, but should usually be "trimmed" to
+  remove the trailing whitespace. For example, this is how this function will
+  often be called: trim(<strong>ExcelGetLastCell</strong>()).
+</p>
+
+<hr />
+<a name="ExcelInterfaceMod2fExcelGetNextCellDown"></a>
+<a name="robo37"></a><h2>ExcelInterfaceMod/ExcelGetNextCellDown [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">ExcelInterfaceMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ExcelGetNextCellDown</strong>: This function is used to move to the "next" cell down.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  MAX_CHAR is set equal to 10,000.
+  character (len = MAX_CHAR) function <strong>ExcelGetNextCellDown</strong>(cell, arrayRange) &amp;
+    result (nextCell)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  cell: This function moves one cell down of 'cell'.
+</li>
+<li>  arrayRange: (optional) Range of cells to stay in while moving down.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: cell
+    character (len = *), optional, intent(in) :: arrayRange
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Character string of length 10000: "Next" cell down.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function is the same as '<a href="#robo39">ExcelGetNextCellRight</a>' (see its documentation)
+  except that it moves down (and then to the right) instead of to the right
+  (and then down).
+</p>
+
+<hr />
+<a name="ExcelInterfaceMod2fExcelGetNextCellLeft"></a>
+<a name="robo38"></a><h2>ExcelInterfaceMod/ExcelGetNextCellLeft [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">ExcelInterfaceMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ExcelGetNextCellLeft</strong>: This function is used to move to the "next" cell to
+  the left.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  MAX_CHAR is set equal to 10,000.
+  character (len = MAX_CHAR) function <strong>ExcelGetNextCellLeft</strong>(cell, arrayRange) &amp;
+    result (nextCell)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  cell: This function moves one cell to the left of 'cell'.
+</li>
+<li>  arrayRange: (optional) Range of cells to stay in while moving to the left.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: cell
+    character (len = *), optional, intent(in) :: arrayRange
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Character string of length 10000: "Next" cell to the left.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function is the same as '<a href="#robo39">ExcelGetNextCellRight</a>' (see its documentation)
+  except that it moves to the left (and then up) instead of to the right
+  (and then down).
+</p>
+
+<hr />
+<a name="ExcelInterfaceMod2fExcelGetNextCellRight"></a>
+<a name="robo39"></a><h2>ExcelInterfaceMod/ExcelGetNextCellRight [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">ExcelInterfaceMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ExcelGetNextCellRight</strong>: This function is used to move to the "next" cell to
+  the right.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  MAX_CHAR is set equal to 10,000.
+  character (len = MAX_CHAR) function <strong>ExcelGetNextCellRight</strong>(cell, arrayRange) &amp;
+    result (nextCell)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  cell: This function moves one cell to the right of 'cell'.
+</li>
+<li>  arrayRange: (optional) Range of cells to stay in while moving to the right.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: cell
+    character (len = *), optional, intent(in) :: arrayRange
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Character string of length 10000: "Next" cell to the right.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  If 'arrayRange' is omitted, then the cell to the right of 'cell' is returned.
+  If 'cell' was already at the right-most column, then a blank string is
+  returned. If 'arrayRange' is present, then the cell to the right of 'cell'
+  is returned, unless it is outside of the 'arrayRange'. If so, then the
+  left-most cell of the next row within that range is returned. If 'cell'
+  is the bottom-right cell in the range, then a blank cell is returned.
+</p>
+
+<p>  Examples:
+</p>
+<ul><li>  <strong>ExcelGetNextCellRight</strong>("B3") will return the string "C3" (padded on the
+    right with blanks).
+</li>
+<li>  <strong>ExcelGetNextCellRight</strong>("XFD3") will return an empty string.
+</li>
+<li>  <strong>ExcelGetNextCellRight</strong>("B3", "A1:E5") would return "C3" (padded on the right
+    with blanks).
+</li>
+<li>  <strong>ExcelGetNextCellRight</strong>("E3", "A1:E5") will return "A4" (padded with blanks
+    on the right).
+</li>
+</ul>
+<p></p>
+
+<hr />
+<a name="ExcelInterfaceMod2fExcelGetNextCellUp"></a>
+<a name="robo40"></a><h2>ExcelInterfaceMod/ExcelGetNextCellUp [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">ExcelInterfaceMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ExcelGetNextCellUp</strong>: This function is used to move to the "next" cell up.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  MAX_CHAR is set equal to 10,000.
+  character (len = MAX_CHAR) function <strong>ExcelGetNextCellUp</strong>(cell, arrayRange) &amp;
+    result (nextCell)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  cell: This function moves one cell up of 'cell'.
+</li>
+<li>  arrayRange: (optional) Range of cells to stay in while moving up.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: cell
+    character (len = *), optional, intent(in) :: arrayRange
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Character string of length 10000: "Next" cell up.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function is the same as '<a href="#robo39">ExcelGetNextCellRight</a>' (see its documentation)
+  except that it moves up (and then to the left) instead of to the right
+  (and then down).
+</p>
+
+<hr />
+<a name="ExcelInterfaceMod2fExcelGetNumSheets"></a>
+<a name="robo41"></a><h2>ExcelInterfaceMod/ExcelGetNumSheets [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">ExcelInterfaceMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ExcelGetNumSheets</strong>: This function retrieves the number of worksheets in the
+  workbook.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  integer function <strong>ExcelGetNumSheets</strong>() result(numSheets)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<p>  [None]
+</p>
+<p class="item_name">RETURNS</p>
+<p>  Integer: Number of worksheets.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function is used to retrieve the number of worksheets in the workbook.
+</p>
+
+<hr />
+<a name="ExcelInterfaceMod2fExcelGetRealFromCell"></a>
+<a name="robo42"></a><h2>ExcelInterfaceMod/ExcelGetRealFromCell [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">ExcelInterfaceMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ExcelGetRealFromCell</strong>: This function is used to read data from Excel.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  real function <strong>ExcelGetRealFromCell</strong>(cellAsString) result(float)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  cellAsString: Name of cell being read.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: cellAsString
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Real: Selected cell.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  The name of the cell being read is represented as a string in 'cellAsString'.
+  For example, 'cellAsString' can be "A15", "AM123", etc....  The contents 
+  of that cell are returned as a real. If the cell is empty, the real 0.0
+  is returned.
+</p>
+
+<hr />
+<a name="ExcelInterfaceMod2fExcelGetRealsFromCells"></a>
+<a name="robo43"></a><h2>ExcelInterfaceMod/ExcelGetRealsFromCells [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">ExcelInterfaceMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ExcelGetRealsFromCells</strong>: This function is used to read data from a range of
+  cells in Excel.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  real function <strong>ExcelGetRealsFromCells</strong>(cellsAsString, expectedSize) &amp;
+    result(flt)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  cellAsString: Name of cells being read.
+</li>
+<li>  expectedSize: The size of the array of integers being returned.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: cellsAsString
+    integer, intent(in) :: expectedSize
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  1-dimensional array of reals (with the size specified by 'expectedSize'):
+  Contents in the cell range.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  The name of the cell range being read is represented as a string in
+  'cellsAsString'. For example, 'cellsAsString' can be "A15:A20",
+  "A15:E15", etc....  The contents of the cells in that range are
+  returned as an array of reals. If a cell is empty, the real 0.0 is
+  returned in the corresponding array slot.
+</p>
+
+<hr />
+<a name="ExcelInterfaceMod2fExcelGetRowNumFromCell"></a>
+<a name="robo44"></a><h2>ExcelInterfaceMod/ExcelGetRowNumFromCell [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">ExcelInterfaceMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ExcelGetRowNumFromCell</strong>: This function returns the row number of 'cell'.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  integer function <strong>ExcelGetRowNumFromCell</strong>(cell) result(rowNum)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  cell: This function returns the row number of 'cell'.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: cell
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Integer: Row number of 'cell'.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function returns the row number of the cell 'cell', where the cell is
+  passed in as a character string. For example, <strong>ExcelGetRowNumFromCell</strong>("D25")
+  would return 25.
+</p>
+
+<hr />
+<a name="ExcelInterfaceMod2fExcelGetSheetName"></a>
+<a name="robo45"></a><h2>ExcelInterfaceMod/ExcelGetSheetName [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">ExcelInterfaceMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ExcelGetSheetName</strong>: This function retrieves the name of the active worksheet.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  MAX_CHAR is set equal to 10,000.
+  character (len = MAX_CHAR) function <strong>ExcelGetSheetName</strong>() result(rv)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<p>  [None]
+</p>
+<p class="item_name">RETURNS</p>
+<p>  Character string (of length 10000): Sheet Name of active worksheet.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function is used to retrieve the name of the active worksheet. The 
+  return value is the name of the sheet, but should usually be "trimmed" to
+  remove trailing whitespace. For example, this is how this function will often
+  be called: trim(<strong>ExcelGetSheetName</strong>()).
+</p>
+
+<hr />
+<a name="ExcelInterfaceMod2fExcelGetStringFromCell"></a>
+<a name="robo46"></a><h2>ExcelInterfaceMod/ExcelGetStringFromCell [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">ExcelInterfaceMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ExcelGetStringFromCell</strong>: This function is used to read data from Excel.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  MAX_CHAR is set equal to 10,000.
+  character (len = MAX_CHAR) function <strong>ExcelGetStringFromCell</strong>(cellAsString) &amp;
+    result(str)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  cellAsString: Selected cell.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: cellAsString
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Character String (of lenth 10000): Contents of the cell.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  The name of the cell being read is represented as a string in 'cellAsString'.
+  For example, 'cellAsString' can be "A15", "AM123", etc....  The contents 
+  of that cell are returned as a string. See the documentation of
+  '<a href="#robo34">ExcelGetIntFromCell</a>', '<a href="#robo42">ExcelGetRealFromCell</a>', and
+  '<a href="#robo30">ExcelGetDoublePrecFromCell</a>' for details on returning the contents
+  of the cell as an integer, real, and double precision, respectively.
+</p>
+
+<hr />
+<a name="ExcelInterfaceMod2fExcelGetStringsFromCells"></a>
+<a name="robo47"></a><h2>ExcelInterfaceMod/ExcelGetStringsFromCells [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">ExcelInterfaceMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ExcelGetStringsFromCells</strong>: This function is used to read data from a
+  range of cells in Excel.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  MAX_CHAR is set equal to 10,000.
+  character (len = MAX_CHAR) function <strong>ExcelGetStringsFromCells</strong>(cellsAsString, &amp;
+    expectedSize) result(str)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  cellAsString: Name of cells being read.
+</li>
+<li>  expectedSize: The size of the array of integers being returned.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: cellsAsString
+    integer, intent(in) :: expectedSize
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  1-dimensional array of strings, each of length 10000: Contents of the
+  cell range.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  The name of the cell range being read is represented as a string in
+  'cellsAsString'. For example, 'cellsAsString' can be "A15:A20",
+  "A15:E15", etc....  The contents of the cells in that range are
+  returned as an array of character strings. If a cell is empty, the
+  empty string "" is returned in the corresponding array slot.
+</p>
+
+<hr />
+<a name="ExcelInterfaceMod2fExcelGetWorkbook"></a>
+<a name="robo48"></a><h2>ExcelInterfaceMod/ExcelGetWorkbook [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">ExcelInterfaceMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ExcelGetWorkbook</strong>: This function switches workbooks if more than one workbook
+  is opened.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  integer function <strong>ExcelGetWorkbook</strong>(workbookNum) result(rv)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  workbookNum: The order in which the workbooks were opened.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    integer, intent(in) :: workbookNum
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Integer: The returned value is 0 if it successfully accessed the workbook,
+</p>
+<pre>           otherwise non-zero.
+</pre>
+<p></p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function is used when keeping more than 1 workbook open at a time.
+  The workbooks should be opened with calls to '<a href="#robo16">ExcelBegin</a>' or '<a href="#robo17">ExcelBeginNew</a>'.
+  The order in which the workbooks are opened represents the workbook number
+  of the workbook. So if 2 workbooks are opened, the first one that was
+  opened would be 1, and the second one would be 2. Then, to switch between the
+  workbooks, use this function. The argument 'workbookNum' represents the
+  workbook that you want to access. The returned value is 0 if it successfully
+  accessed the workbook, otherwise non-zero.
+</p>
+
+<p>  For example, assume 'retVal', 'num1', and 'num2' are declared to be integers,
+  and that 2 workbooks have been opened:
+</p>
+<pre>     retVal = <strong>ExcelGetWorkbook</strong>(1)
+     num1 = trim(<a href="./StringsMod_f90.html#robo159">AscToInt</a>(<a href="#robo46">ExcelGetStringFromCell</a>("A1")))
+     retVal = <strong>ExcelGetWorkbook</strong>(2)
+     num2 = trim(<a href="./StringsMod_f90.html#robo159">AscToInt</a>(<a href="#robo46">ExcelGetStringFromCell</a>("A1")))
+</pre>
+<p>  Then 'num1' would hold the integer from cell A1 of the first workbook,
+  and 'num2' would hold the integer from cell A1 of the second workbook.
+  Ideally, it would be wise to check 'retVal' after each call to make
+  sure it is set to 0.
+</p>
+
+<hr />
+<a name="ExcelInterfaceMod2fExcelInitObjects"></a>
+<a name="robo49"></a><h2>ExcelInterfaceMod/ExcelInitObjects [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">ExcelInterfaceMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ExcelInitObjects</strong>: Initializes the <a href="#robo0">ExcelInterfaceMod</a>.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  subroutine <strong>ExcelInitObjects</strong>()
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<p>  [None]
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This subroutine is used to initialize the <a href="#robo0">ExcelInterfaceMod</a> and should
+  be called before any other subroutines or functions in this module are
+  called. Make sure to call '<a href="#robo60">ExcelUnInitObjects</a>' after all the Excel work
+  is finished.
+</p>
+
+<hr />
+<a name="ExcelInterfaceMod2fExcelIsVisible"></a>
+<a name="robo50"></a><h2>ExcelInterfaceMod/ExcelIsVisible [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">ExcelInterfaceMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ExcelIsVisible</strong>: This subroutine is used to turn on or off the "visibility" 
+  of Excel.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  subroutine <strong>ExcelIsVisible</strong>(isVisible)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  isVisible: Turns Excel "visibility" on.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    logical, intent(in) :: isVisible
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  By defualt, when 'BeginExcel' is used to open an Excel workbook, the
+  visibility is off. This means that Excel is running as a background process,
+  with no window for the user to see. If 'isVisible' is true, then this makes
+  Excel visible. This can be very useful for debugging purposes. If 'isVisible'
+  is false then it makes Excel not visible.
+</p>
+
+<hr />
+<a name="ExcelInterfaceMod2fExcelPaste"></a>
+<a name="robo51"></a><h2>ExcelInterfaceMod/ExcelPaste [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">ExcelInterfaceMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ExcelPaste</strong>: This subroutine is used to paste to cell(s).
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  subroutine <strong>ExcelPaste</strong>(cellsAsString)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  cellAsString: Selected cell(s).
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: cellsAsString
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  This subroutine is used to paste from the clipboard into a cell or range
+  of cells. The variable 'cellsAsString' can be a single cell or a range
+  of cells (1-dimensional or 2-dimensional).
+</p>
+
+<hr />
+<a name="ExcelInterfaceMod2fExcelPasteSpecial"></a>
+<a name="robo52"></a><h2>ExcelInterfaceMod/ExcelPasteSpecial [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">ExcelInterfaceMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ExcelPasteSpecial</strong>: This subroutine is used to paste from the clipboard into 
+  a cell or range of cells, using the Excel "Paste Special" features.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  subroutine <strong>ExcelPasteSpecial</strong>(cellsAsString, pasteType, operationType)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  cellAsString: Selected cell(s).
+</li>
+<li>  pasteType: (optional) Paste Special type. The predefined values are:
+    xlPasteAll, xlPasteAllExceptBorders, xlPasteFormats, xlPasteFormulas,
+    xlPasteComments, xlPasteValues, xlPasteColumnWidths, xlPasteValidation,
+    xlPasteFormulasAndNumberFormats, or xlPasteValuesAndNumberFormats.
+</li>
+<li>  operationType: (optional) Operation type. The predefined values are:
+    xlPasteSpecialOperationAdd, xlPasteSpecialOperationDivide,
+    xlPasteSpecialOperationMultiply, xlPasteSpecialOperationNone,
+    or xlPasteSpecialOperationSubtract.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: cellsAsString
+    integer, optional, intent(in) :: pasteType
+    integer, optional, intent(in) :: operationType
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  The variable 'cellsAsString' can be a single cell or a range of cells
+  (1-dimensional or 2-dimensional). The optional variables 'pasteType' and 
+  'operationType' are declared as integers, but the user should pass in one of
+  the predefined values for each of them. The default value for 'pasteType' 
+  (used if this argument is omitted) is xlPasteAll. The default value for 
+  'operationType' (used if this argument is omitted) is
+  xlPasteSpecialOperationNone.
+</p>
+
+<p>  For example:
+</p>
+<pre>     call <strong>ExcelPasteSpecial</strong>("A1", xlPasteAll, xlPasteSpecialOperationNone)
+</pre>
+<p>  is equivalent to:
+</p>
+<pre>     call <strong>ExcelPasteSpecial</strong>("A1")
+</pre>
+<p>  which is also equivalent to:
+</p>
+<pre>     call <a href="#robo51">ExcelPaste</a>("A1")
+</pre>
+<p></p>
+
+<hr />
+<a name="ExcelInterfaceMod2fExcelRunMacro"></a>
+<a name="robo53"></a><h2>ExcelInterfaceMod/ExcelRunMacro [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">ExcelInterfaceMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ExcelRunMacro</strong>: This subroutine is used to call an Excel macro.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  subroutine <strong>ExcelRunMacro</strong>(macroName, arg1, arg2, arg3, arg4, arg5, arg6, &amp;
+    arg7, arg8, arg9, arg10)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  macroName: The Excel macro to be called.
+</li>
+<li>  arg1: (optional) The first argument passed to the Excel macro.
+</li>
+<li>  arg2: (optional) The second argument passed to the Excel macro.
+</li>
+<li>  arg3: (optional) The third argument passed to the Excel macro.
+</li>
+<li>  arg4: (optional) The fourth argument passed to the Excel macro.
+</li>
+<li>  arg5: (optional) The fifth argument passed to the Excel macro.
+</li>
+<li>  arg6: (optional) The sixth argument passed to the Excel macro.
+</li>
+<li>  arg7: (optional) The seventh argument passed to the Excel macro.
+</li>
+<li>  arg8: (optional) The eigth argument passed to the Excel macro.
+</li>
+<li>  arg9: (optional) The ninth argument passed to the Excel macro.
+</li>
+<li>  arg10: (optional) The tenth argument passed to the Excel macro.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: macroName
+    character (len = *), optional, intent(in) :: arg1
+    character (len = *), optional, intent(in) :: arg2
+    character (len = *), optional, intent(in) :: arg3
+    character (len = *), optional, intent(in) :: arg4
+    character (len = *), optional, intent(in) :: arg5
+    character (len = *), optional, intent(in) :: arg6
+    character (len = *), optional, intent(in) :: arg7
+    character (len = *), optional, intent(in) :: arg8
+    character (len = *), optional, intent(in) :: arg9
+    character (len = *), optional, intent(in) :: arg10
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  The name of the macro is passed in through 'macroName'. Currently, this
+  subroutine supports passing up to 10 arguments to the macro, and this can
+  be modified if the need arises.  If 1 argument is to be passed to the
+  macro, it is passed in through 'arg1'. Subseguent arguments are passed
+  to the macro by passing corresponding arguments to this subroutine.
+  Excel macros can be very powerful and flexible. Since having Fortran
+  manipulate Excel can be very cumbersome, it is recommended that, as
+  much as possible, put the heavy duty work into macros. Then, use this
+  subroutine to call the macros.
+</p>
+
+<hr />
+<a name="ExcelInterfaceMod2fExcelSave"></a>
+<a name="robo54"></a><h2>ExcelInterfaceMod/ExcelSave [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">ExcelInterfaceMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ExcelSave</strong>: This subroutine is used to save the excel workbook.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  subroutine <strong>ExcelSave</strong>(saveAsFileName, warnBeforeOverwrite)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  saveAsFileName: (optional) Name used to save the workbook.
+</li>
+<li>  warnBeforeOverwrite: (optional) Warns before overwriting an existing file.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), optional, intent(in) :: saveAsFileName
+    logical, optional, intent(in) :: warnBeforeOverwrite
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  If the 'saveAsFileName' argument is not passed in, then it saves the workbook
+  by its default name (the one by which it was opened). If it is passed in,
+  then that is the name it uses to save the workbook. The file name can be
+  either a relative path name or an absolute path name. If 'saveAsFileName' is
+  not passed in, then 'warnBeforeOverwrite' has no effect. If 'saveAsFileName'
+  is passed in, then 'warnBeforeOverwrite' determines whether or not Excel
+  should warn the user (via a pop-up dialog box) that a file already exists
+  with the same name as the argument 'saveAsFileName'. (Of course, if a file
+  with the same name does not already exist, then no pop-up dialog box will
+  appear.) If 'warnBeforeOverwrite' is omitted, then the previous settings in
+  Excel will determine whether or not to a warning is given. Usually the
+  settings are set to give the warning.
+</p>
+
+<hr />
+<a name="ExcelInterfaceMod2fExcelSetCalculationMode"></a>
+<a name="robo55"></a><h2>ExcelInterfaceMod/ExcelSetCalculationMode [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">ExcelInterfaceMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ExcelSetCalculationMode</strong>: This subroutine is used to set the calculation
+  mode of Excel.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  subroutine <strong>ExcelSetCalculationMode</strong>(calcMode)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  calcMode: The calculation mode.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    integer :: calcMode
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  The calculation mode of Excel is a predefined integer type. There are three
+  valid calculation modes:
+</p>
+<ul><li>  xlCalculationAutomatic: Automatic - Excel automatically recalculates when
+    the workbook is opened, and at each and every change.
+</li>
+<li>  xlCalculationManual: Manual - Excel only recalculates when the user
+    requests it.
+</li>
+<li>  xlCalculationSemiautomatic: Automatic except for data tables - Same as
+    automatic, except for data tables, which are manual.
+</li>
+</ul>
+<p></p>
+
+<hr />
+<a name="ExcelInterfaceMod2fExcelSetNumberFormat"></a>
+<a name="robo56"></a><h2>ExcelInterfaceMod/ExcelSetNumberFormat [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">ExcelInterfaceMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ExcelSetNumberFormat</strong>: This subroutine is used to change the number format 
+  of a cell or range of cells.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  subroutine <strong>ExcelSetNumberFormat</strong>(cellsAsString, numberFormat)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  cellAsString: Selected cell(s).
+</li>
+<li>  numberFormat: New format that will be applied to the selected cells.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: cellsAsString
+    character (len = *), intent(in) :: numberFormat
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  The variable 'cellsAsString' can be a single cell or a range of cells 
+  (1-dimensional or 2-dimensional). The 'numberFormat' is the new format that
+  will be applied to the cell(s) specified in 'cellsAsString'. The format can
+  be of any form that Excel recognizes as a valid number format. For example,
+  "General" is for default formatting, "@" is for text formatting, "#,##0.00"
+  for displaying numbers two decimal places with the thousands separator,
+  etc....
+</p>
+
+<hr />
+<a name="ExcelInterfaceMod2fExcelSetSheetName"></a>
+<a name="robo57"></a><h2>ExcelInterfaceMod/ExcelSetSheetName [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">ExcelInterfaceMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ExcelSetSheetName</strong>: This subroutine is used to rename the active worksheet.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  subroutine <strong>ExcelSetSheetName</strong>(newSheetName)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  newSheetName: New name of the active worksheet.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: newSheetName
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  This subroutine is used to rename the active worksheet. The argument
+  'newSheetName' is the new name to use for the sheet.
+</p>
+
+<hr />
+<a name="ExcelInterfaceMod2fExcelSwitchToSheet"></a>
+<a name="robo58"></a><h2>ExcelInterfaceMod/ExcelSwitchToSheet [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">ExcelInterfaceMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ExcelSwitchToSheet</strong>: This function is used to switch between worksheets of a
+  workbook.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  integer function <strong>ExcelSwitchToSheet</strong>(sheetName) result(rv)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  sheetName: Name of the sheet that should be switched to.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: sheetName
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Integer: Returns 0 if switch was successful and a non-zero value if an error
+  occurred.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  The argument 'sheetName' represents the name of the sheet that should be
+  switched to. It is case sensitive. This function returns 0 if it successfully
+  switched to the specified sheet. Otherwise it returns a non-zero value.
+</p>
+
+<p>  As an example, assume 'retVal', 'num1', and 'num2' are declared to be
+  integers, and that the workbook has 2 sheets in it, "Sheet1" and "Sheet2":
+</p>
+<pre>     retVal = <strong>ExcelSwitchToSheet</strong>("Sheet1")
+     num1 = trim(<a href="./StringsMod_f90.html#robo159">AscToInt</a>(<a href="#robo46">ExcelGetStringFromCell</a>("A1")))
+     retVal = <strong>ExcelSwitchToSheet</strong>("Sheet2")
+     num2 = trim(<a href="./StringsMod_f90.html#robo159">AscToInt</a>(<a href="#robo46">ExcelGetStringFromCell</a>("A1")))
+</pre>
+<p>  Then 'num1' would hold the integer from cell A1 of "Sheet1", and 'num2' would
+  hold the integer from cell A1 of "Sheet2". Ideally, it would be wise to check
+  'retVal' after each call to make sure it is set to 0.
+</p>
+
+<hr />
+<a name="ExcelInterfaceMod2fExcelTextToColumns"></a>
+<a name="robo59"></a><h2>ExcelInterfaceMod/ExcelTextToColumns [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">ExcelInterfaceMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ExcelTextToColumns</strong>: This subroutine is used to convert a vertical array range
+  of cells, that are stored as text, into multiple columns.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  subroutine <strong>ExcelTextToColumns</strong>(cellsAsString, parseType, forceOverwrite)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  cellAsString: Selected cell(s).
+</li>
+<li>  parseType: (optional) Can either be xlDelimited or xlFixedWidth.
+</li>
+<li>  forceOverwrite: (optional) If omitted or false, Excel may popup with an
+    "Overwrite contents of destination cells?" type of question.
+    If true, cells will be overwritten, without prompting.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: cellsAsString
+    integer, optional, intent(in) :: parseType
+    logical, optional, intent(in) :: forceOverwrite
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  It uses Excel's "Convert Text to Columns" wizard. The vertical range is
+  passed in as the variable 'cellsAsString'. The variable 'parseType' can
+  either be the integer 'xlDelimited' or 'xlFixedWidth', without the single
+  quotes. (These integers are already defined.) When 'xlDelimited' is used,
+  the wizard will use the tab character and the space character as the
+  delimiters. When 'xlFixedWidth' is used, the wizard will use the default
+  "fixed-width" columns separations. If 'parseType' is omitted, then it is left
+  up to Excel to figure out which one to use. If Excel detects that there is
+  something already in the destination cells, it will usually prompt the user
+  to see if these contents should be overwritten. If 'forceOverwite' is passed
+  in and is true, then the destination contents will be overwritten without
+  prompting.
+</p>
+
+<hr />
+<a name="ExcelInterfaceMod2fExcelUnInitObjects"></a>
+<a name="robo60"></a><h2>ExcelInterfaceMod/ExcelUnInitObjects [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">ExcelInterfaceMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ExcelUnInitObjects</strong>: This subroutine is used to do any cleanup for
+  the <a href="#robo0">ExcelInterfaceMod</a>.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  subroutine <strong>ExcelUnInitObjects</strong>()
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<p>  [None]
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  There should be no more calls to the functions or subroutines in this
+  module after this subroutine has been called (except, perhaps, a new
+  call to '<a href="#robo49">ExcelInitObjects</a>').
+</p>
+
+<hr />
+<a name="ExcelInterfaceMod2fExcelWriteToCells"></a>
+<a name="robo61"></a><h2>ExcelInterfaceMod/ExcelWriteToCells [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">ExcelInterfaceMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ExcelWriteToCells</strong>: Writes data to Excel cells.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  subroutine <strong>ExcelWriteToCells</strong>(cellsAsString, toWrite)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  cellsAsString: The cells to be written to are represented as a
+    character string (of variable length).
+</li>
+<li>  toWrite: The value to be written to cellsAsString. Can be a character 
+    string (of variable length), an integer, a real, a double precision,
+    or a 1-dimensional array of any of those.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">!  See ARGUMENTS section.
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  This subroutine is used to write data to Excel cells. The cells to be
+  written to are represented as a string in 'cellsAsString'. For example,
+  'cellsAsString' can be "A15", "A15:D15", etc.... If it represents a
+  single cell (as in "A15") then 'toWrite' should be a single value
+  (character string, integer, real, or double precision). If it
+  represents an array of cells (as in "A15:D15"), then 'toWrite' can
+  be a 1-dimensionsal array or a single value (of type character string,
+  integer, real, or double precision), and the size of the array
+  (if an array) should match the size of the array represented by
+  'cellsAsString'. If the array sizes do not match, an error message
+  will be given.
+</p>
+
+<p>  Examples:
+</p>
+<ul><li>  <strong>ExcelWriteToCells</strong>("A1", 5) will write the number 5 to cell A1.
+</li>
+<li>  <strong>ExcelWriteToCells</strong>("A1", "5") will write the string "5" to cell A1,
+    which Excel will probably convert to the number 5.
+</li>
+<li>  <strong>ExcelWriteToCells</strong>("A1:D1", arr) will write the number 1 to cell A1,
+    2 to cell B1, 3 to cell C1, and 4 to cell D1, if arr was declared to be a
+    real array of size 4 containing the values 1 through 4, respectively.
+</li>
+<li>  <strong>ExcelWriteToCells</strong>("A1:D1", 12.34) will write the (real) number
+    12.34 to cells A1, B1, C1, and D1.
+</li>
+</ul>
+<p></p>
+
+</div> <!-- content -->
+<div id="footer">
+<p>Generated from ./source/ExcelInterfaceMod.f90 with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.36 on Tue May 09 2023 10:30:03
+</p>
+</div> <!-- footer -->
+</body>
+</html>

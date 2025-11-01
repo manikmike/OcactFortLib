@@ -1,0 +1,798 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>./source/FilesMod.f90</title>
+<!-- Source: ./source/FilesMod.f90 -->
+<!-- Generated with ROBODoc Version 4.99.36 (Apr 25 2008) -->
+</head>
+<body>
+<div id="logo">
+<a name="robo_top_of_doc"></a>
+</div> <!-- logo -->
+<div id="navigation">
+<a class="menuitem" href="./toc_index.html#top">Table of Contents</a>
+<a class="menuitem" href="./robo_sourcefiles.html#top">Sourcefiles</a>
+<a class="menuitem" href="./masterindex.html#top">Index</a>
+<a class="menuitem" href="./robo_functions.html#top">Functions</a>
+<a class="menuitem" href="./robo_modules.html#top">Modules</a>
+</div> <!-- navigation -->
+<div id="content">
+<h3>TABLE OF CONTENTS</h3>
+<ul>
+<li>1. <a href="#robo1">source/FilesMod</a></li>
+<ul>
+<li>1.1. <a href="#robo62">FilesMod/CheckFileData</a></li>
+<li>1.2. <a href="#robo63">FilesMod/CloseAllFiles</a></li>
+<li>1.3. <a href="#robo64">FilesMod/CloseFile</a></li>
+<li>1.4. <a href="#robo65">FilesMod/CloseFiles</a></li>
+<li>1.5. <a href="#robo66">FilesMod/FilesModBeginVerbose</a></li>
+<li>1.6. <a href="#robo67">FilesMod/FilesModEndVerbose</a></li>
+<li>1.7. <a href="#robo68">FilesMod/FilesModGetMacro</a></li>
+<li>1.8. <a href="#robo69">FilesMod/FilesModResetMacro</a></li>
+<li>1.9. <a href="#robo70">FilesMod/FilesModSetMacro</a></li>
+<li>1.10. <a href="#robo71">FilesMod/FilesModUnsetMacro</a></li>
+<li>1.11. <a href="#robo72">FilesMod/FlushAllFiles</a></li>
+<li>1.12. <a href="#robo73">FilesMod/GetFileNumFromName</a></li>
+<li>1.13. <a href="#robo74">FilesMod/GetLine</a></li>
+<li>1.14. <a href="#robo75">FilesMod/GetNumOpenFiles</a></li>
+<li>1.15. <a href="#robo76">FilesMod/LoadOpenFiles</a></li>
+<li>1.16. <a href="#robo77">FilesMod/OpenFile</a></li>
+<li>1.17. <a href="#robo78">FilesMod/OpenFiles</a></li>
+<li>1.18. <a href="#robo79">FilesMod/SkipLines</a></li>
+</ul>
+</ul>
+<hr />
+<a name="source2fFilesMod"></a>
+<a name="robo1"></a><h2>source/FilesMod [ Modules ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_modules.html#robo_top_of_doc">Modules</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>FilesMod</strong>: OcactFortLib <strong>FilesMod</strong> module.
+</p>
+<p class="item_name">REVISION</p>
+<p>  Revision: 1.51
+</p>
+<p class="item_name">MODULE DESCRIPTION</p>
+<p>  The <strong>FilesMod</strong> module contains subroutines and functions used to open, close,
+  and read files. The module also contains subroutines used to set, reset, and
+  unset macros. The macros are used in "files lists", which are read by the
+  <a href="#robo78">OpenFiles</a> (and <a href="#robo65">CloseFiles</a>) subroutines, to give more control in determining
+  exactly which files should be opened (or closed). The <a href="#robo74">GetLine</a> function
+  is used to read an entire line from a file, and is often used in conjuntion
+  with the <a href="./StringsMod_f90.html#robo170">ParseLine</a> function in the <a href="./StringsMod_f90.html#robo12">StringsMod</a>.
+</p>
+<p class="item_name">MODULE ROUTINES</p>
+<pre>  <a href="#robo62">CheckFileData</a>
+  <a href="#robo63">CloseAllFiles</a>
+  <a href="#robo64">CloseFile</a>
+  <a href="#robo65">CloseFiles</a>
+  <a href="#robo66">FilesModBeginVerbose</a>
+  <a href="#robo67">FilesModEndVerbose</a>
+  <a href="#robo68">FilesModGetMacro</a>
+  <a href="#robo69">FilesModResetMacro</a>
+  <a href="#robo70">FilesModSetMacro</a>
+  <a href="#robo71">FilesModUnsetMacro</a>
+  <a href="#robo72">FlushAllFiles</a>
+  <a href="#robo73">GetFileNumFromName</a>
+  <a href="#robo74">GetLine</a>
+  <a href="#robo75">GetNumOpenFiles</a>
+  <a href="#robo76">LoadOpenFiles</a>
+  <a href="#robo77">OpenFile</a>
+  <a href="#robo78">OpenFiles</a>
+  <a href="#robo79">SkipLines</a>
+</pre>
+
+<hr />
+<a name="FilesMod2fCheckFileData"></a>
+<a name="robo62"></a><h2>FilesMod/CheckFileData [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo1">FilesMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>CheckFileData</strong>: This subroutine is used to check that read in data matches the
+  expected data.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  subroutine <strong>CheckFileData</strong>(expectedData, readData, unitNum, extraCheck)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  expectedData: Expected data, for example the do-loop variable.
+</li>
+<li>  readData: Read in data.
+</li>
+<li>  unitNum: Unit number of the file.
+</li>
+<li>  extraCheck: (optional) If true or omitted, the file associated with unitNum
+    needs to be open. If false, it does not check to make sure the
+    file was opened.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    integer, intent(in) :: expectedData
+    integer, intent(in) :: readData
+    integer, intent(in) :: unitNum
+    logical, optional, intent(in) :: extraCheck
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  This subroutine is used to check that read in data matches the expected
+  data. For example, if your program is reading in data, one year at a
+  time, then you may be in a do-loop with an index named 'year'.
+  Assuming the input file has a year indicator for each year of data,
+  then it is wise to check that the read-in year matches the 'year'
+  variable that is your do-loop index.
+</p>
+
+<p>  Say the read-in year is stored in a variable named 'dummyYear', and that the
+  open file being read is associated with unit number 10.  Then you can call
+  <strong>CheckFileData</strong>(year, dummyYear, 10). If 'year' and 'dummyYear' do not match,
+  then an error message is printed out which tells you the name of the file
+  where the error occurred, and the program is terminated. If the years
+  do match, then the program just proceeds.
+</p>
+
+<p>  If 'extraCheck' is true or omitted then the file needs to have been opened
+  using either '<a href="#robo78">OpenFiles</a>' or '<a href="#robo77">OpenFile</a>'. If 'extraCheck' is false, then it
+  does not check to make sure that the 'fileNum' is associated with a file that
+  was opened using either '<a href="#robo78">OpenFiles</a>' or '<a href="#robo77">OpenFile</a>'.
+</p>
+
+<hr />
+<a name="FilesMod2fCloseAllFiles"></a>
+<a name="robo63"></a><h2>FilesMod/CloseAllFiles [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo1">FilesMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>CloseAllFiles</strong>: This subroutine closes all files that have been opened.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  subroutine <strong>CloseAllFiles</strong>()
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<p>  [None]
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This subroutine closes all files that have been opened with either
+  '<a href="#robo78">OpenFiles</a>' or '<a href="#robo77">OpenFile</a>', and have not yet been closed (with
+  '<strong>CloseAllFiles</strong>', '<a href="#robo65">CloseFiles</a>', or <a href="#robo64">CloseFile</a>').
+</p>
+
+<hr />
+<a name="FilesMod2fCloseFile"></a>
+<a name="robo64"></a><h2>FilesMod/CloseFile [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo1">FilesMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>CloseFile</strong>: This subroutine closes the file associated with the number 
+  'unitNum'.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  subroutine <strong>CloseFile</strong>(unitNum)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  unitNum: Unit number of the file.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    integer, intent(in) :: unitNum
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  This subroutine closes the file associated with the number 'unitNum'.
+</p>
+
+<hr />
+<a name="FilesMod2fCloseFiles"></a>
+<a name="robo65"></a><h2>FilesMod/CloseFiles [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo1">FilesMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>CloseFiles</strong>: This subroutine is used to close all file numbers listed in a
+  text file.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  subroutine <strong>CloseFiles</strong>(mainFile)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  mainFile: Name of the text file.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: mainFile
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  This subroutine is used to close all file numbers listed in a text file, with
+  the name of the text file given by 'mainFile'. The text file can have any
+  number of blank lines or comment lines throughout. (Comment lines begin with
+  an '!'.) The file name given by 'mainFile' will usually be the same file name
+  used with a previous call to'<a href="#robo78">OpenFiles</a>'.
+</p>
+
+<hr />
+<a name="FilesMod2fFilesModBeginVerbose"></a>
+<a name="robo66"></a><h2>FilesMod/FilesModBeginVerbose [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo1">FilesMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>FilesModBeginVerbose</strong>:This subroutine is helpful for keeping track of which
+  files are open and which file numbers are in use.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  subroutine <strong>FilesModBeginVerbose</strong>(fileNum, fileName, fieldWidth, fullPath)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  fileNum: (optional) File number associated with the output file.
+</li>
+<li>  fileName: (optional) File name associated with the output file.
+</li>
+<li>  fieldWidth: (optional) Output format.
+</li>
+<li>  fullPath: (optional) If true, the full path names for the files will be in
+    the output. If false or omitted, the file name will be the same as
+    how it was passed in.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    integer, optional, intent(in) :: fileNum
+    character (len = *), optional, intent(in) :: fileName
+    integer, optional, intent(in) :: fieldWidth
+    logical, optional, intent(in) :: fullPath
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  This subroutine tells the <a href="#robo1">FilesMod</a> module to enter "verbose" mode. This will
+  cause the module to print out an output message every time a file is opened
+  or closed using the routines in this module. Files that were opened or closed
+  before this subroutine was called will not be logged.
+</p>
+
+<p>  If this subroutine is called with 'fileNum' and 'fileName' both omitted, then
+  the  message is printed to unit 6, standard output (usually the screen,
+  unless redirected). If the argument 'fileName' is passed in but 'fileNum' is
+  omitted, then 'fileName' has no effect. If only the argument 'fileNum' is
+  passed in but 'fileName' is omitted, then that is the unit number where the
+  output messages will go. If this unit number is not associated with a file,
+  it will create a fort.* file for the output. If both 'fileNum' and 'fileName'
+  are passed in, then the output file will be associated with the 'fileNum'
+  number, and will have the name 'fileName' (instead of being a fort.* file).
+</p>
+
+<p>  If the argument 'fieldWidth' is omitted (or passed in with a value of 0)
+  then the output will be unformatted. If it is passed in, then the
+  output will be formatted such that it is in tabular format.  This
+  is used to line up all of the file names in a nice column with a field
+  width of 'fieldWidth'.
+</p>
+
+<p>  The 'fullPath' argument is used to determine if the full path for the
+  file is written out or not. If it's .true. then the full path names
+  of the files will be output each time. If it's .false. or omitted
+  then the file name will be the same as how the it was passed in
+  (via '<a href="#robo77">OpenFile</a>' or '<a href="#robo78">OpenFiles</a>') -- either a relative path or a full path.
+</p>
+
+<hr />
+<a name="FilesMod2fFilesModEndVerbose"></a>
+<a name="robo67"></a><h2>FilesMod/FilesModEndVerbose [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo1">FilesMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>FilesModEndVerbose</strong>: This subroutine ends the verbose output.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  subroutine <strong>FilesModEndVerbose</strong>()
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<p>  [None]
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This subroutine ends the verbose output that was begun with a call
+  to the subroutine <a href="#robo66">FilesModBeginVerbose</a>(). If '<a href="#robo66">FilesModBeginVerbose</a>'
+  was not yet called, then this subroutine does nothing. If
+  '<a href="#robo66">FilesModBeginVerbose</a>' was called with both arguments passed in
+  (so that a specific named-file was opened for the output), then
+  this subroutine will close that file (after writing a message that
+  it was closed). Files that are opened or closed after this
+  subroutine was called will not be logged.
+</p>
+
+<hr />
+<a name="FilesMod2fFilesModGetMacro"></a>
+<a name="robo68"></a><h2>FilesMod/FilesModGetMacro [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo1">FilesMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>FilesModGetMacro</strong>: This function takes a macro name and returns the string
+  associated with that macro.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  character(len = MAX_CHAR_LENGTH) function <strong>FilesModGetMacro</strong>(macroName) &amp;
+    result(returnMacroExpansion)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  macroName: Name of the macro surrounded by quotes (e.g.
+    <strong>FilesModGetMacro</strong>("TRYR")).
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">  character (len = *), intent(in) :: macroName
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Character: String that the macro will be expanded to in '<a href="#robo78">OpenFiles</a>'
+  or '<a href="#robo65">CloseFiles</a>'.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function is used to return the expanded macro string that has already
+  been set by using '<a href="#robo70">FilesModSetMacro</a>'. If the specified macro has not already
+  been set, then this subroutine gives an error message and stops the
+  program. For more information on setting and using macros in this
+  module see the documentation for '<a href="#robo70">FilesModSetMacro</a>'.
+</p>
+
+<hr />
+<a name="FilesMod2fFilesModResetMacro"></a>
+<a name="robo69"></a><h2>FilesMod/FilesModResetMacro [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo1">FilesMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>FilesModResetMacro</strong>: This subroutine is used to re-set a macro that has
+  already been set.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  subroutine <strong>FilesModResetMacro</strong>(macroName, macroExpansion)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  macroName: Name of the macro.
+</li>
+<li>  macroExpansion: String that the macro will be expanded to in '<a href="#robo78">OpenFiles</a>'
+    or '<a href="#robo65">CloseFiles</a>'.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character(len = *), intent(in) :: macroName
+    character(len = *), intent(in) :: macroExpansion
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  This subroutine is used to re-set a macro that has already been set
+  by using '<a href="#robo70">FilesModSetMacro</a>'. If the specified macro has not already
+  been set, then this subroutine gives an error message and stops the
+  program. For more information on setting and using macros in this
+  module see the documentation for '<a href="#robo70">FilesModSetMacro</a>'.
+</p>
+
+<hr />
+<a name="FilesMod2fFilesModSetMacro"></a>
+<a name="robo70"></a><h2>FilesMod/FilesModSetMacro [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo1">FilesMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>FilesModSetMacro</strong>: This subroutine is used to set a macro for use in the
+  'mainFile' associated with the '<a href="#robo78">OpenFiles</a>' and '<a href="#robo65">CloseFiles</a>' subroutines.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  subroutine <strong>FilesModSetMacro</strong>(macroName, macroExpansion)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  macroName: Name of the macro.
+</li>
+<li>  macroExpansion: String that the macro will be expanded to in '<a href="#robo78">OpenFiles</a>'
+    or '<a href="#robo65">CloseFiles</a>'.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character(len = *), intent(in) :: macroName
+    character(len = *), intent(in) :: macroExpansion
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  The 'macroName' is the name of the macro and 'macroExpansion' is the
+  string that the macro will be expanded to when read by '<a href="#robo78">OpenFiles</a>'
+  or '<a href="#robo65">CloseFiles</a>'. To use the macro in the 'mainFile' (i.e., the file
+  that is passed as an argument to '<a href="#robo78">OpenFiles</a>' or '<a href="#robo65">CloseFiles</a>') just
+  insert the name of the macro surrounded by parenthesis, and with a
+  leading dollar sign ($). For example, a call like this:
+</p>
+<pre>    call <strong>FilesModSetMacro</strong>("TR_YEAR", "2006")
+</pre>
+<p>  will set the macro "TR_YEAR" (without the quotes) to be interpreted
+  as the string "2006" (without the quotes). So, in the list of files
+  to be opened or closed ('mainFile'), any place that "$(TR_YEAR)"
+  (without the quotes) is encountered, it will be replaced by "2006"
+  (without the quotes). If 'macroName' is already in use (having been
+  set already), then this subroutine will give an error message and stop
+  the program. To re-use a macro (i.e., to set it to something after it
+  has already been set once in the program), see the documentation to
+  '<a href="#robo69">FilesModResetMacro</a>'. Also, see the documentation to
+  '<a href="#robo71">FilesModUnsetMacro</a>' to un-set a macro.
+</p>
+
+<hr />
+<a name="FilesMod2fFilesModUnsetMacro"></a>
+<a name="robo71"></a><h2>FilesMod/FilesModUnsetMacro [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo1">FilesMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>FilesModUnsetMacro</strong>: This subroutine is used to un-set a macro that has
+  already been set.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  subroutine <strong>FilesModUnsetMacro</strong>(macroName)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  macroName: Name of the macro.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character(len = *), intent(in) :: macroName
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  This subroutine is used to un-set a macro that has already been set
+  by using '<a href="#robo70">FilesModSetMacro</a>'. If the specified macro has not already
+  been set, then this subroutine gives an error message and stops the
+  program. For more information on setting and using macros in this
+  module see the documentation for '<a href="#robo70">FilesModSetMacro</a>'. After the macro
+  is un-set then any occurrences of that string in the list of files
+  ('mainFile') will not be expanded; but rather interpreted literally.
+  There is no need to call this subroutine for "clean-up" purposes.
+  Macros can be left set until the end of the program.
+</p>
+
+<hr />
+<a name="FilesMod2fFlushAllFiles"></a>
+<a name="robo72"></a><h2>FilesMod/FlushAllFiles [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo1">FilesMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>FlushAllFiles</strong>: This subroutine calls the Fortran 'Flush' command for
+  all files that have been opened.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  subroutine <strong>FlushAllFiles</strong>()
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<p>  [None]
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This subroutine calls the Fortran 'Flush' command for all files that have
+  been opened with either '<a href="#robo78">OpenFiles</a>' or '<a href="#robo77">OpenFile</a>'.
+</p>
+
+<hr />
+<a name="FilesMod2fGetFileNumFromName"></a>
+<a name="robo73"></a><h2>FilesMod/GetFileNumFromName [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo1">FilesMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>GetFileNumFromName</strong>: This function takes a file name and returns the unit
+  number associated with that file.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  integer function <strong>GetFileNumFromName</strong>(fileName, abortOnNoFile) result(rv)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  fileName: Can be just the file name, or all or part of the full path name
+    of the file.
+</li>
+<li>  abortOnNoFile: (optional) If .false., a -1 will be returned to indicate
+    that no match was found. If more then one match is found, the program will
+    stop.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: fileName
+    logical, optional, intent(in) :: abortOnNoFile
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Integer: Unit number associated with the 'fileName' file.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function takes a file name, in 'fileName' and returns the unit
+  number associated with that file. The name can be just the file
+  name itself, or it can be all of or a portion of the full path
+  name of the file. 
+</p>
+
+<p>  For example, if the file's full name is
+  D:\usr\dirA\dirB\myFile.txt, then any of the following ways can
+  be used to reference that file: myFile.txt, dirB\myFile.txt,
+  dirA\dirB\myFile.txt, or D:\dirA\dirB\myFile.txt. Note that the
+  file must have been opened using a subroutine from this module
+  (i.e. '<a href="#robo77">OpenFile</a>' or '<a href="#robo78">OpenFiles</a>'). If no files are found that
+  match 'fileName' then the program prints an error message and
+  stops.
+</p>
+
+<p>  However if 'abortOnNoFile' is passed in and is .false.,
+  then the function will just return -1 to indicate that no
+  match was found. If more than 1 match is found (for example
+  if 2 files with the same name but residing in different
+  directories have been opened, and the user called this function
+  with just the simple file name), then an error message will
+  be printed and the program will stop.
+</p>
+
+<p>  Note that the 'fileName'
+  variable is not case-sensitive (so the user does not need to
+  worry about matching the case of the file name), and that it
+  is also not slash-sensitive (so the user can use backslashes
+  or forward-slashes in 'fileName').
+</p>
+
+<hr />
+<a name="FilesMod2fGetLine"></a>
+<a name="robo74"></a><h2>FilesMod/GetLine [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo1">FilesMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>GetLine</strong>: This function reads in and returns the next line of a file.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  MAX_CHAR_LENGTH is set equal to 10,000.
+  character (len = MAX_CHAR_LENGTH) &amp;
+      function <strong>GetLine</strong>(unitNum, extraCheck, readAllLines) result(line)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  unitNum: Unit number of the file.
+</li>
+<li>  extraCheck: (optional) If true or omitted, the file associated with unitNum
+    needs to be opened using either '<a href="#robo78">OpenFiles</a>' or '<a href="#robo77">OpenFile</a>'. If false, it does
+    not check to make sure the file was opened using either '<a href="#robo78">OpenFiles</a>' or
+    '<a href="#robo77">OpenFile</a>'.
+</li>
+<li>  readAllLines: (optional) If false or omitted, the function skips blank or
+    comment lines. If true, the function reads blank and comment lines.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    integer, intent(in) :: unitNum
+    logical, optional, intent(in) :: extraCheck
+    logical, optional, intent(in) :: readAllLines
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Character string (of length 10000): Next line of file.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function reads in the next line of a file and returns it as a
+  a character string (of length 10000). The file it reads is the one
+  associated with 'unitNum'. If 'extraCheck' is true or omitted then
+  the file needs to have been opened using either '<a href="#robo78">OpenFiles</a>' or
+  '<a href="#robo77">OpenFile</a>'. If 'extraCheck' is false, then it does not check to make
+  sure that the 'fileNum' is associated with a file that was opened
+  using either '<a href="#robo78">OpenFiles</a>' or '<a href="#robo77">OpenFile</a>'. If 'readAllLines' is false or
+  omitted then the function skips any blank lines or comment lines
+  (beginning with an '!') and only reads lines with actual data. If
+  'readAllLines' is true, the function reads all lines including blank
+  and comment lines. The character string that is returned
+  can be parsed using the '<a href="./StringsMod_f90.html#robo170">ParseLine</a>' function in the <a href="./StringsMod_f90.html#robo12">StringsMod</a>.
+</p>
+
+<hr />
+<a name="FilesMod2fGetNumOpenFiles"></a>
+<a name="robo75"></a><h2>FilesMod/GetNumOpenFiles [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo1">FilesMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>GetNumOpenFiles</strong>: This function returns a count of all files that have been
+  opened.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  integer function <strong>GetNumOpenFiles</strong>()
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<p>  [None]
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function returns a count of all files that have been opened with either
+  '<a href="#robo78">OpenFiles</a>' or '<a href="#robo77">OpenFile</a>', and have not yet been closed (with
+  '<a href="#robo63">CloseAllFiles</a>', '<a href="#robo65">CloseFiles</a>', or <a href="#robo64">CloseFile</a>').
+</p>
+
+<hr />
+<a name="FilesMod2fLoadOpenFiles"></a>
+<a name="robo76"></a><h2>FilesMod/LoadOpenFiles [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo1">FilesMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>LoadOpenFiles</strong>: This subroutine is used to load the numbers or names of
+  files that are currently open.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  subroutine <strong>LoadOpenFiles</strong>(fileNums, numFilesLoaded)
+!  subroutine <strong>LoadOpenFiles</strong>(fileNames, numFilesLoaded)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  fileNums: 1-dimensional array (of any size) of integers.
+</li>
+<li>  fileNames: 1-dimensional array (of any size) of character strings.
+</li>
+<li>  numFilesLoaded: The number of files (either numbers or names) that loaded
+    into the 'fileNums' or 'fileNames' array.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">!  See ARGUMENTS section.
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  This subroutine is used to load the numbers or names of files that are
+  currently open. The first argument is either an array of integers or an
+  array of character strings. If integers, then file numbers are loaded.
+  If character strings, then file names are loaded. The second argument
+  returns the numbers of files that were loaded into the first argument's
+  array. This will typically be however many files are open. However, if the
+  first argument's array is not large enough, then a value of -1 is returned.
+</p>
+
+<hr />
+<a name="FilesMod2fOpenFile"></a>
+<a name="robo77"></a><h2>FilesMod/OpenFile [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo1">FilesMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>OpenFile</strong>: This subroutine opens one file at a time.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  subroutine <strong>OpenFile</strong>(fileNum, fileName, fileStatus, fileForm, fileAccess, &amp;
+    fileRecl, openFileAction)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  fileNum: File number to be opened.
+</li>
+<li>  fileName: Name of the file to be opened.
+</li>
+<li>  fileStatus: Status of the file to be opened ('old', 'new', 'replace',
+    'scratch', 'unknown').
+</li>
+<li>  fileForm: (optional) Form that the file should be opened in ('formatted'
+    or 'unformatted').
+</li>
+<li>  fileAccess: (optional) File access ('direct' or 'sequential').
+</li>
+<li>  fileRecl: (optional) Record length.
+</li>
+<li>  openFileAction: (optional) Action to be used to open the file ('read',
+    'write', 'readwrite').
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    integer, intent(in) :: fileNum
+    character (len = *), intent(in) :: fileName
+    character (len = *), intent(in) :: fileStatus
+    character (len = *), optional, intent(in) :: fileForm
+    character (len = *), optional, intent(in) :: fileAccess
+    integer, optional, intent(in) :: fileRecl
+    character (len = *), optional, intent(in) :: openFileAction
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  The first argument, 'fileNum', is the number which will be. If a
+  number is specified that was already opened by this module (either with
+  <a href="#robo78">OpenFiles</a>() or with <strong>OpenFile</strong>()), then the subroutine will print an error
+  message and terminate the program.
+</p>
+
+<p>  The second argument, 'fileName', should be the name of the file to be opened
+  (including the path, if needed).
+</p>
+
+<p>  The third argument, 'fileStatus', should be the status of the file to be
+  opened (i.e. 'old', 'new', 'replace', 'scratch', or 'unknown').
+</p>
+
+<p>  The fourth through sixth arguments are optional, but if one is present
+  then all must be present. The fourth argument, 'fileForm', is the form
+  that the file should be opened in (i.e. 'formatted' or 'unformatted').
+  The fifth argument, 'fileAccess' is the access (i.e. 'direct' or
+  'sequential'). The sixth argument is the record length. The seventh
+  argument specifies the action (or mode) to be used to open the file.
+  It should be "read", "write", or "readwrite". If not specifed, it
+  will default to "readwrite". However, if the file is read-only, then
+  it will deafult to "read".
+</p>
+
+<hr />
+<a name="FilesMod2fOpenFiles"></a>
+<a name="robo78"></a><h2>FilesMod/OpenFiles [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo1">FilesMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>OpenFiles</strong>: This subroutine is used to open files.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  subroutine <strong>OpenFiles</strong>(mainFile, openFilesAction)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  mainFile: Text file containing the list of files to be opened.
+</li>
+<li>  openFilesAction: (optional) Action in which the files are opened ('read',
+    'write', 'readwrite').
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: mainFile
+    character(len = *), optional, intent(in)  :: openFilesAction
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  This subroutine is used to open files in a structured and convenient
+  manner. The list of files to be opened should be in a text file,
+  with the name of the text file given by 'mainFile'. The text file
+  can have any number of blank lines or comment lines throughout. Comments
+  can also be put at the end of a line. (Comments begin with an '!'.)
+  Each non-blank and non-comment line should have information about one
+  file to open.
+</p>
+
+<p>  For each file to be opened, there should either be 3 pieces of information
+  or 6. These pieces of information are used to open the file exactly
+  as described in the documentation for '<a href="#robo77">OpenFile</a>', with one exception:
+  File number 99 should not be used for opening a file. However, using
+  '<a href="#robo77">OpenFile</a>' directly does not have this limitation.
+</p>
+
+<p>  If the optional argument, 'openFilesAction', is passed in, it should be set
+  to "read", "write", or "readwrite". This specifies the action (or mode) in
+  which the files are opened. If this argument is not passed in, it defaults
+  to "readwrite". However, if a file is read-only, then it will deafult to
+  "read".
+</p>
+
+<p>  See the documentation for '<a href="#robo70">FilesModSetMacro</a>' for instructions on how to use
+  macros in the 'mainFile'.
+</p>
+
+<hr />
+<a name="FilesMod2fSkipLines"></a>
+<a name="robo79"></a><h2>FilesMod/SkipLines [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo1">FilesMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>SkipLines</strong>: This subroutine skips the specified number of lines while
+  reading a file.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  subroutine <strong>SkipLines</strong>(unitNum, numLinesToSkip, extraCheck)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  unitNum: Unit number of the file.
+</li>
+<li>  numLinesToSkip: Number of lines to skip while reading a file.
+</li>
+<li>  extraCheck: (optional) If true or omitted, the file associated with unitNum
+    needs to be opened using either '<a href="#robo78">OpenFiles</a>' or '<a href="#robo77">OpenFile</a>'. If false, it does
+    not check to make sure the file was opened using either '<a href="#robo78">OpenFiles</a>' or
+    '<a href="#robo77">OpenFile</a>'.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    integer, intent(in) :: unitNum
+    integer, intent(in) :: numLinesToSkip
+    logical, optional, intent(in) :: extraCheck
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  The number of lines skipped while reading a file is specified in
+  'numLinesToSkip'. The file it reads is the one associated with 'unitNum'.
+  If 'extraCheck' is true or omitted then the file needs to have been opened
+  using either '<a href="#robo78">OpenFiles</a>' or '<a href="#robo77">OpenFile</a>'. If 'extraCheck' is false, then it
+  does not check to make sure that the 'fileNum' is associated with a file that
+  was opened using either '<a href="#robo78">OpenFiles</a>' or '<a href="#robo77">OpenFile</a>'.
+</p>
+
+</div> <!-- content -->
+<div id="footer">
+<p>Generated from ./source/FilesMod.f90 with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.36 on Tue May 09 2023 10:30:03
+</p>
+</div> <!-- footer -->
+</body>
+</html>

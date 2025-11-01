@@ -1,0 +1,667 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>./source/TRChecksMod.f90</title>
+<!-- Source: ./source/TRChecksMod.f90 -->
+<!-- Generated with ROBODoc Version 4.99.36 (Apr 25 2008) -->
+</head>
+<body>
+<div id="logo">
+<a name="robo_top_of_doc"></a>
+</div> <!-- logo -->
+<div id="navigation">
+<a class="menuitem" href="./toc_index.html#top">Table of Contents</a>
+<a class="menuitem" href="./robo_sourcefiles.html#top">Sourcefiles</a>
+<a class="menuitem" href="./masterindex.html#top">Index</a>
+<a class="menuitem" href="./robo_functions.html#top">Functions</a>
+<a class="menuitem" href="./robo_modules.html#top">Modules</a>
+</div> <!-- navigation -->
+<div id="content">
+<h3>TABLE OF CONTENTS</h3>
+<ul>
+<li>1. <a href="#robo13">source/TRChecksMod</a></li>
+<ul>
+<li>1.1. <a href="#robo175">TRChecksMod/CopyOutOfSyncGitFiles</a></li>
+<li>1.2. <a href="#robo176">TRChecksMod/CopyOutOfSyncMKSFiles</a></li>
+<li>1.3. <a href="#robo177">TRChecksMod/GitCheckRepo</a></li>
+<li>1.4. <a href="#robo178">TRChecksMod/LBoundPart</a></li>
+<li>1.5. <a href="#robo179">TRChecksMod/MKSCheckSandbox</a></li>
+<li>1.6. <a href="#robo180">TRChecksMod/RandDataFromArr</a></li>
+<li>1.7. <a href="#robo181">TRChecksMod/RandDataFromArrMess</a></li>
+<li>1.8. <a href="#robo182">TRChecksMod/RunLogInit</a></li>
+<li>1.9. <a href="#robo183">TRChecksMod/RunLogWrapUp</a></li>
+<li>1.10. <a href="#robo184">TRChecksMod/SetRandDataFromArrMessFields</a></li>
+</ul>
+</ul>
+<hr />
+<a name="source2fTRChecksMod"></a>
+<a name="robo13"></a><h2>source/TRChecksMod [ Modules ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_modules.html#robo_top_of_doc">Modules</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>TRChecksMod</strong>: OcactFortLib <strong>TRChecksMod</strong> module.
+</p>
+<p class="item_name">REVISION</p>
+<p>  Revision: 1.25
+</p>
+<p class="item_name">MODULE DESCRIPTION</p>
+<p>  The <strong>TRChecksMod</strong> module contains subroutines and functions that are helpful
+  for TR-related checks. For example, <a href="#robo179">MKSCheckSandbox</a> can be used to
+  check the program files against the latest versions in MKS.  Other routines
+  can be used to check randomly selected data in an array. The random input
+  data point can then be checked against the original data file to confirm
+  the program read in the data correctly.
+</p>
+
+<p>  This module uses the <a href="./RandomMod_f90.html#robo6">RandomMod</a>. This means that there has to first
+  be a call to <a href="./RandomMod_f90.html#robo111">InitRandomModule</a> to initialize the <a href="./RandomMod_f90.html#robo6">RandomMod</a>. This call
+  is not located anywhere within this module. Instead, the user must decide
+  where the call should be made (usually somewhere in the "initialization"
+  part of the program).
+</p>
+<p class="item_name">MODULE ROUTINES</p>
+<pre>  <a href="#robo175">CopyOutOfSyncGitFiles</a>
+  <a href="#robo176">CopyOutOfSyncMKSFiles</a>
+  <a href="#robo178">LBoundPart</a>
+  <a href="#robo177">GitCheckRepo</a>
+  <a href="#robo179">MKSCheckSandbox</a>
+  <a href="#robo180">RandDataFromArr</a>
+  <a href="#robo181">RandDataFromArrMess</a>
+  <a href="#robo182">RunLogInit</a>
+  <a href="#robo183">RunLogWrapUp</a>
+  <a href="#robo184">SetRandDataFromArrMessFields</a>
+</pre>
+
+<hr />
+<a name="TRChecksMod2fCopyOutOfSyncGitFiles"></a>
+<a name="robo175"></a><h2>TRChecksMod/CopyOutOfSyncGitFiles [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo13">TRChecksMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>CopyOutOfSyncGitFiles</strong>: This subroutine is used to copy over any Git
+  files that are out-of-sync into a specified location.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  subroutine <strong>CopyOutOfSyncGitFiles</strong>(outFolder, gitCheckLocation)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  outFolder: Location of output folder.
+</li>
+<li>  gitCheckLocation: This can either be a directory name or a file name.
+    If it is a file name, then it should be the name of the output of a
+    previous call to <a href="#robo177">GitCheckRepo</a>. If it is a directory name then it
+    should be the location of the Git repository to use (and an internal
+    call to <a href="#robo177">GitCheckRepo</a> will be made).
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: outFolder
+    character (len = *), intent(in) :: gitCheckLocation
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  This subroutine is used to make a copy of files that are out-of-sync with
+  the Git system. The files are copied into a subdirectory of the program's
+  output folder, passed in via 'outFolder'. If this subdirectory doesn't
+  already exist, then it will be created if there are any out-of-sync files.
+</p>
+
+<p>  To determine which files are out of sync, there should be a call to the
+  <a href="#robo177">GitCheckRepo</a> function. If the user has already called this function,
+  and the results are in an output file, then the name of that output file
+  should be passed in to this subroutine as 'gitCheckLocation'.
+</p>
+
+<p>  If the user has not already called <a href="#robo177">GitCheckRepo</a>, then this subroutine
+  will call it. In that case, the user should pass in the directory containing
+  the repository as 'gitCheckLocation'.
+</p>
+
+<hr />
+<a name="TRChecksMod2fCopyOutOfSyncMKSFiles"></a>
+<a name="robo176"></a><h2>TRChecksMod/CopyOutOfSyncMKSFiles [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo13">TRChecksMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>CopyOutOfSyncMKSFiles</strong>: This subroutine is used to copy over any MKS/PTC
+  Integrity files that are out-of-sync into a specified location.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  subroutine <strong>CopyOutOfSyncMKSFiles</strong>(outLocation, mksCheckLocation)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  outLocation: Location where any out-of-sync files will be copied.
+</li>
+<li>  mksCheckLocation: This can either be a directory name or a file name.
+    If it is a file name, then it should be the name of the output of a
+    previous call to <a href="#robo179">MKSCheckSandbox</a>. If it is a directory name then it
+    should be the location of the MKS/PTC sandbox to use (and an internal
+    call to <a href="#robo179">MKSCheckSandbox</a> will be made). 
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: outLocation
+    character (len = *), intent(in) :: mksCheckLocation
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  This subroutine is used to make a copy of files that are out-of-sync with
+  the MKS/PTC Integrity system. The files are copied into the 'outLocation'
+  directory, as specified by the user. If that directory doesn't already
+  exist, then it will be created if there are any out-of-sync files.
+</p>
+
+<p>  To determine which files are out of sync, there should be a call to the
+  <a href="#robo179">MKSCheckSandbox</a> function. If the user has already called this function,
+  and the results are in an output file, then the name of that output file
+  should be passed in to this subroutine as 'mksCheckLocation'.
+</p>
+
+<p>  If the user has not already called <a href="#robo179">MKSCheckSandbox</a>, then this subroutine
+  will call it. In that case, the user should pass in the directory containing
+  the sandbox as 'mksCheckLocation'.
+</p>
+
+<hr />
+<a name="TRChecksMod2fGitCheckRepo"></a>
+<a name="robo177"></a><h2>TRChecksMod/GitCheckRepo [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo13">TRChecksMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>GitCheckRepo</strong>: This function calls the CheckRepo program from the OCACT
+  Utilities Library (OUL).
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  integer function <strong>GitCheckRepo</strong>(repoLocation, outFile, outFileDetailed, &amp;
+    warn) result(rv)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  repoLocation: Input directory to CheckRepo.
+</li>
+<li>  outFile: Name of the output file.
+</li>
+<li>  outFileDetailed (optional): Name of the detailed output file.
+</li>
+<li>  warn: (optional) Warning message if files differ.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: repoLocation
+    character (len = *), intent(in) :: outFile
+    character (len = *), optional, intent(in) :: outFileDetailed
+    logical, optional, intent(in) :: warn
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Integer: Number of files with differences.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function calls the CheckRepo program from the OCACT Utilities
+  Library (OUL). It passes 'repoLocation' as the input directory to
+  CheckRepo, and passes 'outFile' and optionally, 'outFileDetailed' as the
+  names of the output files that will be created. See the CheckRepo
+  documentation from the OUL for more details on how this program works.
+</p>
+
+<p>  The return value for this function is the value that gets returned by the
+  'CheckRepo' program. This value should be negative if no repository
+  was checked (possibly due to an error occuring). If the repository was
+  checked, then the return value (0 or greater) represents the number
+  of files that differed from the files on the server.
+</p>
+
+<p>  If the 'warn' argument is passed in and it is false, then no warning message
+  will be printed. Otherwise, a warning meassage will be printed to
+  standard-out if the return value is at least 1. A list of files that
+  differ will be printed as part of this warning message.
+</p>
+
+<hr />
+<a name="TRChecksMod2fLBoundPart"></a>
+<a name="robo178"></a><h2>TRChecksMod/LBoundPart [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo13">TRChecksMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>LBoundPart</strong>: This function returns the lower bounds of an array.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  integer function <strong>LBoundPart</strong>(lBounds, str) result(rv)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  lBounds: Integer array (of size equal to the rank of 'arr'). Lower bounds
+    of the array.
+</li>
+<li>  str: Up to 7 characters long and should consist of only the letters 't'
+    or 'f'.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    integer, dimension(:), intent(in) :: lBounds
+    character (len = *), intent(in) :: str
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  1-dimensional array of integers (of size 7): Lower bounds of an arrary
+  along the dimensions specified in 'str'.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function returns the lower bounds of an array along the dimensions
+  specified in 'str'. The array itself is not passed to the function;
+  instead the lower bounds of the array are passed in as 'lBounds'.
+  These are easily obtained using the Fortran instrinsic function,
+  lbound, on the array.
+</p>
+
+<p>  The string 'str' is up to 7 characters long and
+  should consist of only the letters 't' or 'f' (upper or lower case).
+  Each 't' means that the lower bound of that dimension should be
+  returned and each 'f' means that it should be skipped. The dimension
+  corresponds to the placement of the character in the string.
+</p>
+
+<p>  For example, if the array 'arr' is dimensioned by year (2006 - 2085),
+  age (20 - 64), and sex (1 - 2), and you want the lower bounds of the
+  last two dimension, then use this function call:
+</p>
+<pre>    <strong>LBoundPart</strong>(lbound(arr), "FTT"). 
+</pre>
+<p>  This will return the following array
+  of 7 integers containing a 20, then a 1, and then 5 undefined values.
+  When passing the results of this function as the second argument to
+  the function '<a href="#robo181">RandDataFromArrMess</a>', then '<a href="#robo181">RandDataFromArrMess</a>' is
+  careful to make sure not to try to access any of the undefined values
+  of the array.
+</p>
+
+<hr />
+<a name="TRChecksMod2fMKSCheckSandbox"></a>
+<a name="robo179"></a><h2>TRChecksMod/MKSCheckSandbox [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo13">TRChecksMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>MKSCheckSandbox</strong>: This function calls the CheckSandbox program from the OCACT
+  Utilities Library (OUL).
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  integer function <strong>MKSCheckSandbox</strong>(sandboxLocation, outFile, warn) result(rv)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  sandboxLocation: Input directory to CheckSandbox.
+</li>
+<li>  outFile: Name of the output file.
+</li>
+<li>  warn: (optional) Warning message if files differ.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: sandboxLocation
+    character (len = *), intent(in) :: outFile
+    logical, optional, intent(in) :: warn
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Integer: Number of files with differences.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function calls the CheckSandbox program from the OCACT Utilities
+  Library (OUL). It passes 'sandboxLocation' as the input directory to
+  CheckSandbox, and passes 'outFile' as the name of the output file
+  that will be created. See the CheckSandbox documentation from the
+  OUL for more details on how this program works.
+</p>
+
+<p>  The return value for this function is the value that gets returned by the
+  'CheckSandbox' program. This value should be negative if no sandbox
+  was checked (possibly due to an error occuring). If the sandbox was
+  checked, then the return value (0 or greater) represents the number
+  of files that differed from the files on the server.
+</p>
+
+<p>  If the 'warn' argument is passed in and it is false, then no warning message
+  will be printed. Otherwise, a warning meassage will be printed to
+  standard-out if the return value is at least 1. A list of files that
+  differ will be printed as part of this warning message.
+</p>
+
+<hr />
+<a name="TRChecksMod2fRandDataFromArr"></a>
+<a name="robo180"></a><h2>TRChecksMod/RandDataFromArr [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo13">TRChecksMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>RandDataFromArr</strong>: The function returns a random data point from an array.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  integer function <strong>RandDataFromArr</strong>(arr, lbounds, indices) result(randData)
+!  real function <strong>RandDataFromArr</strong>(arr, lbounds, indices) result(randData)
+!  double precision function <strong>RandDataFromArr</strong>(arr, lbounds, indices) &amp;
+!    result(randData)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  arr: Array of integers, reals, or double precisions (of any size, and of
+    rank between 1 and 7).
+</li>
+<li>  lbounds: Integer array (of size equal to the rank of 'arr'). Lower bound of
+    each rank of 'arr'.
+</li>
+<li>  indices: Integer array (of size equal to the rank of 'arr'). Indices of the
+    selected random point.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">!  See ARGUMENTS section.
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Integers, reals, or double precision (the same type as 'arr'): Random data
+  point.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function takes an array of any number of elements, and any rank
+  between 1 and 7. It returns a random data point from that array. The
+  indices of the selected random point are returned in 'indices'. The
+  array 'lbounds' should hold the lower bound of each rank of 'arr'.
+  This will almost always be passed in using the function lbound:
+  lbound(arr). In order for this function to pick a random element, the
+  <a href="./RandomMod_f90.html#robo6">RandomMod</a> must have been initialized (with a call to
+  <a href="./RandomMod_f90.html#robo111">InitRandomModule</a>()). Here is an example:
+</p>
+<pre>      use <a href="./RandomMod_f90.html#robo6">RandomMod</a>
+      use <a href="#robo13">TRChecksMod</a>
+      ! numPeople holds the number of people by sex and age for each year.
+      integer, dimension(2000:2080, 1:2, 0:100) :: numPeople
+      ! Since numPeople is of rank 3 (i.e. a 3-dimension array, by year,
+      ! sex and age), then this variable should be an array to hold 3
+      ! integers.
+      integer, dimension(3) :: indices
+      ! This variable will hold the random number returned.
+      integer :: rand
+      integer :: i, j, k
+      ...  !
+      ...  ! Some code here to load data into numPeople.
+      ...  !
+      ! Use exactly one of the following two lines. The first will give
+      ! a reproducable random number stream -- i.e. you'll get the same
+      ! results every time you run the program. To change the results
+      ! and still get a reproducable stream, just change the seed, which
+      ! is currently set to 1. It can be any positive integer. To get a
+      ! different random number every time you run the program use the
+      ! second line.
+      !call <a href="./RandomMod_f90.html#robo111">InitRandomModule</a>((/1/))
+      call <a href="./RandomMod_f90.html#robo111">InitRandomModule</a>(1)
+      rand = <strong>RandDataFromArr</strong>(numPeople, lbound(numPeople), indices)
+      i = indices(1)
+      j = indices(2)
+      k = indices(3)
+      ! This next line should print the same integer number twice.
+      write(6, '(2I)') numPeople(i, j, k), rand
+</pre>
+<p>  In the above example notice that you must have two "use" statements.
+  Also notice that you must call <a href="./RandomMod_f90.html#robo111">InitRandomModule</a> before and calls to
+  <strong>RandDataFromArr</strong>. Finally, notice that 'indices' is used solely for
+  the purpose of returning the values of the indices at which 'arr' was
+  referenced. It is not given any values to be passed into
+  <strong>RandDataFromArr</strong>, and if it were, they would be erased. In all cases,
+  the second argument passed to <strong>RandDataFromArr</strong> will probably be
+  lbound(arr).
+</p>
+
+<hr />
+<a name="TRChecksMod2fRandDataFromArrMess"></a>
+<a name="robo181"></a><h2>TRChecksMod/RandDataFromArrMess [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo13">TRChecksMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>RandDataFromArrMess</strong>: The function returns a random data point from an array
+  printed in a message.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  subroutine <strong>RandDataFromArrMess</strong>(arr, lbounds, descr, indexNames, fileNum, &amp;
+!    fixedWidth, prec)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  arr: Array of integers, reals, or double precisions (of any size, and of
+    rank between 1 and 7).
+</li>
+<li>  lbounds: Integer array (of size equal to the rank of 'arr'). Lower bound of
+    each rank of 'arr'.
+</li>
+<li>  descr: Character string (of variable length). Description of the data that
+    the array holds.
+</li>
+<li>  indexNames: Character string array (of size equal to the rank of 'arr',
+    and the size of each string is variable). Strings that desribe each
+    dimension of the array.
+</li>
+<li>  fileNum: Output file as an integer.
+</li>
+<li>  fixedWidth: (optional) Format of output message. False for standard format,
+    and true for fixed field sizes.
+</li>
+<li>  prec: (optional) Number of decimal places in the output data file as an
+    integer.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">!  See ARGUMENTS section.
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  This subroutine is similar to <a href="#robo180">RandDataFromArr</a>, but instead of returning
+  the indices of the array that were used (in 'indices', as <a href="#robo180">RandDataFromArr</a>) it
+  prints out a nice generic message stating the indices. The array passed
+  in, 'arr', has the same restrictions as <a href="#robo180">RandDataFromArr</a> (rank no bigger
+  than 7) and 'lbounds' is exactly the same as <a href="#robo180">RandDataFromArr</a>. A string that
+  is a description of the data that the array holds is in 'descr'. Often
+  'descr' may just hold the name of the array, 'arr', as a text string.
+  The array 'indexNames' holds strings that describe each dimension of
+  the 'arr'. The output message is printed to the file pointed to by
+  'fileNum'. It is assumed that this file has been previously opened. If
+  'fileNum' is 6, then the message will go to standard output, which is
+  usually the screen (unless it has been redirected).
+  If 'fixedWidth' is false or omitted, the output message will be of
+  the format:
+</p>
+<pre>    descr: indexNames(1) = ???, ..., data = ???
+</pre>
+<p>  where, the question marks are replaced by a number depending on the
+  results of the random selection; and 3 dots are replaced by any more
+  indexNames if the array passed in was bigger than rank 1.
+  If 'fixedWidth' is true, the output message will be the same
+  as above, but the formatting will be different  -- it will be more
+  of a tabular format (with fixed field sizes). The portion "descr:"
+  will be in the first field; the portion "indexNames(1) = ???, ..."
+  will be in the second field; and the portion "data = ???" will
+  be in the third field. The default sizes for these 3 fields are
+  20, 40, and 20, respectively. If you want to change these sizes, use
+  the subroutine <a href="#robo184">SetRandDataFromArrMessFields</a>. See the documentation
+  for <a href="#robo184">SetRandDataFromArrMessFields</a> for more details.
+  If 'prec' is omitted, then the data field will be printed out with 6
+  decimal places of precision. If it is not omitted, it will be printed
+  out with however many decimal places are specified by 'prec'.
+  Here is an example:
+</p>
+<pre>      use <a href="./RandomMod_f90.html#robo6">RandomMod</a>
+      use <a href="#robo13">TRChecksMod</a>
+      ! numPeople holds the number of people by sex and age for each year.
+      integer, dimension(2000:2080, 1:2, 0:100) :: numPeople
+      ! Since numPeople is of rank 3 (i.e. a 3-dimension array, by year,
+      ! sex and age), then this variable should be an array to hold 3
+      ! integers.
+      integer, dimension(3) :: indices
+      ! This variable will hold the random number returned.
+      integer :: rand
+      integer :: i, j, k
+      ...  !
+      ...  ! Some code here to load data into numPeople. Let's assume
+      ...  ! that numPeople(2043, 2, 14) = 125169.
+      ...  !
+      ! Use exactly one of the following two lines. The first will give
+      ! a reproducable random number stream -- i.e. you'll get the same
+      ! results every time you run the program. To change the results
+      ! and still get a reproducable stream, just change the seed, which
+      ! is currently set to 1. It can be any positive integer. To get a
+      ! different random number every time you run the program use the
+      ! second line.
+      !call <a href="./RandomMod_f90.html#robo111">InitRandomModule</a>((/1/))
+      call <a href="./RandomMod_f90.html#robo111">InitRandomModule</a>(1)
+      call <strong>RandDataFromArrMess</strong>(numPeople, lbound(numPeople), "numPeople", &amp;
+             (/"year", "sex", "age"/), 6)
+      ! This above line should print to the screen a message like this:
+      !   numPeople: year = 2043, sex = 2, age = 14, data = 125169
+      ! Of course, the above message will vary depending on the random
+      ! array element that is actually chosen.
+</pre>
+<p></p>
+
+<hr />
+<a name="TRChecksMod2fRunLogInit"></a>
+<a name="robo182"></a><h2>TRChecksMod/RunLogInit [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo13">TRChecksMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>RunLogInit</strong>: This subroutine is used to populate the contents of a run log
+  file with general log information including the date/time that the run was
+  started.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  subroutine <strong>RunLogInit</strong>(runLogUnitNum, comments)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  runLogUnitNum: Unit number of the run log file. This file should already
+    be open.
+</li>
+<li>  comments: (optional) A description, notes, or comments that will be put
+    in the run log file.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    integer, intent(in) :: runLogUnitNum
+    character (len = *), optional, intent(in) :: comments
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  This subroutine is used to populate the contents of a run log file with
+  general log information including the date/time that the run was started.
+  The run log file should be a file that is already open. The associated unit
+  number is passed in as the first argument to this subroutine. This subroutine
+  should typically be called near the beginning of the program and will create
+  a "header" for the run log file. The header contains information about the
+  run. The second argument, "comments", is optional. If passed in, then the
+  text contained in that variable will be put in the run log file, preceeded
+  by "Comments: ". However, if it is passed in and is empty, then the run log
+  file will contain a line like this: "Comments: [None]".
+</p>
+
+<p>  These are the lines that are written to the run log file:
+</p>
+<ul><li>  The full path of the program executable.
+</li>
+<li>  The user's PIN (and name, if it can be obtained from the PIN with "WhoIs").
+</li>
+<li>  The start date of the run.
+</li>
+<li>  The start time of the run.
+</li>
+<li>  The compiler version used for compiling the OFL.
+</li>
+<li>  The version number of the OFL.
+</li>
+<li>  Comments (optional).
+</li>
+</ul>
+<p>
+  In programs that call this subroutine, there is typically also a call to
+  '<a href="#robo183">RunLogWrapUp</a>' somewhere near the end of the program.
+</p>
+
+<hr />
+<a name="TRChecksMod2fRunLogWrapUp"></a>
+<a name="robo183"></a><h2>TRChecksMod/RunLogWrapUp [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo13">TRChecksMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>RunLogWrapUp</strong>: This subroutine is used to populate the contents of a run log
+  file with information about the date/time that the run was completed.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  subroutine <strong>RunLogWrapUp</strong>(runLogUnitNum)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  runLogUnitNum: Unit number of the run log file. This file should already
+    be open.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    integer, intent(in) :: runLogUnitNum
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  This subroutine is used to populate the contents of a run log file with
+  information about the date/time that the run was completed. The run log file
+  should be a file that is already open. The associated unit number is passed
+  in as the argument to this subrouinte. This subroutine should typically be
+  called near the end of the program and will create a "footer" for the run
+  log file. The footer contains information about when the run ended.
+</p>
+
+<p>  These are the lines that are written to the run log file:
+</p>
+<ul><li>  The completion date of the run.
+</li>
+<li>  The completion time of the run.
+</li>
+</ul>
+<p>
+  In programs that call this subroutine, there is typically also a call to
+  '<a href="#robo182">RunLogInit</a>' somewhere near the beginning of the program.
+</p>
+
+<hr />
+<a name="TRChecksMod2fSetRandDataFromArrMessFields"></a>
+<a name="robo184"></a><h2>TRChecksMod/SetRandDataFromArrMessFields [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo13">TRChecksMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>SetRandDataFromArrMessFields</strong>: This subroutine is used to set the field sizes
+  used by the subroutine <a href="#robo181">RandDataFromArrMess</a>.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  subroutine <strong>SetRandDataFromArrMessFields</strong>(field1, field2, field3)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  field1: Size to be used for the first field of output.
+</li>
+<li>  field2: Size to be used for the second field of output.
+</li>
+<li>  field3: Size to be used for the third field of output.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    integer, intent(in) :: field1
+    integer, intent(in) :: field2
+    integer, intent(in) :: field3
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  This subroutine is used to set the field sizes used by the subroutine
+  <a href="#robo181">RandDataFromArrMess</a>.  The value in 'field1' is the size to be used
+  for the first field of output (the description string). The value in
+  'field2' is the size to be used for the second field of output (the
+  data indices field). The value in 'field3' is the size to be used
+  for the third field of output (the data point field). See the
+  documentation of <a href="#robo181">RandDataFromArrMess</a> for more details.
+</p>
+
+</div> <!-- content -->
+<div id="footer">
+<p>Generated from ./source/TRChecksMod.f90 with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.36 on Tue May 09 2023 10:30:03
+</p>
+</div> <!-- footer -->
+</body>
+</html>

@@ -1,0 +1,816 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>./source/StringsMod.f90</title>
+<!-- Source: ./source/StringsMod.f90 -->
+<!-- Generated with ROBODoc Version 4.99.36 (Apr 25 2008) -->
+</head>
+<body>
+<div id="logo">
+<a name="robo_top_of_doc"></a>
+</div> <!-- logo -->
+<div id="navigation">
+<a class="menuitem" href="./toc_index.html#top">Table of Contents</a>
+<a class="menuitem" href="./robo_sourcefiles.html#top">Sourcefiles</a>
+<a class="menuitem" href="./masterindex.html#top">Index</a>
+<a class="menuitem" href="./robo_functions.html#top">Functions</a>
+<a class="menuitem" href="./robo_modules.html#top">Modules</a>
+</div> <!-- navigation -->
+<div id="content">
+<h3>TABLE OF CONTENTS</h3>
+<ul>
+<li>1. <a href="#robo12">source/StringsMod</a></li>
+<ul>
+<li>1.1. <a href="#robo158">StringsMod/AscToDoublePrec</a></li>
+<li>1.2. <a href="#robo159">StringsMod/AscToInt</a></li>
+<li>1.3. <a href="#robo160">StringsMod/AscToLogical</a></li>
+<li>1.4. <a href="#robo161">StringsMod/AscToReal</a></li>
+<li>1.5. <a href="#robo162">StringsMod/DoublePrecToAsc</a></li>
+<li>1.6. <a href="#robo163">StringsMod/IntToAsc</a></li>
+<li>1.7. <a href="#robo164">StringsMod/IsAlpha</a></li>
+<li>1.8. <a href="#robo165">StringsMod/IsDigit</a></li>
+<li>1.9. <a href="#robo166">StringsMod/IsNumeric</a></li>
+<li>1.10. <a href="#robo167">StringsMod/Left</a></li>
+<li>1.11. <a href="#robo168">StringsMod/LogicalToAsc</a></li>
+<li>1.12. <a href="#robo169">StringsMod/NumToAsc</a></li>
+<li>1.13. <a href="#robo170">StringsMod/ParseLine</a></li>
+<li>1.14. <a href="#robo171">StringsMod/RealToAsc</a></li>
+<li>1.15. <a href="#robo172">StringsMod/Right</a></li>
+<li>1.16. <a href="#robo173">StringsMod/ToLower</a></li>
+<li>1.17. <a href="#robo174">StringsMod/ToUpper</a></li>
+</ul>
+</ul>
+<hr />
+<a name="source2fStringsMod"></a>
+<a name="robo12"></a><h2>source/StringsMod [ Modules ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_modules.html#robo_top_of_doc">Modules</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>StringsMod</strong>: OcactFortLib <strong>StringsMod</strong> module.
+</p>
+<p class="item_name">REVISION</p>
+<p>  Revision: 1.20
+</p>
+<p class="item_name">MODULE DESCRIPTION</p>
+<p>  The <strong>StringsMod</strong> module contains subroutines and functions that are used to
+  manipulate character strings. The <strong>StringsMod</strong> can be used to:
+</p>
+<ul><li>  Convert Ascii to Int/Real/DoublePrec or convert Int/Real/DoublePrec to
+    Ascii.
+</li>
+<li>  Identify a character string as an alphabetical character or a digit.
+</li>
+<li>  Parse a character string.
+</li>
+<li>  Convert a character string to upper-case or lower-case letters.
+</li>
+<li>  Create a string from the first or last characters (or digits) of another
+    string (or number).
+</li>
+</ul>
+<p></p>
+<p class="item_name">MODULE ROUTINES</p>
+<pre>  <a href="#robo158">AscToDoublePrec</a>
+  <a href="#robo159">AscToInt</a>
+  <a href="#robo160">AscToLogical</a>
+  <a href="#robo161">AscToReal</a>
+  <a href="#robo162">DoublePrecToAsc</a>
+  <a href="#robo163">IntToAsc</a>
+  <a href="#robo164">IsAlpha</a>
+  <a href="#robo165">IsDigit</a>
+  <a href="#robo166">IsNumeric</a>
+  <a href="#robo167">Left</a>
+  <a href="#robo168">LogicalToAsc</a>
+  <a href="#robo169">NumToAsc</a>
+  <a href="#robo170">ParseLine</a>
+  <a href="#robo171">RealToAsc</a>
+  <a href="#robo172">Right</a>
+  <a href="#robo173">ToLower</a>
+  <a href="#robo174">ToUpper</a>
+</pre>
+
+<hr />
+<a name="StringsMod2fAscToDoublePrec"></a>
+<a name="robo158"></a><h2>StringsMod/AscToDoublePrec [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo12">StringsMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>AscToDoublePrec</strong>: This function takes a character variable holding a double
+  precision and returns the double precision.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  double precision function <strong>AscToDoublePrec</strong>(asc, extraCheck) result(float)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  asc: Character variable holding a double precision (or integer).
+</li>
+<li>  extraCheck: (optional) If an error occurs and extraCheck is true or
+    omitted, an error message is printed and the program terminates. If
+    extraCheck is false, the function returns a 0.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: asc
+    logical, optional, intent(in) :: extraCheck
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Double Precision: Double precision value of an ascii character string.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function takes a character variable holding a double precision
+  (or integer) and returns it as a double precision. For example, if
+  the variable 'char1' is a character string and holds the value
+  "135", then the function call <strong>AscToDoublePrec</strong>(char1) will return
+  135 as a double precision. If 'char1' holds "135.7" then the call
+  <strong>AscToDoublePrec</strong>(char1) will return the double precision 135.7. If
+  'char1' holds "-135.7" then <strong>AscToDoublePrec</strong> will return the double
+  precision number -135.7.
+</p>
+
+<p>  If 'asc' is an empty string (i.e.
+  trim(asc) = "") and 'extraCheck' is true or omitted, then an error
+  message is printed out and the program terminates. But if
+  'errorCheck' is false then the funtion returns 0.0d0. If 'asc' is
+  not an empty string, then 'errorCheck' has no affect.
+</p>
+
+<hr />
+<a name="StringsMod2fAscToInt"></a>
+<a name="robo159"></a><h2>StringsMod/AscToInt [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo12">StringsMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>AscToInt</strong>: This function takes a character variable holding an integer and
+  returns the integer.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  integer function <strong>AscToInt</strong>(asc, extraCheck) result(int)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  asc: Character variable holding an integer.
+</li>
+<li>  extraCheck: (optional) If an error occurs and extraCheck is true or
+    omitted, an error message is printed and the program terminates. If
+    extraCheck is false, the function returns a 0.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: asc
+    logical, optional, intent(in) :: extraCheck
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Integer: Integer value of an ascii character string.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function takes a character variable holding an integer and returns
+  the integer. For example, if the variable 'char1' is a character
+  string and holds the value "135", then the function call
+  <strong>AscToInt</strong>(char1) will return 135 as an integer. If 'char1' holds
+  "-135", then <strong>AscToInt</strong>(char1) will return the integer value -135. If
+  'asc' is an empty string (i.e. trim(asc) = "") and 'extraCheck' is
+  true or omitted, then an error message is printed out and the program
+  terminates. But if 'errorCheck' is false then the function returns 0.
+  If 'asc' is not an empty string, then 'errorCheck' has no affect.
+</p>
+
+<hr />
+<a name="StringsMod2fAscToLogical"></a>
+<a name="robo160"></a><h2>StringsMod/AscToLogical [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo12">StringsMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>AscToLogical</strong>: This function takes a character string as an argument 
+  and returns a logical value.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  logical function <strong>AscToLogical</strong>(asc) result(tf)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  asc: Character variable holding an logical.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: asc
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Logical value of an ascii character string.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function takes a character string as an argument and returns a logical
+  value, either .true. (if the string "True", "true", "T", or "t" was passed
+  in) or .false. (if the string "False", "false", "F", or "f" was passed in)
+</p>
+
+<hr />
+<a name="StringsMod2fAscToReal"></a>
+<a name="robo161"></a><h2>StringsMod/AscToReal [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo12">StringsMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>AscToReal</strong>: This function takes a character variable holding a real and
+  returns the real.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  real function <strong>AscToReal</strong>(asc, extraCheck) result(float)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  asc: Character variable holding a real (or integer).
+</li>
+<li>  extraCheck: (optional) If an error occurs and extraCheck is true or
+    omitted, an error message is printed and the program terminates. If
+    extraCheck is false, the function returns a 0.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: asc
+    logical, optional, intent(in) :: extraCheck
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Real: Real value of an ascii character string.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function takes a character variable holding a real (or integer)
+  and returns it as a real. For example, if the variable 'char1' is a
+  character string and holds the value "135", then the function call
+  <strong>AscToReal</strong>(char1) will return 135 as a real. If 'char1' holds "135.7"
+  then the call '<strong>AscToReal</strong>' will return the real 135.7. If 'char1'
+  holds "-135.7" then <strong>AscToReal</strong> will return the real -135.7. If 'asc'
+  is an empty string (i.e. trim(asc) = "") and 'extraCheck' is true
+  or omitted, then an error message is printed out and the program
+  terminates. But if 'errorCheck' is false then the funtion returns 0.0.
+  If 'asc' is not an empty string, then 'errorCheck' has no affect.
+</p>
+
+<hr />
+<a name="StringsMod2fDoublePrecToAsc"></a>
+<a name="robo162"></a><h2>StringsMod/DoublePrecToAsc [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo12">StringsMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>DoublePrecToAsc</strong>: This function returns a double precision value as an ascii
+  character string.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  MAX_CHAR_LENGTH is set equal to 10,000.
+  character (len = MAX_CHAR_LENGTH) function <strong>DoublePrecToAsc</strong>(float, numDec, &amp;
+    useCommas) result(asc)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  float: Double precision to be returned as a character string value.
+</li>
+<li>  numDec: Number of decimal places.
+</li>
+<li>  useCommas: (optional) If true, commas will be inserted in the returned
+    string.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    double precision, intent(in) :: float
+    integer, intent(in) :: numDec
+    logical, optional, intent(in) :: useCommas
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Character string (of length 10000): Ascii character string value of a
+  double precision.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function takes a double precision (in the argument 'float') that can
+  be positive or negative and returns the double precision as an ascii
+  character string. The argument 'numDec' is number of decimal places
+  to be displayed in the string. This function can be thought of as the
+  inverse of the function '<a href="#robo158">AscToDoublePrec</a>' as long as the appropriate
+  number of decimal places is passed in.
+</p>
+
+<p>  For example, if the variable 'd' is a double precision and it holds the value
+  75.123, then <strong>DoublePrecToAsc</strong>(d, 3) will return a character string containing
+  "75.123" filled with spaces to the right. Also, <strong>DoublePrecToAsc</strong>(d, 4)
+  will return "75.1230" (filled with spaces to the right), and
+  <strong>DoublePrecToAsc</strong>(d, 0) will return "75." (filled with spaces to the
+  right).
+</p>
+
+<p>  If 'useCommas' is passed in, and is .true., then commas
+  will be inserted in the returned string. Otherwise, commas will be
+  omitted. For example, <strong>DoublePrecToAsc</strong>(1234.5, 1, .true.) will return
+  the string "1,234.5" (filled with spaces to the right).
+</p>
+
+<hr />
+<a name="StringsMod2fIntToAsc"></a>
+<a name="robo163"></a><h2>StringsMod/IntToAsc [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo12">StringsMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>IntToAsc</strong>: This function takes an integer and returns the integer as an ascii
+  character string.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  MAX_CHAR_LENGTH is set equal to 10,000.
+  character (len = MAX_CHAR_LENGTH) function <strong>IntToAsc</strong>(integ, numDec, &amp;
+    useCommas) result(asc)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  integ: Integer to be returned as a character string value.
+</li>
+<li>  numDec: (optional) Number of decimal places.
+</li>
+<li>  useCommas: (optional) If true, commas will be inserted in the returned
+    string.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    integer, intent(in) :: integ
+    integer, optional, intent(in) :: numDec
+    logical, optional, intent(in) :: useCommas
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Character string (of length 10000): Ascii character string value of an
+  integer.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function takes an integer that can be positive or negative and
+  returns the integer as an ascii character string. The integer must
+  be at least -2147483648 and at most 2147483647. This function can
+  be thought of as the inverse of the function '<a href="#robo159">AscToInt</a>'.
+</p>
+
+<p>  For example, if the variable 'i' is an integer and it holds the value
+  75, then <strong>IntToAsc</strong>(i) will return a character string containing "75"
+  followed by 9998 spaces. Also, if 'i' is as above, then
+  <a href="#robo159">AscToInt</a>(<strong>IntToAsc</strong>(i)) will return the integer 75.
+</p>
+
+<p>  If 'numDec' is passed in, then the resulting string will have a decimal
+  point in it. This decimal point will be followed by however many zeros are
+  specified by numDec. For example, 'i' is as above, then
+  <strong>IntToAsc</strong>(i, 0) will return the string containing "75." followed
+  by 9997 spaces. Also, <strong>IntToAsc</strong>(i, 4) will return the string
+  containing "75.0000" followed by 9993 spaces.
+</p>
+
+<p>  If 'useCommas' is passed in, and is .true., then commas will be inserted in
+  the returned string. Otherwise, commas will be omitted. For example,
+  <strong>IntToAsc</strong>(1234567, useCommas = .true.) will return the string
+  "1,234,567" followed by 9991 spaces.
+</p>
+
+<hr />
+<a name="StringsMod2fIsAlpha"></a>
+<a name="robo164"></a><h2>StringsMod/IsAlpha [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo12">StringsMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>IsAlpha</strong>: This function determines if the first character of the passed in
+  string is an alphabetical character.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  logical function <strong>IsAlpha</strong>(c) result(res)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  c: Character string to be determined if it is alphabetical.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = 1), intent(in) :: c
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Logical: Returns true if the first character is alphabetical, otherwise
+  returns false.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function takes the passed in character string and only looks at
+  the first character of it. If this character is an alphabetical
+  character (i.e. a letter, either lower-case or upper-case), then it
+  returns true, otherwise it returns false.
+</p>
+
+<hr />
+<a name="StringsMod2fIsDigit"></a>
+<a name="robo165"></a><h2>StringsMod/IsDigit [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo12">StringsMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>IsDigit</strong>: This function determines if the passed in character is a digit.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  logical function <strong>IsDigit</strong>(c) result(res)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  c: Character to be determined if it is a digit.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = 1), intent(in) :: c
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Logical: Returns true if the character is a digit, otherwise returns false.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function takes the passed in character string (of length 1, i.e., a
+  single character) and determines if this character is a digit (i.e. 0
+  through 9), then it returns true, otherwise it returns false.
+</p>
+
+<hr />
+<a name="StringsMod2fIsNumeric"></a>
+<a name="robo166"></a><h2>StringsMod/IsNumeric [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo12">StringsMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>IsNumeric</strong>: This function determines if all characters of the passed in
+  string are digits.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  logical function <strong>IsNumeric</strong>(str) result(res)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  str: Character string to be determined if all characters are digits.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: str
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Logical: Returns true if all characters are digits, otherwise
+  returns false.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function takes the passed in character string and looks at
+  each character of it. If each character is a digit (i.e. 0
+  through 9), then it returns true, otherwise it returns false.
+  If the string is an empty string, then it returns false.
+</p>
+
+<hr />
+<a name="StringsMod2fLeft"></a>
+<a name="robo167"></a><h2>StringsMod/Left [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo12">StringsMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>Left</strong>: This function returns the left-most characters (or digits) of
+  a string (or number).
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  character (len = numChars) function <strong>Left</strong>(arg, numChars) result(asc)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  arg: Character string or number (integer, real, or double precision),
+    part of which is to be returned as a character string.
+</li>
+<li>  numChars: Number of left-most characters to return.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">!  See ARGUMENTS section.
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Character string (of length numChars): An ascii character string.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function takes a character string or a number (integer, real,
+  or double precision), and the number of left-most characters (or digits)
+  it should return.
+</p>
+
+<p>  The returned string somewhat depends on the variable type of 'arg':
+</p>
+<ul><li>  If 'arg' is a character string, then it returns a substring of 'arg'
+    with the first (i.e., left-most) 'numChars' characters. If 'numChars'
+    is larger than the number of characters in 'arg' then the string
+    returned is padded with trailing spaces.
+</li>
+<li>  If 'arg' is an integer, then it returns a string representing the first
+    (i.e., left-most) 'numChars' digits of 'arg'. If 'numChars' is larger
+    than the number of digits in 'arg', then the string returned is padded
+    with trailing spaces.
+</li>
+<li>  If 'arg' is a real or double precision, then it returns a string
+    representing the first (i.e., left-most) 'numChars' digits of 'arg',
+    with the possible decimal point being counted as one of the characters.
+    Note that if 'numChars' is larger than the amount of precision that can
+    be stored in the number, then the trailing digits returned will not be
+    meaningful. Also note that there will be no padding with trailing spaces.
+</li>
+</ul>
+<p></p>
+
+<hr />
+<a name="StringsMod2fLogicalToAsc"></a>
+<a name="robo168"></a><h2>StringsMod/LogicalToAsc [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo12">StringsMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>LogicalToAsc</strong>: This function takes a logical value as an argument 
+  and returns a character string.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  character (len = 5) function <strong>LogicalToAsc</strong>(lg, fullWord) result(asc)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  lg: Logical to be returned as a character string value.  
+</li>
+<li>  fullWord: (optional) If passed in, the routine will return either “True ”
+    or “False”. If omitted or false, the routine will return either “T    ”
+    or “F    ”.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    logical, intent(in)  :: lg
+    logical, optional  :: fullWord
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  An ASCII character string from a logical input.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function takes a logical value as an argument (i.e., .true. or .false.),
+  and an optional second logical argument called “fullWord”.   It returns a
+  five character string.  If “fullWord” was omitted or false, then the routine
+  returns either “T” for true or “F” for false (based on the first argument
+  passed in).  If “fullWord” is passed in and is true, then the routine
+  returns either “True” or “False” (based on the first argument passed in).
+</p>
+
+<hr />
+<a name="StringsMod2fNumToAsc"></a>
+<a name="robo169"></a><h2>StringsMod/NumToAsc [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo12">StringsMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>NumToAsc</strong>: This function is a generic function for '<a href="#robo163">IntToAsc</a>', '<a href="#robo171">RealToAsc</a>',
+  and '<a href="#robo162">DoublePrecToAsc</a>'.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  MAX_CHAR_LENGTH is set equal to 10,000.
+!  character (len = MAX_CHAR_LENGTH) function <strong>NumToAsc</strong>(num, numDec, useCommas) &amp;
+!    result(asc)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  num: Integer, real, or double precision to be returned as a character
+    string value.
+</li>
+<li>  numDec: (may be optional) Number of decimal places. Optional if 'num' is
+    an integer, otherwise required.
+</li>
+<li>  useCommas: (optional) If true, commas will be inserted in the returned
+    string.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">!  See ARGUMENTS section.
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Character string (of length 10000): An ascii character string.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function is a generic function for '<a href="#robo163">IntToAsc</a>', '<a href="#robo171">RealToAsc</a>',
+  and '<a href="#robo162">DoublePrecToAsc</a>'. If 'num' is an integer then 'numDec'
+  is optional (as it is for '<a href="#robo163">IntToAsc</a>'). If 'num' is a real or
+  double precision then 'numDec' is required (as it is for
+  '<a href="#robo171">RealToAsc</a>' and '<a href="#robo162">DoublePrecToAsc</a>'). The argument 'useCommas' is
+  always optional. See the documentation for '<a href="#robo163">IntToAsc</a>',
+  '<a href="#robo171">RealToAsc</a>', and '<a href="#robo162">DoublePrecToAsc</a>' for more details and examples.
+</p>
+
+<hr />
+<a name="StringsMod2fParseLine"></a>
+<a name="robo170"></a><h2>StringsMod/ParseLine [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo12">StringsMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ParseLine</strong>: This function is used to parse a line where the tokens are
+  separated by spaces or some other specified character or set of characters.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  MAX_CHAR_LENGTH is set equal to 10,000.
+  character (len = MAX_CHAR_LENGTH) function <strong>ParseLine</strong>(line, sep) result(token)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  line: Character string line to be parsed.
+</li>
+<li>  sep: (optional)
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(inout) :: line
+    character (len = *), optional, intent(in) :: sep
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Character string (of length 10000): Single token of a parsed line.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function is used to parse a line where the tokens (items to be
+  parsed) are separated by spaces or some other specified character or set of
+  characters. The character set to be used as separators are specified in
+  'sep', if passed in. If it is not passed in, the default character is the
+  space character. This function will remove any leading separators from 'line'
+  and then search for the next separator in 'line'. The returned character
+  string will be the characters found until the first separator (ignoring
+  leading sseparators) is encountered. The returned character string can
+  easily be converted into an integer, real, or double precision, using the
+  '<a href="#robo159">AscToInt</a>', '<a href="#robo161">AscToReal</a>', or '<a href="#robo158">AscToDoublePrec</a>' functions in this module.
+  If a separator is not found within the first 10000 characters of 'line',
+  then the first 10000 characters are returned as the token.
+</p>
+
+<p>  IMPORTANT NOTE: In addition to this function returning the first token from
+  'line', it also modifies 'line' so that the first token is removed.
+  This allows a character string to be easily broken into its tokens
+  by succesive calls to <strong>ParseLine</strong> (perhaps in a loop), without the
+  calling module needing to modify 'line'.
+</p>
+
+<hr />
+<a name="StringsMod2fRealToAsc"></a>
+<a name="robo171"></a><h2>StringsMod/RealToAsc [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo12">StringsMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>RealToAsc</strong>: This function returns a real as an ascii character string.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  MAX_CHAR_LENGTH is set equal to 10,000.
+  character (len = MAX_CHAR_LENGTH) function <strong>RealToAsc</strong>(float, numDec, &amp;
+    useCommas) result(asc)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  float: Real to be returned as a character string value.
+</li>
+<li>  numDec: Number of decimal places.
+</li>
+<li>  useCommas: (optional) If true, commas will be inserted in the returned
+    string.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    real, intent(in) :: float
+    integer, intent(in) :: numDec
+    logical, optional, intent(in) :: useCommas
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Character string (of length 10000): Ascii character string value of a
+  real.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function takes a real (in the argument 'float') that can be positive
+  or negative and returns the real as an ascii character string. The
+  argument 'numDec' is the number of decimal places to be displayed in
+  the string. This function can be thought of as the inverse of the
+  function '<a href="#robo161">AscToReal</a>' as long as the appropriate number of decimal places
+  is passed in.
+</p>
+
+<p>  For example, if the variable 'r' is a real and it holds
+  the value 75.123, then <strong>RealToAsc</strong>(r, 3) will return a character
+  string containing "75.123" filled with spaces to the right. Also,
+  <strong>RealToAsc</strong>(r, 4) will return "75.1230" (filled with spaces to the
+  right), and <strong>RealToAsc</strong>(r, 0) will return "75." (filled with spaces to
+  the right).
+</p>
+
+<p>  If 'useCommas' is passed in, and is .true., then commas
+  will be inserted in the returned string. Otherwise, commas will be
+  omitted. For example, <strong>RealToAsc</strong>(1234.5, 1, .true.) will return the
+  string "1,234.5" (filled with spaces to the right).
+</p>
+
+<hr />
+<a name="StringsMod2fRight"></a>
+<a name="robo172"></a><h2>StringsMod/Right [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo12">StringsMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>Right</strong>: This function returns the right-most characters (or digits) of
+  a string (or an integer).
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  character (len = numChars) function <strong>Right</strong>(arg, numChars) result(asc)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  arg: Character string or integer, part of which is to be returned
+    as a character string.
+</li>
+<li>  numChars: Number of right-most characters (or digits) to return.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">!  See ARGUMENTS section.
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Character string (of length numChars): An ascii character string.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function takes a character string or an integer, and the
+  number of right-most characters (or digits) it should return.
+</p>
+
+<p>  The returned string somewhat depends on the variable type of 'arg':
+</p>
+<ul><li>  If 'arg' is a character string, then it returns a substring of 'arg'
+    with the last (i.e., right-most) 'numChars' characters. If 'numChars'
+    is larger than the number of characters in 'arg' then the string
+    returned is padded with leading spaces.
+</li>
+<li>  If 'arg' is an integer, then it returns a string representing the last
+    (i.e., right-most) 'numChars' digits of 'arg'. If 'numChars' is larger
+    than the number of digits in 'arg', then the string returned is padded
+    with leading spaces.
+</li>
+</ul>
+<p>
+  Note that this function can not take a real or double precision as 'arg'.
+  This is because the "right-most" characters of a floating point number
+  would not be clearly defined, or would be meaningless.
+</p>
+
+<hr />
+<a name="StringsMod2fToLower"></a>
+<a name="robo173"></a><h2>StringsMod/ToLower [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo12">StringsMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ToLower</strong>: This function takes the passed in string and converts all of the
+  letters to lower-case letters.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  MAX_CHAR_LENGTH is set equal to 10,000.
+  character (len = MAX_CHAR_LENGTH) function <strong>ToLower</strong>(str) result(lowerStr)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  str: Character string to be converted to lower-case letters.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: str
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Character string (of length 10000): Character string with all lower-case
+  letters.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function takes the passed in string and converts all of the
+  upper-case letters to lower-case letters. Any lower-case letters
+  are left as lower-case. Any characters in the string that are not
+  letters are left unchanged.
+</p>
+
+<hr />
+<a name="StringsMod2fToUpper"></a>
+<a name="robo174"></a><h2>StringsMod/ToUpper [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo12">StringsMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ToUpper</strong>: This function takes the passed in string and converts all of the
+  letters to upper-case letters.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  MAX_CHAR_LENGTH is set equal to 10,000.
+  character (len = MAX_CHAR_LENGTH) function <strong>ToUpper</strong>(str) result(upperStr)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  str: Character string to be converted to upper-case letters.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: str
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Character string (of length 10000): Character string with all upper-case
+  letters.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function takes the passed in string and converts all of the
+  lower-case letters to upper-case letters. Any upper-case letters
+  are left as upper-case. Any characters in the string that are not
+  letters are left unchanged.
+</p>
+
+</div> <!-- content -->
+<div id="footer">
+<p>Generated from ./source/StringsMod.f90 with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.36 on Tue May 09 2023 10:30:03
+</p>
+</div> <!-- footer -->
+</body>
+</html>

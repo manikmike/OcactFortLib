@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>./source/RoundingMod.f90</title>
+<!-- Source: ./source/RoundingMod.f90 -->
+<!-- Generated with ROBODoc Version 4.99.36 (Apr 25 2008) -->
+</head>
+<body>
+<div id="logo">
+<a name="robo_top_of_doc"></a>
+</div> <!-- logo -->
+<div id="navigation">
+<a class="menuitem" href="./toc_index.html#top">Table of Contents</a>
+<a class="menuitem" href="./robo_sourcefiles.html#top">Sourcefiles</a>
+<a class="menuitem" href="./masterindex.html#top">Index</a>
+<a class="menuitem" href="./robo_functions.html#top">Functions</a>
+<a class="menuitem" href="./robo_modules.html#top">Modules</a>
+</div> <!-- navigation -->
+<div id="content">
+<h3>TABLE OF CONTENTS</h3>
+<ul>
+<li>1. <a href="#robo9">source/RoundingMod</a></li>
+<ul>
+<li>1.1. <a href="#robo151">RoundingMod/RoundCl</a></li>
+<li>1.2. <a href="#robo152">RoundingMod/RoundMult</a></li>
+<li>1.3. <a href="#robo153">RoundingMod/RoundPr</a></li>
+</ul>
+</ul>
+<hr />
+<a name="source2fRoundingMod"></a>
+<a name="robo9"></a><h2>source/RoundingMod [ Modules ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_modules.html#robo_top_of_doc">Modules</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>RoundingMod</strong>: OcactFortLib <strong>RoundingMod</strong> module.
+</p>
+<p class="item_name">REVISION</p>
+<p>  Revision: 1.27
+</p>
+<p class="item_name">MODULE DESCRIPTION</p>
+<p>  The <strong>RoundingMod</strong> contains functions used to round a single value using
+  classic rounding (<a href="#robo151">RoundCl</a>) or round an array of values, either with
+  classic rounding (<a href="#robo151">RoundCl</a>) or with progressive rounding (<a href="#robo153">RoundPr</a>).
+  The function <a href="#robo152">RoundMult</a> rounds a single value or an array of values to
+  the desired multiple.
+</p>
+<p class="item_name">MODULE ROUTINES</p>
+<pre>  <a href="#robo151">RoundCl</a>
+  <a href="#robo152">RoundMult</a>
+  <a href="#robo153">RoundPr</a>
+</pre>
+
+<hr />
+<a name="RoundingMod2fRoundCl"></a>
+<a name="robo151"></a><h2>RoundingMod/RoundCl [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo9">RoundingMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>RoundCl</strong>: This function rounds a value or an array of values using
+  classic rounding.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  integer function <strong>RoundCl</strong>(num, numDigits) result(numRound)
+!  real function <strong>RoundCl</strong>(num, numDigits) result(numRound)
+!  double precision function <strong>RoundCl</strong>(num, numDigits) result(numRound)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  num: A value of type integer, real, or double precision, or a 1 to 7
+    dimensional array (of any size) of integers, reals, or double precisions.
+</li>
+<li>  numDigits: (optional) Number of digits to the right of the decimal point to
+    which you want to round. A negative number rounds to the left of the
+    decimal point; zero to the nearest integer.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">!  See ARGUMENTS section.
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Integer, Real, or Double Precision scalar or array: The same type
+  (and size, if an array) as 'num'.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function rounds a value or an array of values using classic rounding.
+</p>
+
+<p>  If the argument 'numDigits' is omitted, the function will round to
+  the nearest integer.
+</p>
+
+<hr />
+<a name="RoundingMod2fRoundMult"></a>
+<a name="robo152"></a><h2>RoundingMod/RoundMult [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo9">RoundingMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>RoundMult</strong>: This function rounds a value or an array of values to the
+  desired multiple.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  integer function <strong>RoundMult</strong>(num, mult) result(numRound)
+!  real function <strong>RoundMult</strong>(num, mult) result(numRound)
+!  double precision function <strong>RoundMult</strong>(num, mult) result(numRound)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  num: A value of type integer, real, or double precision, or a 1 to 7
+    dimensional array (of any size) of integers, reals, or double precisions.
+</li>
+<li>  mult: The multiple to which you want to round 'num'.
+    A value of type integer, real, or double precision. If 'num' is an integer,
+    then 'mult' must also be an integer.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">!  See ARGUMENTS section.
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Integer, Real, or Double Precision scalar or array: The same type
+  (and size, if an array) as 'num'.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function uses classic rounding to round a value or an array of values
+  to the desired multiple. The variable ‘num’ can also be negative (or contain
+  negative values) such that this function may return a negative value. Also,
+  ‘mult’ can be either positive or negative, but this does not affect the
+  return value of this function.
+</p>
+
+<hr />
+<a name="RoundingMod2fRoundPr"></a>
+<a name="robo153"></a><h2>RoundingMod/RoundPr [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo9">RoundingMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>RoundPr</strong>: This function rounds the values in an array using progressive
+  rounding.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  integer function <strong>RoundPr</strong>(num, numDigits, targetTotal) result(numRound)
+!  real function <strong>RoundPr</strong>(num, numDigits, targetTotal) result(numRound)
+!  double precision function <strong>RoundPr</strong>(num, numDigits, targetTotal) result(numRound)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  num: 1 to 7 dimensional array (of any size) of integers, reals,
+    or double precisions.
+</li>
+<li>  numDigits: (optional) Number of digits to the right of the decimal point to
+    which you want to round. A negative number rounds to the left of the
+    decimal point; zero to the nearest integer.
+</li>
+<li>  targetTotal: (optional) The desired total of the array after
+    progressive rounding. The same type as 'num'.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">!  See ARGUMENTS section.
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Integer, Real, or Double Precision array: The same type as 'num'.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function rounds the values in an array using progressive rounding.
+  Progressive rounding is a procedure used to round a set
+  of ordered numbers which preserves the rounded total.
+</p>
+
+<p>  If the argument 'numDigits' is omitted, the function will round to
+  the nearest integer.
+</p>
+
+<p>  If the argument 'targetTotal' is present, the function will multiply
+  all elements of the array by the ratio of ‘targetTotal’ over the sum
+  of the elements of the array. This is done before the progressive rounding,
+  and forces the sum of the rounded array to equal ‘targetTotal’.
+</p>
+
+<p>  The sum of the elements of the rounded array will match the original sum,
+  or ‘targetTotal’, only to the extent allowed by the rounding specified by
+  ‘numDigits’ (or to the nearest integer, if ‘numDigits’ was omitted).
+</p>
+
+<p>  Below is an example showing how to progressively round a 4 element
+  array of 1.1, 1.4, 1.2, and 1.3 to the nearest integer.
+</p>
+<pre>       i   - The ith number in a list
+     x(i)  - Array of i values to round, with x(0) defined to be 0
+     X(i)  - The sum of x(i)s from i = 0 to i
+   R[X(i)] - The rounded X(i)s to the nearest integer
+     r(i)  - The progressive rounded result by subtracting R[X(i)] - R[X(i-1)]
+</pre>
+<p>
+</p>
+<pre>                                         Classic
+     i    x(i)    X(i)  R[X(i)]   r(i)   Rounding
+     0    0.0     0.0      0
+     1    1.1     1.1      1       1        1
+     2    1.4     2.5      3       2        1
+     3    1.2     3.7      4       1        1
+     4    1.3     5        5       1        1
+    _____________________________________________
+     Sum    5                      5        4
+</pre>
+<p>
+  The sum of the 4 element array is 5, but classic rounding would round each
+  of the 4 elements to 1, leaving the final sum of 4. Progressive rounding
+  rounds the elements to 1, 2, 1, and 1, preserving the sum of 5.
+</p>
+
+</div> <!-- content -->
+<div id="footer">
+<p>Generated from ./source/RoundingMod.f90 with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.36 on Tue May 09 2023 10:30:03
+</p>
+</div> <!-- footer -->
+</body>
+</html>

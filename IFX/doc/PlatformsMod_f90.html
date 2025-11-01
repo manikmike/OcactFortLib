@@ -1,0 +1,662 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>./source/PlatformsMod.f90</title>
+<!-- Source: ./source/PlatformsMod.f90 -->
+<!-- Generated with ROBODoc Version 4.99.36 (Apr 25 2008) -->
+</head>
+<body>
+<div id="logo">
+<a name="robo_top_of_doc"></a>
+</div> <!-- logo -->
+<div id="navigation">
+<a class="menuitem" href="./toc_index.html#top">Table of Contents</a>
+<a class="menuitem" href="./robo_sourcefiles.html#top">Sourcefiles</a>
+<a class="menuitem" href="./masterindex.html#top">Index</a>
+<a class="menuitem" href="./robo_functions.html#top">Functions</a>
+<a class="menuitem" href="./robo_modules.html#top">Modules</a>
+</div> <!-- navigation -->
+<div id="content">
+<h3>TABLE OF CONTENTS</h3>
+<ul>
+<li>1. <a href="#robo4">source/PlatformsMod</a></li>
+<ul>
+<li>1.1. <a href="#robo86">PlatformsMod/ChangeDir</a></li>
+<li>1.2. <a href="#robo87">PlatformsMod/ChangeDrive</a></li>
+<li>1.3. <a href="#robo88">PlatformsMod/CheckDir</a></li>
+<li>1.4. <a href="#robo89">PlatformsMod/DelDir</a></li>
+<li>1.5. <a href="#robo90">PlatformsMod/DelFile</a></li>
+<li>1.6. <a href="#robo91">PlatformsMod/GetArchitectureType</a></li>
+<li>1.7. <a href="#robo92">PlatformsMod/GetArgument</a></li>
+<li>1.8. <a href="#robo93">PlatformsMod/GetChar</a></li>
+<li>1.9. <a href="#robo94">PlatformsMod/GetEnviron</a></li>
+<li>1.10. <a href="#robo95">PlatformsMod/GetFullPath</a></li>
+<li>1.11. <a href="#robo96">PlatformsMod/GetLoginName</a></li>
+<li>1.12. <a href="#robo97">PlatformsMod/IsReadOnly</a></li>
+<li>1.13. <a href="#robo98">PlatformsMod/MakeDir</a></li>
+<li>1.14. <a href="#robo99">PlatformsMod/NumArguments</a></li>
+<li>1.15. <a href="#robo100">PlatformsMod/SetEnviron</a></li>
+<li>1.16. <a href="#robo101">PlatformsMod/SlashString</a></li>
+<li>1.17. <a href="#robo102">PlatformsMod/SystemCall</a></li>
+<li>1.18. <a href="#robo103">PlatformsMod/ValidateCreateSubDirs</a></li>
+</ul>
+</ul>
+<hr />
+<a name="source2fPlatformsMod"></a>
+<a name="robo4"></a><h2>source/PlatformsMod [ Modules ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_modules.html#robo_top_of_doc">Modules</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>PlatformsMod</strong>: OcactFortLib <strong>PlatformsMod</strong> module.
+</p>
+<p class="item_name">REVISION</p>
+<p>  Revision: 1.25
+</p>
+<p class="item_name">MODULE DESCRIPTION</p>
+<p>  The <strong>PlatformsMod</strong> module contains an interface for system-specific routines.
+  It is an attempt to allow the user to use one function or subroutine
+  call without needing to change depending on the compiler and/or operating.
+  system. Currently, two compilers are supported: the Intel Fortran
+  (previously, Digital Fortran) compiler and the Lahey compiler.
+</p>
+
+<p>  Many of the subroutines and functions in this module deal with file
+  manipulations, are used to assist in communicating with the command line,
+  etc..., such as:
+</p>
+<ul><li>  Reading arguments from the command line.
+</li>
+<li>  Checking, making, deleting, and changing directories.
+</li>
+<li>  Retrieving the full path of a file.
+</li>
+<li>  Changing the current drive.
+</li>
+<li>  Returning the user's login name.
+</li>
+<li>  Returning the slash used in paths.
+</li>
+<li>  Making calls to the operating system.
+</li>
+</ul>
+<p></p>
+<p class="item_name">MODULE ROUTINES</p>
+<pre>  <a href="#robo86">ChangeDir</a>
+  <a href="#robo87">ChangeDrive</a>
+  <a href="#robo88">CheckDir</a>
+  <a href="#robo89">DelDir</a>
+  <a href="#robo90">DelFile</a>
+  <a href="#robo91">GetArchitectureType</a>
+  <a href="#robo92">GetArgument</a>
+  <a href="#robo93">GetChar</a>
+  <a href="#robo94">GetEnviron</a>
+  <a href="#robo95">GetFullPath</a>
+  <a href="#robo96">GetLoginName</a>
+  <a href="#robo97">IsReadOnly</a>
+  <a href="#robo98">MakeDir</a>
+  <a href="#robo99">NumArguments</a>
+  <a href="#robo100">SetEnviron</a>
+  <a href="#robo101">SlashString</a>
+  <a href="#robo102">SystemCall</a>
+  <a href="#robo103">ValidateCreateSubDirs</a>
+</pre>
+
+<hr />
+<a name="PlatformsMod2fChangeDir"></a>
+<a name="robo86"></a><h2>PlatformsMod/ChangeDir [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo4">PlatformsMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ChangeDir</strong>: This function is used to make the specified directory the current
+  directory.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  logical function <strong>ChangeDir</strong>(dir) result(res)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  dir: Directory to make the current directory for the program.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: dir
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Logical: True or False returned to show function success.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function is used to make the specified directory the current, default
+  directory for the program. This function returns .true. if it was
+  successful, .false. otherwise.
+</p>
+
+<hr />
+<a name="PlatformsMod2fChangeDrive"></a>
+<a name="robo87"></a><h2>PlatformsMod/ChangeDrive [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo4">PlatformsMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ChangeDrive</strong>: This function is used to make the specified drive the current
+  drive.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  logical function <strong>ChangeDrive</strong>(drive) result(res)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  drive: Drive to make the current drive for the program.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: drive
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Logical: True or False returned to show function success.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function is used to make the specified drive the current, default
+  drive for the program. This function returns .true. if it was
+  successful, .false. otherwise.
+</p>
+
+<hr />
+<a name="PlatformsMod2fCheckDir"></a>
+<a name="robo88"></a><h2>PlatformsMod/CheckDir [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo4">PlatformsMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>CheckDir</strong>: This function is used to check if the specified directory exists.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  logical function <strong>CheckDir</strong>(dir) result(res)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  dir: Directory to check if exists.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: dir
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Logical: True or False returned to show if directory exists.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function is used to check if the specified directory exists. This
+  function returns .true. if it does exist, .false. otherwise.
+</p>
+
+<hr />
+<a name="PlatformsMod2fDelDir"></a>
+<a name="robo89"></a><h2>PlatformsMod/DelDir [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo4">PlatformsMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>DelDir</strong>: This function is used to delete the specified directory.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  logical function <strong>DelDir</strong>(dir) result(res)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  dir: Directory to be deleted.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: dir
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Logical: True or False returned to show function success.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function is used to delete the specified directory, which must
+  be empty. This function returns .true. if it was successful, .false.
+  otherwise.
+</p>
+
+<hr />
+<a name="PlatformsMod2fDelFile"></a>
+<a name="robo90"></a><h2>PlatformsMod/DelFile [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo4">PlatformsMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>DelFile</strong>: This function is used to delete the specified file.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  logical function <strong>DelFile</strong>(file) result(res)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  file: File to be deleted.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: file
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Logical: True or False returned to show function success.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function is used to delete the specified file. This function
+  returns .true. if it was successful, .false. otherwise.
+</p>
+
+<hr />
+<a name="PlatformsMod2fGetArchitectureType"></a>
+<a name="robo91"></a><h2>PlatformsMod/GetArchitectureType [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo4">PlatformsMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>GetArchitectureType</strong>: This function returns the architecture type used for
+  compilation.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  character (len = 100) function <strong>GetArchitectureType</strong>() result(rv)
+
+    ! Intitialize it as "UNDEFINED" in case none of the macros lead to a
+    ! resolution as to which architecture we're compiling with.
+    rv = "UNDEFINED"
+
+    ! Note: I don't think these will work for Lahey. But just use them here
+    ! as a placeholder for now.
+#if defined (_M_IX86)
+    rv = "32-bit"
+#endif    
+
+#if defined (_M_X64)
+    rv = "64-bit"
+#endif
+
+  end function <strong>GetArchitectureType</strong>
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Character string (of length 100): Architecture type used for compilation.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function returns a character string containing the architecture type,
+  or platform, used for compilation (e.g., "32-bit", "64-bit").
+</p>
+
+<hr />
+<a name="PlatformsMod2fGetArgument"></a>
+<a name="robo92"></a><h2>PlatformsMod/GetArgument [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo4">PlatformsMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>GetArgument</strong>: This subroutine is used to retrieve the command-line arguments.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  subroutine <strong>GetArgument</strong>(argNumber, argument, stat)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  argNumber: Number of arguments.
+</li>
+<li>  argument: Argument retrieved from the command line.
+</li>
+<li>  stat: (optional) If fails the value is -1, otherwise given any other value.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    integer, intent(in) :: argNumber
+    character (len = *), intent(out) :: argument
+    integer, optional, intent(in) :: stat
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  This subroutine is used to retrieve the command-line arguments. The first
+  argument, retrieved when 'argNumber' is 0, is the command itself. The rest
+  of the arguments are retrieved using values for 'argNumber' of 1 or more.
+  If this subroutine fails, then stat (if passed in) will be given a value
+  of -1, otherwise it will be given any other value.
+</p>
+
+<hr />
+<a name="PlatformsMod2fGetChar"></a>
+<a name="robo93"></a><h2>PlatformsMod/GetChar [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo4">PlatformsMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>GetChar</strong>: This function will immediately return the value of the first
+  key entered without hitting 'Enter'.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  character (len = 1) function <strong>GetChar</strong>() result(res)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<p>  [None]
+</p>
+<p class="item_name">RETURNS</p>
+<p>  Character string (of length 1): Value entered.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function will cause the program to wait for user input and will
+  immediately return the value of the first key the user entered, without
+  waiting for the user to hit 'Enter'.
+</p>
+
+<hr />
+<a name="PlatformsMod2fGetEnviron"></a>
+<a name="robo94"></a><h2>PlatformsMod/GetEnviron [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo4">PlatformsMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>GetEnviron</strong>: This function looks through all the environment variables and
+  finds 'varName'. It loads the environment variable into 'val'.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  integer function <strong>GetEnviron</strong>(varName, val) result(res)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  varName: Variable name.
+</li>
+<li>  val: Environment variable.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: varName
+    character (len = *), intent(out) :: val
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Integer: 0 is returned if 'varNam' is not defined, otherwise a positive
+  number is returned.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function looks through all the environment variables and finds the
+  one (if it exists) that is 'varName'. It loads the value of that
+  environment variable into 'val'. If 'varName' is not a defined
+  environment variable then the function returns 0, otherwise it returns
+  a positive number.
+</p>
+
+<hr />
+<a name="PlatformsMod2fGetFullPath"></a>
+<a name="robo95"></a><h2>PlatformsMod/GetFullPath [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo4">PlatformsMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>GetFullPath</strong>: This function loads the full path of 'fileName' into
+  the 'path' variable.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  integer function <strong>GetFullPath</strong>(fileName, path) result(res)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  fileName: File name.
+</li>
+<li>  path: Full path of fileName.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: fileName
+    character (len = *), intent(in) :: path
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Integer: Returns non-zero value if successful and zero if fails.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function loads the full path of the file 'fileName' into the 'path'
+  variable. This function returns a non-zero value if it was successful,
+  and 0 if it fails.
+</p>
+
+<hr />
+<a name="PlatformsMod2fGetLoginName"></a>
+<a name="robo96"></a><h2>PlatformsMod/GetLoginName [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo4">PlatformsMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>GetLoginName</strong>: This subroutine will fill 'loginName' with the user's login
+  name.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  subroutine <strong>GetLoginName</strong>(loginName)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  loginName: User's login name.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(out) :: loginName
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  This subroutine will fill 'loginName' with the user's login name. It will
+  fill it with all blanks if the subroutine fails.
+</p>
+
+<hr />
+<a name="PlatformsMod2fIsReadOnly"></a>
+<a name="robo97"></a><h2>PlatformsMod/IsReadOnly [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo4">PlatformsMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>IsReadOnly</strong>: This function is used to check if a file is read-only.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  logical function <strong>IsReadOnly</strong>(fileName) result(res)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  fileName: File name checked if read-only.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: fileName
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Logical: True returned if file is read-only, false otherwise.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function checks if the file specified in 'fileName' is read-only. It
+  returns .true. if it is, .false. otherwise. If the file doesn't exist, the
+  function returns .false.
+</p>
+
+<hr />
+<a name="PlatformsMod2fMakeDir"></a>
+<a name="robo98"></a><h2>PlatformsMod/MakeDir [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo4">PlatformsMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>MakeDir</strong>: This function is used to create the specified directory.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  logical function <strong>MakeDir</strong>(dir) result(res)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  dir: Directory to be created.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: dir
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Logical: True or False returned to show function success.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function is used to create the specified directory. This function
+  returns .true. if it was successful, .false. otherwise.
+</p>
+
+<hr />
+<a name="PlatformsMod2fNumArguments"></a>
+<a name="robo99"></a><h2>PlatformsMod/NumArguments [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo4">PlatformsMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>NumArguments</strong>: This function returns the number of arguments used to start
+  the program.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  integer function <strong>NumArguments</strong>() result(res)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<p>  [None]
+</p>
+<p class="item_name">RETURNS</p>
+<p>  Integer: Number of arguments.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function returns the number of arguments used to start the program.
+  This count includes the program name itself.
+</p>
+
+<hr />
+<a name="PlatformsMod2fSetEnviron"></a>
+<a name="robo100"></a><h2>PlatformsMod/SetEnviron [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo4">PlatformsMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>SetEnviron</strong>: This function sets an evironment variable.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  logical function <strong>SetEnviron</strong>(varNameAndVal) result(res)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  varNameAndVal: Environment variable and its value.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: varNameAndVal
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Logical: True or False returned to show function success.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function sets an evironment variable. The environment variable and
+  its value are both in the string 'varNameAndVal'. The variable name
+  is first, followed by an equal sign, followed by the value. The return
+  value is .true. if it was successful, .false. otherwise.
+</p>
+
+<hr />
+<a name="PlatformsMod2fSlashString"></a>
+<a name="robo101"></a><h2>PlatformsMod/SlashString [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo4">PlatformsMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>SlashString</strong>: This function returns the type of slash used in paths.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  character (len = 1) function <strong>SlashString</strong>() result(res)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<p>  [None]
+</p>
+<p class="item_name">RETURNS</p>
+<p>  Character string (of length 1): Type of slash used in paths.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function returns a single character which is a slash. It is the type
+  of slash used in paths depending on the operating system. For Windows,
+  it returns a back-slash, but for Linux it returns a forward-slash. This
+  function allows path names to be constructed without having to worry
+  about what type of slash the operating system is expecting.
+</p>
+
+<hr />
+<a name="PlatformsMod2fSystemCall"></a>
+<a name="robo102"></a><h2>PlatformsMod/SystemCall [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo4">PlatformsMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>SystemCall</strong>: This function makes a call to the operating system.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  integer function <strong>SystemCall</strong>(str) result(res)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  str: Operating system command.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: str
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Integer: Value returned by the process called.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function makes a call to the operating system. It uses the command
+  in 'str'. It returns the value returned by the process called.
+</p>
+
+<hr />
+<a name="PlatformsMod2fValidateCreateSubDirs"></a>
+<a name="robo103"></a><h2>PlatformsMod/ValidateCreateSubDirs [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo4">PlatformsMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ValidateCreateSubDirs</strong>: This subroutine is used to validate that the
+  subdirectories of a specified output directory exist. If they don't, then
+  it creates them.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  subroutine <strong>ValidateCreateSubDirs</strong>(outFolder, subDir1, subDir2, subDir3, &amp;
+    subDir4, subDir5, subDir6, subDir7, subDir8, subDir9, subDir10)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  outFolder: Main out directory.
+</li>
+<li>  subDir1: The 1st subdirectory to validate and/or create.
+</li>
+<li>  subDir2: (optional) The 2nd subdirectory to validate and/or create.
+</li>
+<li>  subDir3: (optional) The 3rd subdirectory to validate and/or create.
+</li>
+<li>  subDir4: (optional) The 4th subdirectory to validate and/or create.
+</li>
+<li>  subDir5: (optional) The 5th subdirectory to validate and/or create.
+</li>
+<li>  subDir6: (optional) The 6th subdirectory to validate and/or create.
+</li>
+<li>  subDir7: (optional) The 7th subdirectory to validate and/or create.
+</li>
+<li>  subDir8: (optional) The 8th subdirectory to validate and/or create.
+</li>
+<li>  subDir9: (optional) The 9th subdirectory to validate and/or create.
+</li>
+<li>  subDir10: (optional) The 10th subdirectory to validate and/or create.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: outFolder
+    character (len = *), intent(in) :: subDir1
+    character (len = *), optional, intent(in) :: subDir2
+    character (len = *), optional, intent(in) :: subDir3
+    character (len = *), optional, intent(in) :: subDir4
+    character (len = *), optional, intent(in) :: subDir5
+    character (len = *), optional, intent(in) :: subDir6
+    character (len = *), optional, intent(in) :: subDir7
+    character (len = *), optional, intent(in) :: subDir8
+    character (len = *), optional, intent(in) :: subDir9
+    character (len = *), optional, intent(in) :: subDir10
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  This subroutine is used to validate that the subdirectories of a specified
+  output directory exist. If they don't, then it creates them. It can validate
+  (and potentially create) up to 10 subdirectories at a time. If more than
+  that are needed, then multiple calls to this subroutine should be made.
+  If less than that are needed, then only pass in the relevant ones. All
+  arguments after the first 2 are optional. If the main output directory
+  itself does not exist, then it will print an error message and terminate
+  the program.
+</p>
+
+</div> <!-- content -->
+<div id="footer">
+<p>Generated from ./source/PlatformsMod.f90 with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.36 on Tue May 09 2023 10:30:03
+</p>
+</div> <!-- footer -->
+</body>
+</html>

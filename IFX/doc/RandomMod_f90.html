@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>./source/RandomMod.f90</title>
+<!-- Source: ./source/RandomMod.f90 -->
+<!-- Generated with ROBODoc Version 4.99.36 (Apr 25 2008) -->
+</head>
+<body>
+<div id="logo">
+<a name="robo_top_of_doc"></a>
+</div> <!-- logo -->
+<div id="navigation">
+<a class="menuitem" href="./toc_index.html#top">Table of Contents</a>
+<a class="menuitem" href="./robo_sourcefiles.html#top">Sourcefiles</a>
+<a class="menuitem" href="./masterindex.html#top">Index</a>
+<a class="menuitem" href="./robo_functions.html#top">Functions</a>
+<a class="menuitem" href="./robo_modules.html#top">Modules</a>
+</div> <!-- navigation -->
+<div id="content">
+<h3>TABLE OF CONTENTS</h3>
+<ul>
+<li>1. <a href="#robo6">source/RandomMod</a></li>
+<ul>
+<li>1.1. <a href="#robo111">RandomMod/InitRandomModule</a></li>
+<li>1.2. <a href="#robo112">RandomMod/RandFromNorm</a></li>
+<li>1.3. <a href="#robo113">RandomMod/RandFromStandNorm</a></li>
+<li>1.4. <a href="#robo114">RandomMod/RandFromUnif</a></li>
+<li>1.5. <a href="#robo115">RandomMod/SelectStream</a></li>
+</ul>
+</ul>
+<hr />
+<a name="source2fRandomMod"></a>
+<a name="robo6"></a><h2>source/RandomMod [ Modules ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_modules.html#robo_top_of_doc">Modules</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>RandomMod</strong>: OcactFortLib <strong>RandomMod</strong> module.
+</p>
+<p class="item_name">REVISION</p>
+<p>  Revision: 1.15
+</p>
+<p class="item_name">MODULE DESCRIPTION</p>
+<p>  The <strong>RandomMod</strong> module contains subroutines and functions used to return random
+  numbers from normal, standard normal, and uniform distributions. Before using
+  this module, call the <a href="#robo111">InitRandomModule</a> subroutine to initialize <strong>RandomMod</strong>.
+</p>
+<p class="item_name">MODULE ROUTINES</p>
+<pre>  <a href="#robo111">InitRandomModule</a>
+  <a href="#robo112">RandFromNorm</a>
+  <a href="#robo113">RandFromStandNorm</a>
+  <a href="#robo114">RandFromUnif</a>
+  <a href="#robo115">SelectStream</a>
+</pre>
+
+<hr />
+<a name="RandomMod2fInitRandomModule"></a>
+<a name="robo111"></a><h2>RandomMod/InitRandomModule [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo6">RandomMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>InitRandomModule</strong>: This subroutine is used to initialize the <a href="#robo6">RandomMod</a> module.
+  It should be called before any other routines in this module.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  subroutine <strong>InitRandomModule</strong>(randSeeds)
+!  subroutine <strong>InitRandomModule</strong>(numberOfStreams)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  randSeeds: Random number streams array.
+</li>
+<li>  numberOfStreams: Random number streams.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">!  integer, dimension(:), intent(in) :: randSeeds
+!  integer, intent(in) :: numberOfStreams
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  This subroutine should be called before any other subroutines or functions in
+  this module are called. The maximum number of random number streams this
+  module can handle is MAX_RAND_STREAMS (which is currently set to 100). This
+  subroutine is used to initialize the streams with seeds that are
+  positive integers.
+</p>
+
+<p>  If 'randSeeds' (an integer array) is passed in,  then the number of streams
+  being initialized is the size of the array. Each stream is initialized with
+  the corresponding value in 'randSeeds'.
+</p>
+
+<p>  If 'numberOfStreams' (a single integer value) is passed
+  in, then that number is used as the number of streams to be
+  initialized. Since, in this case, no seeds are passed in, the streams
+  are initliazed with "random" seeds based on the date and the time
+  that the program was started. This will give different results every
+  time the program is run since the seeds will change from run to run.
+</p>
+
+<p>  After the call to '<strong>InitRandomModule</strong>', the current stream will be set
+  to 1 (i.e. the first stream). Every subsequent call to a subroutine
+  or function in this module that draws from the random number stream
+  will draw from this first stream, until a '<a href="#robo115">SelectStream</a>' is called.
+  (See the documentation on '<a href="#robo115">SelectStream</a>' below.)
+</p>
+
+<p>  The <strong>InitRandomModule</strong> subroutine should not be called more than once
+  in a program.
+</p>
+
+<hr />
+<a name="RandomMod2fRandFromNorm"></a>
+<a name="robo112"></a><h2>RandomMod/RandFromNorm [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo6">RandomMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>RandFromNorm</strong>: This function returns a random number from a normal
+  distribution.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  real function <strong>RandFromNorm</strong>(mean, sd) result(rand)
+!  double precision function <strong>RandFromNorm</strong>(mean, sd) result(rand)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  mean: Can be either real or double precison, must be the same type as sd.
+</li>
+<li>  sd: Can be either real or double precison, must be the same type as mean.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">!  See ARGUMENTS section.
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Real or Double Precision: Random number from a normal distribution.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function returns a random number from a normal distribution with a
+  mean equal to the variable 'mean' and a standard deviation equal to
+  the variable 'sd'. Both arguments must be of the same type (either
+  both real or both double precision). The return type is the same as
+  the argument types.
+</p>
+
+<hr />
+<a name="RandomMod2fRandFromStandNorm"></a>
+<a name="robo113"></a><h2>RandomMod/RandFromStandNorm [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo6">RandomMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>RandFromStandNorm</strong>: This function returns a random number from a standard
+  normal distribution
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  double precision function <strong>RandFromStandNorm</strong>() result(randNum)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<p>  [None]
+</p>
+<p class="item_name">RETURNS</p>
+<p>  Double Precision: Random number from a standard normal distribution.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function returns a random number from a standard normal distribution
+  (i.e. a normal distribution with a mean of 0 and a standard deviation
+  of 1).
+</p>
+
+<hr />
+<a name="RandomMod2fRandFromUnif"></a>
+<a name="robo114"></a><h2>RandomMod/RandFromUnif [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo6">RandomMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>RandFromUnif</strong>: This function returns a random number from a uniform
+  distribution.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  integer function <strong>RandFromUnif</strong>(arg1, arg2) result(rand)
+!  real function <strong>RandFromUnif</strong>(arg1, arg2) result(rand)
+!  double precision function <strong>RandFromUnif</strong>(arg1, arg2) result(rand)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  arg1: (optional) Can be an integer, real, or double precison.
+</li>
+<li>  arg2: (optional) Can be an integer, real, or double precison.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">!  See ARGUMENTS section.
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Integer, Real, or Double Precision: Random number from a uniform
+  distribution.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function returns a random number drawn from a Uniform distribution
+  over a specified interval. This function can take 0, 1, or 2 arguments.
+  If the number of arguments is:
+</p>
+<ul><li>  0, then the interval is the unit interval, from 0 to 1.
+</li>
+<li>  1, then it is the higher end of the interval, with 0 being the lower end.
+</li>
+<li>  2, then the first is the lower end of the interval, and the second is the
+    higher end.
+</li>
+</ul>
+<p>  If 2 arguments are passed in, then they must both be of the same type. The
+  return type is the same as that of the arguments. If no arguments are passed
+  in, then the return type is double precision.
+</p>
+
+<hr />
+<a name="RandomMod2fSelectStream"></a>
+<a name="robo115"></a><h2>RandomMod/SelectStream [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo6">RandomMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>SelectStream</strong>: This subroutine selects which random number stream will be the
+  "current" stream when drawing random numbers.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  subroutine <strong>SelectStream</strong>(newStreamNum)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  newStreamNum: Number of the stream you want to set as the "current" stream.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    integer, intent(in) :: newStreamNum
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  After the initial call to '<a href="#robo111">InitRandomModule</a>', the "current" stream is set to
+  1 (i.e the first stream). See the documentation to '<a href="#robo111">InitRandomModule</a>'. To
+  begin drawing numbers from a different stream, just call '<strong>SelectStream</strong>' and
+  pass the number of the stream you want to set as the "current" one. The
+  current position for all the streams is stored in memory, so returning to a
+  stream will continue selecting numbers from the middle of that stream.
+  The "current" stream will remain the "current" one until another call
+  is made to '<strong>SelectStream</strong>'.
+</p>
+
+</div> <!-- content -->
+<div id="footer">
+<p>Generated from ./source/RandomMod.f90 with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.36 on Tue May 09 2023 10:30:03
+</p>
+</div> <!-- footer -->
+</body>
+</html>

@@ -1,0 +1,940 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>./source/RegressionMod.f90</title>
+<!-- Source: ./source/RegressionMod.f90 -->
+<!-- Generated with ROBODoc Version 4.99.36 (Apr 25 2008) -->
+</head>
+<body>
+<div id="logo">
+<a name="robo_top_of_doc"></a>
+</div> <!-- logo -->
+<div id="navigation">
+<a class="menuitem" href="./toc_index.html#top">Table of Contents</a>
+<a class="menuitem" href="./robo_sourcefiles.html#top">Sourcefiles</a>
+<a class="menuitem" href="./masterindex.html#top">Index</a>
+<a class="menuitem" href="./robo_functions.html#top">Functions</a>
+<a class="menuitem" href="./robo_modules.html#top">Modules</a>
+</div> <!-- navigation -->
+<div id="content">
+<h3>TABLE OF CONTENTS</h3>
+<ul>
+<li>1. <a href="#robo8">source/RegressionMod</a></li>
+<ul>
+<li>1.1. <a href="#robo132">RegressionMod/AdjRSquared</a></li>
+<li>1.2. <a href="#robo133">RegressionMod/Correlation</a></li>
+<li>1.3. <a href="#robo134">RegressionMod/Covariance</a></li>
+<li>1.4. <a href="#robo135">RegressionMod/ErrSS</a></li>
+<li>1.5. <a href="#robo136">RegressionMod/FStat</a></li>
+<li>1.6. <a href="#robo137">RegressionMod/RegIntercept</a></li>
+<li>1.7. <a href="#robo138">RegressionMod/RegSlope</a></li>
+<li>1.8. <a href="#robo139">RegressionMod/RegSS</a></li>
+<li>1.9. <a href="#robo140">RegressionMod/RegStdDev</a></li>
+<li>1.10. <a href="#robo141">RegressionMod/RegStdError</a></li>
+<li>1.11. <a href="#robo142">RegressionMod/RegVariance</a></li>
+<li>1.12. <a href="#robo143">RegressionMod/RSquared</a></li>
+<li>1.13. <a href="#robo144">RegressionMod/StdDev</a></li>
+<li>1.14. <a href="#robo145">RegressionMod/StdErrorIntercept</a></li>
+<li>1.15. <a href="#robo146">RegressionMod/StdErrorSlope</a></li>
+<li>1.16. <a href="#robo147">RegressionMod/TotSS</a></li>
+<li>1.17. <a href="#robo148">RegressionMod/TStatIntercept</a></li>
+<li>1.18. <a href="#robo149">RegressionMod/TStatSlope</a></li>
+<li>1.19. <a href="#robo150">RegressionMod/Variance</a></li>
+</ul>
+</ul>
+<hr />
+<a name="source2fRegressionMod"></a>
+<a name="robo8"></a><h2>source/RegressionMod [ Modules ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_modules.html#robo_top_of_doc">Modules</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>RegressionMod</strong>: OcactFortLib <strong>RegressionMod</strong> module.
+</p>
+<p class="item_name">REVISION</p>
+<p>  Revision: 1.9
+</p>
+<p class="item_name">MODULE DESCRIPTION</p>
+<p>  The <strong>RegressionMod</strong> contains subroutines and functions that are used to
+  calculate various regression statistics.
+</p>
+<p class="item_name">MODULE ROUTINES</p>
+<pre>  <a href="#robo132">AdjRSquared</a>
+  <a href="#robo133">Correlation</a>
+  <a href="#robo134">Covariance</a>
+  <a href="#robo135">ErrSS</a>
+  <a href="#robo136">FStat</a>
+  <a href="#robo137">RegIntercept</a>
+  <a href="#robo138">RegSlope</a>
+  <a href="#robo139">RegSS</a>
+  <a href="#robo140">RegStdDev</a>
+  <a href="#robo141">RegStdError</a>
+  <a href="#robo142">RegVariance</a>
+  <a href="#robo143">RSquared</a>
+  <a href="#robo144">StdDev</a>
+  <a href="#robo145">StdErrorIntercept</a>
+  <a href="#robo146">StdErrorSlope</a>
+  <a href="#robo147">TotSS</a>
+  <a href="#robo148">TStatIntercept</a>
+  <a href="#robo149">TStatSlope</a>
+  <a href="#robo150">Variance</a>
+</pre>
+
+<hr />
+<a name="RegressionMod2fAdjRSquared"></a>
+<a name="robo132"></a><h2>RegressionMod/AdjRSquared [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo8">RegressionMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>AdjRSquared</strong>: This function returns the adjusted R-squared value.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  real function <strong>AdjRSquared</strong>(arrY, arrX1, arrX2) result(rv)
+!  double precision function <strong>AdjRSquared</strong>(arrY, arrX1, arrX2) result(rv)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  arrY: 1-dimensional array (of any size) of reals or double precisions.
+    Dependent variable data.
+</li>
+<li>  arrX1: (optional) 1-dimensional array (of any size) of reals or double
+    precisions. Independent variable data.
+</li>
+<li>  arrX2: (optional) 1-dimensional array (of any size) of reals or double
+    precisions. Independent variable data.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">!  See ARGUMENTS section.
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Real or Double Precision (same type as 'arrY'): Adjusted R-sqaured value.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function returns the adjusted R-squared value (sometimes called the
+  corrected R-squared value) of the regression with the passed in data.
+  The dependent variable data is passed in through the array 'arrY'. The
+  independent variable data is  passed in through the array 'arrX1'. If
+  'arrX1' is omitted, then it is assumed to be an array containing
+  consecutive integers (starting with 1) that is the same size as 'arrY'.
+  If there are 2 independent variables, the second set of data is passed
+  in through 'arrX2'.
+</p>
+
+<p>  The 3 arrays, 'arrY', 'arrX1' and 'arrX2', must
+  all be of the same type (i.e., all reals or all double precisions).
+</p>
+
+<hr />
+<a name="RegressionMod2fCorrelation"></a>
+<a name="robo133"></a><h2>RegressionMod/Correlation [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo8">RegressionMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>Correlation</strong>: This function returns the correlation of two arrays of data.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  real function <strong>Correlation</strong>(arr1, arr2) result(rv)
+!  double precision function <strong>Correlation</strong>(arr1, arr2) result(rv)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  arr1: 1-dimensional array (of any size) of reals or double precisions (same
+    type as 'arr2').
+</li>
+<li>  arr2: 1-dimensional array (of any size) of reals or double precisions (same
+    type as 'arr1').
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">!  See ARGUMENTS section.
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Real or Double Precision (same type as 'arr'): <strong>Correlation</strong> of two arrays
+  of data.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function returns the correlation of two arrays of data, 'arr1',
+  and 'arr2'. Although 'arr1' and 'arr2' can be either reals or double
+  precisions, they must be of the same type (i.e., both reals or both
+  double precisions).
+</p>
+
+<hr />
+<a name="RegressionMod2fCovariance"></a>
+<a name="robo134"></a><h2>RegressionMod/Covariance [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo8">RegressionMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>Covariance</strong>: This function returns the covariance of two arrays of data.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  real function <strong>Covariance</strong>(arr1, arr2, isSample) result(rv)
+!  double precision function <strong>Covariance</strong>(arr1, arr2, isSample) result(rv)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  arr1: 1-dimensional array (of any size) of reals or double precisions (same
+    type as 'arr2').
+</li>
+<li>  arr2: 1-dimensional array (of any size) of reals or double precisions (same
+    type as 'arr1').
+</li>
+<li>  isSample: (optional) Logical. If true, the data is assumed to be sample
+    data. If false or omitted, the data is assumed to be population data.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">!  See ARGUMENTS section.
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Real or Double Precision (same type as 'arr'): <strong>Covariance</strong> of two arrays
+  of data.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function returns the covariance of two arrays of data, 'arr1',
+  and 'arr2'. Although 'arr1' and 'arr2' can be either reals or double
+  precisions, they must be of the same type (i.e., both reals or both
+  double precisions). If 'isSample' is true, then the data is assumed
+  to be sample data, so a denominator of n-1 is used. If 'isSample' is
+  false or omitted, then the data is assumed to be population data, so a
+  denominator of n is used.
+</p>
+
+<hr />
+<a name="RegressionMod2fErrSS"></a>
+<a name="robo135"></a><h2>RegressionMod/ErrSS [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo8">RegressionMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>ErrSS</strong>: This function returns the error sum of squares.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  real function <strong>ErrSS</strong>(arrY, arrX1, arrX2) result(rv)
+!  double precision function <strong>ErrSS</strong>(arrY, arrX1, arrX2) result(rv)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  arrY: 1-dimensional array (of any size) of reals or double precisions.
+    Dependent variable data.
+</li>
+<li>  arrX1: (optional) 1-dimensional array (of any size) of reals or double
+    precisions. Independent variable data.
+</li>
+<li>  arrX2: (optional) 1-dimensional array (of any size) of reals or double
+    precisions. Independent variable data.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">!  See ARGUMENTS section.
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Real or Double Precision (same type as 'arrY'): Error sum of squares.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function returns the error sum of squares for the passed in data.
+  The dependent variable data is passed in through the array 'arrY'.
+  The independent variable data is  passed in through the array 'arrX1'.
+  If 'arrX1' is omitted, then it is assumed to be an array containing
+  consecutive integers (starting with 1) that is the same size as 'arrY'.
+  If there are 2 independent variables, the second set of data is passed
+  in through 'arrX2'.
+</p>
+
+<p>  The 3 arrays, 'arrY', 'arrX1' and 'arrX2', must
+  all be of the same type (i.e., all reals or all double precisions).
+</p>
+
+<hr />
+<a name="RegressionMod2fFStat"></a>
+<a name="robo136"></a><h2>RegressionMod/FStat [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo8">RegressionMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>FStat</strong>: This function returns the F-statistic.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  real function <strong>FStat</strong>(arrY, arrX1, arrX2) result(rv)
+!  double precision function <strong>FStat</strong>(arrY, arrX1, arrX2) result(rv)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  arrY: 1-dimensional array (of any size) of reals or double precisions.
+    Dependent variable data.
+</li>
+<li>  arrX1: (optional) 1-dimensional array (of any size) of reals or double
+    precisions. Independent variable data.
+</li>
+<li>  arrX2: (optional) 1-dimensional array (of any size) of reals or double
+    precisions. Independent variable data.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">!  See ARGUMENTS section.
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Real or Double Precision (same type as 'arrY'): F-statistic for the
+  regression for the passed in data.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function returns the F-statistic for the regression for the passed
+  in data.
+  The dependent variable data is passed in through the array
+  'arrY'. The independent variable data is  passed in through the array
+  'arrX1'. If 'arrX1' is omitted, then it is assumed to be an array
+  containing consecutive integers (starting with 1) that is the same size
+  as 'arrY'. If there are 2 independent variables, the second set of data
+  is passed in through 'arrX2'.
+</p>
+
+<p>  Also, the 3 arrays, 'arrY', 'arrX1' and
+  'arrX2', must all be of the same type (i.e., all reals or all double
+  precisions).
+</p>
+
+<hr />
+<a name="RegressionMod2fRegIntercept"></a>
+<a name="robo137"></a><h2>RegressionMod/RegIntercept [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo8">RegressionMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>RegIntercept</strong>: This function returns the intercept for a regression equation.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  real function <strong>RegIntercept</strong>(arrY, arrX1, arrX2, slope1, slope2) result(rv)
+!  double precision function <strong>RegIntercept</strong>(arrY, arrX1, arrX2, slope1, slope2) &amp;
+!    result(rv)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  arrY: 1-dimensional array (of any size) of reals or double precisions.
+    Dependent variable data.
+</li>
+<li>  arrX1: (optional) 1-dimensional array (of any size) of reals or double
+    precisions. Independent variable data.
+</li>
+<li>  arrX2: (optional) 1-dimensional array (of any size) of reals or double
+    precisions. Independent variable data.
+</li>
+<li>  slope1: (optional) Slope as an integer.
+</li>
+<li>  slope2: (optional) Slope as an integer.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">!  See ARGUMENTS section.
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Real or Double Precision (same type as 'arrY'): Intercept of a regressions
+  equation.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function returns the intercept for a regression equation based on
+  the passed in data.
+  The dependent variable data is passed in through
+  the array 'arrY'. The independent variable data is  passed in through
+  the array 'arrX1'. If 'arrX1' is omitted, then it is assumed to be
+  an array containing consecutive integers (starting with 1) that is the
+  same size as 'arrY'. If there are 2 independent variables, the second
+  set of data is passed in through 'arrX2'. The slopes, 'slope1' and
+  'slope2', can be omitted and the intercept will still be calculated
+  correctly. However, if they known already, they can be passed in.
+  This will increase the efficiency of the calculation of the intercept.
+  Of course, 'slope2' should only be passed in if 'arrX2' was passed in.
+</p>
+
+<p>  The 3 arrays, 'arrY', 'arrX1' and 'arrX2', must all be of the same
+  type (i.e., all reals or all double precisions).
+</p>
+
+<hr />
+<a name="RegressionMod2fRegSlope"></a>
+<a name="robo138"></a><h2>RegressionMod/RegSlope [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo8">RegressionMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>RegSlope</strong>: This function returns the slope coefficient.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  real function <strong>RegSlope</strong>(arrY, arrX1, arrX2, slopeNum) result(rv)
+!  double precision function <strong>RegSlope</strong>(arrY, arrX1, arrX2, slopeNum) result(rv)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  arrY: 1-dimensional array (of any size) of reals or double precisions.
+    Dependent variable data.
+</li>
+<li>  arrX1: (optional) 1-dimensional array (of any size) of reals or double
+    precisions. Independent variable data.
+</li>
+<li>  arrX2: (optional) 1-dimensional array (of any size) of reals or double
+    precisions. Independent variable data.
+</li>
+<li>  slopeNum: (optional) Identifies which slope coefficient to return. The
+    value of 'slopeNum' should be 1 or 2 (corresponding to 'arrX1' and 'arrX2',
+    respectively).
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">!  See ARGUMENTS section.
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Real or Double Precision (same type as 'arrY'): Slope coefficient.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function returns the slope coefficient for a regression equation
+  based on the passed in data. The dependent variable data is passed in
+  through the array 'arrY'. The independent variable data is  passed in
+  through the array 'arrX1'. If 'arrX1' is omitted, then it is assumed
+  to be an array containing consecutive integers (starting with 1) that
+  is the same size as 'arrY'. If there are 2 independent variables, the
+  second set of data is passed in through 'arrX2'. If 'arrX2' is passed
+  in, then you must specify which slope coefficient should be returned.
+  This is specified in the 'slopeNum' argument. The value of 'slopeNum'
+  should be 1 or 2 (correcsponding to 'arrX1' and 'arrX2', respectively).
+</p>
+
+<p>  Either 'arrX2' and 'slopeNum' should both be passed in, or they should
+  both be omitted. The 3 arrays, 'arrY', 'arrX1' and 'arrX2', must all be
+  of the same type (i.e., all reals or all double precisions).
+</p>
+
+<hr />
+<a name="RegressionMod2fRegSS"></a>
+<a name="robo139"></a><h2>RegressionMod/RegSS [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo8">RegressionMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>RegSS</strong>: This function returns the regression sum of squares.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  real function <strong>RegSS</strong>(arrY, arrX1, arrX2) result(rv)
+!  double precision function <strong>RegSS</strong>(arrY, arrX1, arrX2) result(rv)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  arrY: 1-dimensional array (of any size) of reals or double precisions.
+    Dependent variable data.
+</li>
+<li>  arrX1: (optional) 1-dimensional array (of any size) of reals or double
+    precisions. Independent variable data.
+</li>
+<li>  arrX2: (optional) 1-dimensional array (of any size) of reals or double
+    precisions. Independent variable data.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">!  See ARGUMENTS section.
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Real or Double Precision (same type as 'arrY'): Regression sum of squares.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function returns the regression sum of squares for the passed in
+  data. The dependent variable data is passed in through the array
+  'arrY'. The independent variable data is passed in through the array
+  'arrX1'. If 'arrX1' is omitted, then it is assumed to be an array
+  containing consecutive integers (starting with 1) that is the same size
+  as 'arrY'. If there are 2 independent variables, the second set of data
+  is passed in through 'arrX2'.
+</p>
+
+<p>  The 3 arrays, 'arrY', 'arrX1' and 'arrX2', must all be of the same type
+  (i.e., all reals or all double precisions).
+</p>
+
+<hr />
+<a name="RegressionMod2fRegStdDev"></a>
+<a name="robo140"></a><h2>RegressionMod/RegStdDev [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo8">RegressionMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>RegStdDev</strong>: This function returns the standard deviation of the entire
+  regression for the passed in data.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  real function <strong>RegStdDev</strong>(arrY, arrX1, arrX2) result(rv)
+!  double precision function <strong>RegStdDev</strong>(arrY, arrX1, arrX2) result(rv)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  arrY: 1-dimensional array (of any size) of reals or double precisions.
+    Dependent variable data.
+</li>
+<li>  arrX1: (optional) 1-dimensional array (of any size) of reals or double
+    precisions. Independent variable data.
+</li>
+<li>  arrX2: (optional) 1-dimensional array (of any size) of reals or double
+    precisions. Independent variable data.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">!  See ARGUMENTS section.
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Real or Double Precision (same type as 'arrY'): Standard deviation of the
+  entire regression for the data passed in.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function returns the standard deviation (i.e., standard error) of
+  the entire regression for the passed in data. The dependent variable
+  data is passed in through the array 'arrY'. The independent variable
+  data is  passed in through the array 'arrX1'. If 'arrX1' is omitted,
+  then it is assumed to be an array containing consecutive integers
+  (starting with 1) that is the same size as 'arrY'. If there are 2
+  independent variables, the second set of data is passed in through
+  'arrX2'.
+</p>
+
+<p>  The 3 arrays, 'arrY', 'arrX1' and 'arrX2', must all be of
+  the same type (i.e., all reals or all double precisions).
+</p>
+
+<hr />
+<a name="RegressionMod2fRegStdError"></a>
+<a name="robo141"></a><h2>RegressionMod/RegStdError [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo8">RegressionMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>RegStdError</strong>: This function returns the standard error of the entire
+  regression for the passed in data.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  real function <strong>RegStdError</strong>(arrY, arrX1, arrX2) result(rv)
+!  double precision function <strong>RegStdError</strong>(arrY, arrX1, arrX2) result(rv)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  arrY: 1-dimensional array (of any size) of reals or double precisions.
+    Dependent variable data.
+</li>
+<li>  arrX1: (optional) 1-dimensional array (of any size) of reals or double
+    precisions. Independent variable data.
+</li>
+<li>  arrX2: (optional) 1-dimensional array (of any size) of reals or double
+    precisions. Independent variable data.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">!  See ARGUMENTS section.
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Real or Double Precision (same type as 'arrY'): Standard error of the
+  entire regression for the data passed in.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function returns the standard deviation (i.e., standard error) of
+  the entire regression for the passed in data. The dependent variable
+  data is passed in through the array 'arrY'. The independent variable
+  data is  passed in through the array 'arrX1'. If 'arrX1' is omitted,
+  then it is assumed to be an array containing consecutive integers
+  (starting with 1) that is the same size as 'arrY'. If there are 2
+  independent variables, the second set of data is passed in through
+  'arrX2'.
+</p>
+
+<p>  The 3 arrays, 'arrY', 'arrX1' and 'arrX2', must all be of
+  the same type (i.e., all reals or all double precisions).
+</p>
+
+<hr />
+<a name="RegressionMod2fRegVariance"></a>
+<a name="robo142"></a><h2>RegressionMod/RegVariance [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo8">RegressionMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>RegVariance</strong>: This function returns the variance of the entire regression for
+  the passed in data.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  real function <strong>RegVariance</strong>(arrY, arrX1, arrX2) result(rv)
+!  double precision function <strong>RegVariance</strong>(arrY, arrX1, arrX2) result(rv)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  arrY: 1-dimensional array (of any size) of reals or double precisions.
+    Dependent variable data.
+</li>
+<li>  arrX1: (optional) 1-dimensional array (of any size) of reals or double
+    precisions. Independent variable data.
+</li>
+<li>  arrX2: (optional) 1-dimensional array (of any size) of reals or double
+    precisions. Independent variable data.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">!  See ARGUMENTS section.
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Real or Double Precision (same type as 'arrY'): <a href="#robo150">Variance</a> of the
+  entire regression for the data passed in.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function returns the variance of the entire regression for the
+  passed in data. The dependent variable data is passed in through the
+  array 'arrY'. The independent variable data is  passed in through the
+  array 'arrX1'. If 'arrX1' is omitted, then it is assumed to be an array
+  containing consecutive integers (starting with 1) that is the same size
+  as 'arrY'. If there are 2 independent variables, the second set
+  of data is passed in through 'arrX2'.
+</p>
+
+<p>  The 3 arrays, 'arrY', 'arrX1' and 'arrX2', must all be of the same type
+  (i.e., all reals or all double precisions).
+</p>
+
+<hr />
+<a name="RegressionMod2fRSquared"></a>
+<a name="robo143"></a><h2>RegressionMod/RSquared [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo8">RegressionMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>RSquared</strong>: This function returns the R-squared value of the regression.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  real function <strong>RSquared</strong>(arrY, arrX1, arrX2) result(rv)
+!  double precision function <strong>RSquared</strong>(arrY, arrX1, arrX2) result(rv)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  arrY: 1-dimensional array (of any size) of reals or double precisions.
+    Dependent variable data.
+</li>
+<li>  arrX1: (optional) 1-dimensional array (of any size) of reals or double
+    precisions. Independent variable data.
+</li>
+<li>  arrX2: (optional) 1-dimensional array (of any size) of reals or double
+    precisions. Independent variable data.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">!  See ARGUMENTS section.
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Real or Double Precision (same type as 'arrY'): R-sqaured value.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function returns the R-squared value of the regression with the
+  passed in data. The dependent variable data is passed in through the
+  array 'arrY'. The independent variable data is  passed in through the
+  array 'arrX1'. If 'arrX1' is omitted, then it is assumed to be an array
+  containing consecutive integers (starting with 1) that is the same size
+  as 'arrY'. If there are 2 independent variables, the second set of
+  data is passed in through 'arrX2'.
+</p>
+
+<p>  The 3 arrays, 'arrY', 'arrX1' and 'arrX2', must all be of the same type
+  (i.e., all reals or all double precisions).
+</p>
+
+<hr />
+<a name="RegressionMod2fStdDev"></a>
+<a name="robo144"></a><h2>RegressionMod/StdDev [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo8">RegressionMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>StdDev</strong>: This function returns the standard deviation of the data.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  real function <strong>StdDev</strong>(arr, isSample) result(rv)
+!  double precision function <strong>StdDev</strong>(arr, isSample) result(rv)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  arr: 1-dimensional array (of any size) of reals or double precisions.
+</li>
+<li>  isSample: (optional) Logical. If true, the data is assumed to be sample
+    data. If false or omitted, the data is assumed to be population data.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">!  See ARGUMENTS section.
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Real or Double Precision (same type as 'arr'): Standard Deviation of the
+  data.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function takes an array of data, in 'arr', and returns the standard
+  deviation of the data. If 'isSample' is true, then the data is assumed
+  to be sample data, so a denominator of n-1 is used. If 'isSample' is
+  false or omitted, then the data is assumed to be population data, so a
+  denominator of n is used.
+</p>
+
+<hr />
+<a name="RegressionMod2fStdErrorIntercept"></a>
+<a name="robo145"></a><h2>RegressionMod/StdErrorIntercept [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo8">RegressionMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>StdErrorIntercept</strong>: This function returns the standard deviation of
+  the intercept coefficient of the regression for the passed in data.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  real function <strong>StdErrorIntercept</strong>(arrY, arrX1, arrX2) result(rv)
+!  double precision function <strong>StdErrorIntercept</strong>(arrY, arrX1, arrX2) result(rv)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  arrY: 1-dimensional array (of any size) of reals or double precisions.
+    Dependent variable data.
+</li>
+<li>  arrX1: (optional) 1-dimensional array (of any size) of reals or double
+    precisions. Independent variable data.
+</li>
+<li>  arrX2: (optional) 1-dimensional array (of any size) of reals or double
+    precisions. Independent variable data.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">!  See ARGUMENTS section.
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Real or Double Precision (same type as 'arrY'): Standard deviation of
+  the intercept coefficient of the regression for the passed in data.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function returns the standard deviation (i.e., standard error) of
+  the intercept coefficient of the regression for the passed in data.
+  The dependent variable data is passed in through the array 'arrY'.
+  The independent variable data is  passed in through the array
+  'arrX1'. If 'arrX1' is omitted, then it is assumed to be an array
+  containing consecutive integers (starting with 1) that is the same
+  size as 'arrY'. If there are 2 independent variables, the second set of
+  data is passed in through 'arrX2'.
+</p>
+
+<p>  The 3 arrays, 'arrY', 'arrX1' and 'arrX2', must all be of the same type
+  (i.e., all reals or all double precisions).
+</p>
+
+<hr />
+<a name="RegressionMod2fStdErrorSlope"></a>
+<a name="robo146"></a><h2>RegressionMod/StdErrorSlope [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo8">RegressionMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>StdErrorSlope</strong>: This function returns the standard deviation of
+  the slope coefficient of the regression for the passed in data.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  real function <strong>StdErrorSlope</strong>(arrY, arrX1, arrX2, slopeNum) result(rv)
+!  double precision function <strong>StdErrorSlope</strong>(arrY, arrX1, arrX2, slopeNum)
+!    result(rv)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  arrY: 1-dimensional array (of any size) of reals or double precisions.
+    Dependent variable data.
+</li>
+<li>  arrX1: (optional) 1-dimensional array (of any size) of reals or double
+    precisions. Independent variable data.
+</li>
+<li>  arrX2: (optional) 1-dimensional array (of any size) of reals or double
+    precisions. Independent variable data.
+</li>
+<li>  slopeNum: (optional) Integer value should be 1 or 2 correcsponding to
+    'arrX1' and 'arrX2', respectively.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">!  See ARGUMENTS section.
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Real or Double Precision (same type as 'arrY'): Standard deviation of
+  the slope coefficient of the regression for the passed in data.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function returns the standard deviation (i.e., standard error) of
+  the slope coefficient of the regression for the passed in data.
+  The dependent variable data is passed in through the array 'arrY'.
+  The independent variable data is  passed in through the array
+  'arrX1'. If 'arrX1' is omitted, then it is assumed to be an array
+  containing consecutive integers (starting with 1) that is the same size
+  as 'arrY'. If there are 2 independent variables, the second set of
+  data is passed in through 'arrX2'. If 'arrX2' is passed in, then
+  you must specify which slope coefficient standard deviation should
+  be returned. This is specified in the 'slopeNum' argument. The value
+  of 'slopeNum' should be 1 or 2 (correcsponding to 'arrX1' and 'arrX2',
+  respectively).
+</p>
+
+<p>  Either 'arrX2' and 'slopeNum' should both be passed in,
+  or they should both be omitted. Also, the 3 arrays, 'arrY', 'arrX1'
+  and 'arrX2', must all be of the same type (i.e., all reals or all
+  double precisions).
+</p>
+
+<hr />
+<a name="RegressionMod2fTotSS"></a>
+<a name="robo147"></a><h2>RegressionMod/TotSS [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo8">RegressionMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>TotSS</strong>: This function returns the total sum of squares.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  real function <strong>TotSS</strong>(arr) result(rv)
+!  double precision function <strong>TotSS</strong>(arr) result(rv)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  arr: 1-dimensional array (of any size) of reals or double precisions.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">!  See ARGUMENTS section.
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Real or Double Precision (same type as 'arr'): Total sum of squares.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function returns the total sum of squares for the passed in data.
+</p>
+
+<hr />
+<a name="RegressionMod2fTStatIntercept"></a>
+<a name="robo148"></a><h2>RegressionMod/TStatIntercept [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo8">RegressionMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>TStatIntercept</strong>: This function returns the t-statistic for the intercept
+  coefficient of the regression for the passed in data.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  real function <strong>TStatIntercept</strong>(arrY, arrX1, arrX2) result(rv)
+!  double precision function <strong>TStatIntercept</strong>(arrY, arrX1, arrX2) result(rv)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  arrY: 1-dimensional array (of any size) of reals or double precisions.
+    Dependent variable data.
+</li>
+<li>  arrX1: (optional) 1-dimensional array (of any size) of reals or double
+    precisions. Independent variable data.
+</li>
+<li>  arrX2: (optional) 1-dimensional array (of any size) of reals or double
+    precisions. Independent variable data.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">!  See ARGUMENTS section.
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Real or Double Precision (same type as 'arrY'): t-statistic for the intercept
+  coefficient of the regression for the passed in data.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function returns the t-statistic for the intercept coefficient of
+  the regression for the passed in data. The dependent variable data is
+  passed in through the array 'arrY'. The independent variable data
+  is  passed in through the array 'arrX1'. If 'arrX1' is omitted, then
+  it is assumed to be an array containing consecutive integers (starting
+  with 1) that is the same size as 'arrY'. If there are 2 independent
+  variables, the second set of data is passed in through 'arrX2'.
+</p>
+
+<p>  Also, the 3 arrays, 'arrY', 'arrX1' and 'arrX2', must all be of the same
+  type (i.e., all reals or all double precisions).
+</p>
+
+<hr />
+<a name="RegressionMod2fTStatSlope"></a>
+<a name="robo149"></a><h2>RegressionMod/TStatSlope [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo8">RegressionMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>TStatSlope</strong>: This function returns the t-statistic for the slope coefficient
+  of the regression for the passed in data.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  real function <strong>TStatSlope</strong>(arrY, arrX1, arrX2, slopeNum) result(rv)
+!  double precision function <strong>TStatSlope</strong>(arrY, arrX1, arrX2, slopeNum) result(rv)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  arrY: 1-dimensional array (of any size) of reals or double precisions.
+    Dependent variable data.
+</li>
+<li>  arrX1: (optional) 1-dimensional array (of any size) of reals or double
+    precisions. Independent variable data.
+</li>
+<li>  arrX2: (optional) 1-dimensional array (of any size) of reals or double
+    precisions. Independent variable data.
+</li>
+<li>  slopeNum: (optional) Integer value should be 1 or 2 correcsponding to
+    'arrX1' and 'arrX2', respectively.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">!  See ARGUMENTS section.
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Real or Double Precision (same type as 'arrY'): t-statistic for the slope
+  coefficient of the regression for the passed in data.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function returns the t-statistic for the slope coefficient of the
+  regression for the passed in data. The dependent variable data is
+  passed in through the array 'arrY'. The independent variable data
+  is  passed in through the array 'arrX1'. If 'arrX1' is omitted, then
+  it is assumed to be an array containing consecutive integers (starting
+  with 1) that is the same size as 'arrY'. If there are 2 independent
+  variables, the second set of data is passed in through 'arrX2'. If
+  'arrX2' is passed in, then you must specify which slope coefficient
+  t-statistic should be returned. This is specified in the 'slopeNum'
+  argument. The value of 'slopeNum' should be 1 or 2 (correcsponding
+  to 'arrX1' and 'arrX2', respectively).
+</p>
+
+<p>  Either 'arrX2' and 'slopeNum' should both be passed in, or they should both
+  be omitted. Also, the 3 arrays, 'arrY', 'arrX1' and 'arrX2', must all be of
+  the same type (i.e., all reals or all double precisions).
+</p>
+
+<hr />
+<a name="RegressionMod2fVariance"></a>
+<a name="robo150"></a><h2>RegressionMod/Variance [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo8">RegressionMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>Variance</strong>: This function returns the variance of the data.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  real function <strong>Variance</strong>(arr, isSample) result(rv)
+!  double precision function <strong>Variance</strong>(arr, isSample) result(rv)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  arr: 1-dimensional array (of any size) of reals or double precisions.
+</li>
+<li>  isSample: (optional) Logical. If true, the data is assumed to be sample
+    data. If false or omitted, the data is assumed to be population data.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">!  See ARGUMENTS section.
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Real or Double Precision (same type as 'arr'): <strong>Variance</strong> of the data.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function takes an array of data, in 'arr', and returns the
+  variance of the data. If 'isSample' is true, then the data is assumed
+  to be sample data, so a denominator of n-1 is used. If 'isSample' is
+  false or omitted, then the data is assumed to be population data, so a
+  denominator of n is used.
+</p>
+
+</div> <!-- content -->
+<div id="footer">
+<p>Generated from ./source/RegressionMod.f90 with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.36 on Tue May 09 2023 10:30:03
+</p>
+</div> <!-- footer -->
+</body>
+</html>

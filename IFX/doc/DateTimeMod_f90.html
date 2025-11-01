@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>./source/DateTimeMod.f90</title>
+<!-- Source: ./source/DateTimeMod.f90 -->
+<!-- Generated with ROBODoc Version 4.99.36 (Apr 25 2008) -->
+</head>
+<body>
+<div id="logo">
+<a name="robo_top_of_doc"></a>
+</div> <!-- logo -->
+<div id="navigation">
+<a class="menuitem" href="./toc_index.html#top">Table of Contents</a>
+<a class="menuitem" href="./robo_sourcefiles.html#top">Sourcefiles</a>
+<a class="menuitem" href="./masterindex.html#top">Index</a>
+<a class="menuitem" href="./robo_functions.html#top">Functions</a>
+<a class="menuitem" href="./robo_modules.html#top">Modules</a>
+</div> <!-- navigation -->
+<div id="content">
+<h3>TABLE OF CONTENTS</h3>
+<ul>
+<li>1. <a href="#robo0">source/DateTimeMod</a></li>
+<ul>
+<li>1.1. <a href="#robo15">DateTimeMod/DateFormatter</a></li>
+</ul>
+</ul>
+<hr />
+<a name="source2fDateTimeMod"></a>
+<a name="robo0"></a><h2>source/DateTimeMod [ Modules ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_modules.html#robo_top_of_doc">Modules</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>DateTimeMod</strong>: OcactFortLib <strong>DateTimeMod</strong> module.
+</p>
+<p class="item_name">REVISION</p>
+<p>  Revision: 1.3
+</p>
+<p class="item_name">MODULE DESCRIPTION</p>
+<p>  The <strong>DateTimeMod</strong> module contains a function that is used to
+  manipulate date strings.
+</p>
+<p class="item_name">MODULE ROUTINES</p>
+<pre>  <a href="#robo15">DateFormatter</a>
+</pre>
+
+<hr />
+<a name="DateTimeMod2fDateFormatter"></a>
+<a name="robo15"></a><h2>DateTimeMod/DateFormatter [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">DateTimeMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>DateFormatter</strong>: This function takes a character variable holding a date
+  format and returns either the current date or the optional argument date in
+  the requested date format.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  character (len = MAX_CHAR_LENGTH) &amp;
+      function <strong>DateFormatter</strong>(dateFmt, optDate, optDateFmt) result(date)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  dateFmt: Character variable holding the date format.
+</li>
+<li>  optDate: (optional) The date to be formatted in dateFmt. 
+    If optDate is present, optDateFmt must also be present.
+</li>
+<li>  optDateFmt: (optional) Format of optDate. If optDateFmt is present,
+    optDate must also be present.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: dateFmt
+    character (len = *), optional, intent(in) :: optDate
+    character (len = *), optional, intent(in) :: optDateFmt
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Character string: Character sting value of the requested date in the
+  requested format.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function takes a character variable holding a date
+  format and returns either the current date or the optional argument date in
+  the requested date format. For example, if the variable 'dateFmt' is a
+  character string holding the value "mm/dd/yyyy", then the current date
+  (ex. April 30, 2015)will return '04/30/2015' as a character string.
+</p>
+  
+<p>  The DataFormatter functions looks for the following month, day, year inputs:
+</p>
+<pre>      m: 1, 2, 3, ...
+     mm: 01, 02, 03, ...
+    mmm: Jan, Feb, Mar, ...
+   mmmm: January, February, March, ...
+      d: 1, 2, 3, ...
+     dd: 01, 02, 03, ...
+     yy: 10, 11, 12, ...
+   yyyy: 2010, 2011, 2012, ...
+</pre>
+<p>  The dateFmt and optDatFmt inputs must be lower case letters.  Inputs that
+  are not recognized will print out as entered, and '\' is used as an escape
+  character. For example,'<strong>DateFormatter</strong>("\month: mmmm", '6-15-10', 'm-dd-yy')'
+  will return 'month: June'.
+</p>
+
+</div> <!-- content -->
+<div id="footer">
+<p>Generated from ./source/DateTimeMod.f90 with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.36 on Mon Mar 27 2017 11:09:38
+</p>
+</div> <!-- footer -->
+</body>
+</html>

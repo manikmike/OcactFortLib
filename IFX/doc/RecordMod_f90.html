@@ -1,0 +1,699 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>./source/RecordMod.f90</title>
+<!-- Source: ./source/RecordMod.f90 -->
+<!-- Generated with ROBODoc Version 4.99.36 (Apr 25 2008) -->
+</head>
+<body>
+<div id="logo">
+<a name="robo_top_of_doc"></a>
+</div> <!-- logo -->
+<div id="navigation">
+<a class="menuitem" href="./toc_index.html#top">Table of Contents</a>
+<a class="menuitem" href="./robo_sourcefiles.html#top">Sourcefiles</a>
+<a class="menuitem" href="./masterindex.html#top">Index</a>
+<a class="menuitem" href="./robo_functions.html#top">Functions</a>
+<a class="menuitem" href="./robo_modules.html#top">Modules</a>
+</div> <!-- navigation -->
+<div id="content">
+<h3>TABLE OF CONTENTS</h3>
+<ul>
+<li>1. <a href="#robo7">source/RecordMod</a></li>
+<ul>
+<li>1.1. <a href="#robo116">RecordMod/RecordGet</a></li>
+<li>1.2. <a href="#robo117">RecordMod/RecordGetAsChar</a></li>
+<li>1.3. <a href="#robo118">RecordMod/RecordGetAsDoublePrec</a></li>
+<li>1.4. <a href="#robo119">RecordMod/RecordGetAsInt</a></li>
+<li>1.5. <a href="#robo120">RecordMod/RecordGetAsMonthDay</a></li>
+<li>1.6. <a href="#robo121">RecordMod/RecordGetAsMonthDayYear</a></li>
+<li>1.7. <a href="#robo122">RecordMod/RecordGetAsMonthYear</a></li>
+<li>1.8. <a href="#robo123">RecordMod/RecordGetAsReal</a></li>
+<li>1.9. <a href="#robo124">RecordMod/RecordGetFieldID</a></li>
+<li>1.10. <a href="#robo125">RecordMod/RecordLoadFileDesc</a></li>
+<li>1.11. <a href="#robo126">RecordMod/RecordRead</a></li>
+<li>1.12. <a href="#robo127">RecordMod/RecordSet</a></li>
+<li>1.13. <a href="#robo128">RecordMod/RecordWrite</a></li>
+<li>1.14. <a href="#robo129">RecordMod/RecordWriteFileDesc</a></li>
+<li>1.15. <a href="#robo130">RecordMod/RecordWriteFull</a></li>
+<li>1.16. <a href="#robo131">RecordMod/RecordWriteHeader</a></li>
+</ul>
+</ul>
+<hr />
+<a name="source2fRecordMod"></a>
+<a name="robo7"></a><h2>source/RecordMod [ Modules ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./robo_modules.html#robo_top_of_doc">Modules</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>RecordMod</strong>: OcactFortLib <strong>RecordMod</strong> module.
+</p>
+<p class="item_name">REVISION</p>
+<p>  Revision: 1.11
+</p>
+<p class="item_name">MODULE DESCRIPTION</p>
+<p>  The <strong>RecordMod</strong> contains subroutines and functions used to get, set, and write
+  fields to a record. The <a href="#robo125">RecordLoadFileDesc</a> subroutine reads a "File
+  Description" file used to describe the record layout in a "Record File". The
+  <a href="#robo125">RecordLoadFileDesc</a> subroutine should be called before using other routines in
+  <strong>RecordMod</strong>. <a href="#robo116">RecordGet</a> is used to get a field from a Record File. The value can
+  be returned as a character string, integer, real, double precision, or date
+  (which is really a character string, but with special date-like formatting).
+  <a href="#robo127">RecordSet</a> is similar to <a href="#robo116">RecordGet</a>. The difference is it sets the value of a
+  field instead of retreiving a value.
+</p>
+<p class="item_name">MODULE ROUTINES</p>
+<pre>  <a href="#robo116">RecordGet</a>
+  <a href="#robo117">RecordGetAsChar</a>
+  <a href="#robo118">RecordGetAsDoublePrec</a>
+  <a href="#robo119">RecordGetAsInt</a>
+  <a href="#robo120">RecordGetAsMonthDay</a>
+  <a href="#robo121">RecordGetAsMonthDayYear</a>
+  <a href="#robo122">RecordGetAsMonthYear</a>
+  <a href="#robo123">RecordGetAsReal</a>
+  <a href="#robo124">RecordGetFieldID</a>
+  <a href="#robo125">RecordLoadFileDesc</a>
+  <a href="#robo126">RecordRead</a>
+  <a href="#robo127">RecordSet</a>
+  <a href="#robo128">RecordWrite</a>
+  <a href="#robo129">RecordWriteFileDesc</a>
+  <a href="#robo130">RecordWriteFull</a>
+  <a href="#robo131">RecordWriteHeader</a>
+</pre>
+
+<hr />
+<a name="RecordMod2fRecordGet"></a>
+<a name="robo116"></a><h2>RecordMod/RecordGet [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo7">RecordMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>RecordGet</strong>: This function is used to get a field from a record.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  character (len = MAX_CHAR_LENGTH) function <strong>RecordGet</strong>(rec, field) result(rv)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  rec: Entire record line as a character string (of variable length).
+</li>
+<li>  field: Field can either be an integer or a character string (of variable
+    length).
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">!  See ARGUMENTS section.
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Character string of length 1000: Field value from a record.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function is used to get a field from a record. The record is
+  passed in through 'rec'. It should be the entire line from the file
+  that contains the record in it. If 'field' is a character string,
+  then the function looks for the name of the field that matches
+  'field' and returns the characters in that field. If 'field' is an
+  integer, then it should be an ID associated with a field. To get
+  this ID, use the function '<a href="#robo124">RecordGetFieldID</a>'. (See the documentation
+  of '<a href="#robo124">RecordGetFieldID</a>'.) Using the field ID is significantly more
+  efficient than using the field name. This function always returns a
+  character string of length 10000, regardless of how many characters
+  are actually in the field itself. If the field is only 5 characters
+  long, then the last 9995 characters returned by this function will
+  be blank. If a different size return value is needed, see the
+  documentation for the function '<a href="#robo117">RecordGetAsChar</a>'. If another format
+  is desired for the return value (such as an integer, real, double
+  precision, or date) see the documentation for the other functions in
+  this module: '<a href="#robo119">RecordGetAsInt</a>', '<a href="#robo123">RecordGetAsReal</a>',
+  '<a href="#robo118">RecordGetAsDoublePrec</a>', '<a href="#robo121">RecordGetAsMonthDayYear</a>',
+  '<a href="#robo122">RecordGetAsMonthYear</a>', and '<a href="#robo120">RecordGetAsMonthDay</a>'.
+</p>
+
+<hr />
+<a name="RecordMod2fRecordGetAsChar"></a>
+<a name="robo117"></a><h2>RecordMod/RecordGetAsChar [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo7">RecordMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>RecordGetAsChar</strong>: This function is used to get a field from a record.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  character (len = length) function <strong>RecordGetAsChar</strong>(rec, field, length) &amp;
+!    result(rv)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  rec: Entire record line as a character string (of variable length).
+</li>
+<li>  field: Field can either be an integer or a character string (of variable
+    length).
+</li>
+<li>  length: Integer length of the return value character string.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">!  See ARGUMENTS section.
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Character string of length 'length': Field value from a record.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function is similar to '<a href="#robo116">RecordGet</a>'. (See the documentation for
+  '<a href="#robo116">RecordGet</a>'.) The only difference is that this function takes a
+  third argument, 'length', which defines the number of characters
+  that will be returned by this function.
+</p>
+
+<hr />
+<a name="RecordMod2fRecordGetAsDoublePrec"></a>
+<a name="robo118"></a><h2>RecordMod/RecordGetAsDoublePrec [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo7">RecordMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>RecordGetAsDoublePrec</strong>: This function is used to get a field from a record.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  double precision function <strong>RecordGetAsDoublePrec</strong>(rec, field) result(rv)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  rec: Entire record line as a character string (of variable length).
+</li>
+<li>  field: Field can either be an integer or a character string (of variable
+    length).
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">!  See ARGUMENTS section.
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Double Precision: Field value from a record.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function is similar to '<a href="#robo116">RecordGet</a>'. (See the documentation for
+  '<a href="#robo116">RecordGet</a>'.) The only difference is that this function returns
+  the value in the specified field as a double precision instead of
+  as a character string. If the field contains blanks, the double
+  precision 0.0d0 is returned.
+</p>
+
+<hr />
+<a name="RecordMod2fRecordGetAsInt"></a>
+<a name="robo119"></a><h2>RecordMod/RecordGetAsInt [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo7">RecordMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>RecordGetAsInt</strong>: This function is used to get a field from a record.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  integer function <strong>RecordGetAsInt</strong>(rec, field) result(rv)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  rec: Entire record line as a character string (of variable length).
+</li>
+<li>  field: Field can either be an integer or a character string (of variable
+    length).
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">!  See ARGUMENTS section.
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Integer: Field value from a record.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function is similar to '<a href="#robo116">RecordGet</a>'. (See the documentation for
+  '<a href="#robo116">RecordGet</a>'.) The only difference is that this function returns
+  the value in the specified field as an integer instead of as a
+  character string. If the field contains blanks, the integer 0 is
+  returned.
+</p>
+
+<hr />
+<a name="RecordMod2fRecordGetAsMonthDay"></a>
+<a name="robo120"></a><h2>RecordMod/RecordGetAsMonthDay [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo7">RecordMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>RecordGetAsMonthDay</strong>: This function is used to get a field from a record.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  character (len = 5) function <strong>RecordGetAsMonthDay</strong>(rec, field) result(rv)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  rec: Entire record line as a character string (of variable length).
+</li>
+<li>  field: Field can either be an integer or a character string (of variable
+    length).
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">!  See ARGUMENTS section.
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Character string (of length 5): Field value from a record.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function is similar to '<a href="#robo121">RecordGetAsMonthDayYear</a>'. (See the
+  documentation for '<a href="#robo121">RecordGetAsMonthDayYear</a>'.) It is used on fields
+  which are exactly 4 characters and are meant to represent a date
+  where the first 2 characters are the month and the last 2 are the
+  day. It returns these characters as a date in the form mm/dd,
+  with the slashes ("/") in the appropriate places. For example, if
+  the field is the 4 characters "0115", then this function will
+  return the character string "01/15".
+</p>
+
+<hr />
+<a name="RecordMod2fRecordGetAsMonthDayYear"></a>
+<a name="robo121"></a><h2>RecordMod/RecordGetAsMonthDayYear [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo7">RecordMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>RecordGetAsMonthDayYear</strong>: This function is used to get a field from a record.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  character (len = 10) function <strong>RecordGetAsMonthDayYear</strong>(rec, field) result(rv)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  rec: Entire record line as a character string (of variable length).
+</li>
+<li>  field: Field can either be an integer or a character string (of variable
+    length).
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">!  See ARGUMENTS section.
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Character string (of length 10): Field value from a record.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function is similar to '<a href="#robo116">RecordGet</a>'. (See the documentation for
+  '<a href="#robo116">RecordGet</a>'.) It is used on fields which are exactly 8 characters
+  and are meant to represent a date where the first 2 characters are
+  the month, then next 2 are the day, and the last 4 are the year.
+  It returns these characters as a date in the form mm/dd/yyyy, with
+  the slashes ("/") in the appropriate places. For example, if the
+  field is the 8 characters "01151950", then this function will return
+  the character string "01/15/1950".
+</p>
+
+<hr />
+<a name="RecordMod2fRecordGetAsMonthYear"></a>
+<a name="robo122"></a><h2>RecordMod/RecordGetAsMonthYear [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo7">RecordMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>RecordGetAsMonthYear</strong>: This function is used to get a field from a record.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  character (len = 7) function <strong>RecordGetAsMonthYear</strong>(rec, field) result(rv)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  rec: Entire record line as a character string (of variable length).
+</li>
+<li>  field: Field can either be an integer or a character string (of variable
+    length).
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">!  See ARGUMENTS section.
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Character string (of length 7): Field value from a record.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function is similar to '<a href="#robo121">RecordGetAsMonthDayYear</a>'. (See the
+  documentation for '<a href="#robo121">RecordGetAsMonthDayYear</a>'.) It is used on fields
+  which are exactly 6 characters and are meant to represent a date
+  where the first 2 characters are the month and the last 4 are the
+  year. It returns these characters as a date in the form mm/yyyy,
+  with the slashes ("/") in the appropriate places. For example, if
+  the field is the 8 characters "011950", then this function will
+  return the character string "01/1950".
+</p>
+
+<hr />
+<a name="RecordMod2fRecordGetAsReal"></a>
+<a name="robo123"></a><h2>RecordMod/RecordGetAsReal [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo7">RecordMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>RecordGetAsReal</strong>: This function is used to get a field from a record.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  real function <strong>RecordGetAsReal</strong>(rec, field) result(rv)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  rec: Entire record line as a character string (of variable length).
+</li>
+<li>  field: Field can either be an integer or a character string (of variable
+    length).
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">!  See ARGUMENTS section.
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Real: Field value from a record.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function is similar to '<a href="#robo116">RecordGet</a>'. (See the documentation for
+  '<a href="#robo116">RecordGet</a>'.) The only difference is that this function returns
+  the value in the specified field as a real instead of as a
+  character string. If the field contains blanks, the real 0.0 is
+  returned.
+</p>
+
+<hr />
+<a name="RecordMod2fRecordGetFieldID"></a>
+<a name="robo124"></a><h2>RecordMod/RecordGetFieldID [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo7">RecordMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>RecordGetFieldID</strong>: This function returns an ID associated with the field name.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  integer function <strong>RecordGetFieldID</strong>(fieldName) result(rv)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  fieldName: Field name in a record.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: fieldName
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Integer: The ID associated with the field name.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function takes the field name in 'fieldName' and returns an ID
+  associated with the field. This ID can be used as a faster way to
+  access variables in a record when using the '<a href="#robo116">RecordGet</a>' function
+  (or any of the similar functions in this module.)  Passing in the
+  ID is faster than passing in the fieldName to every '<a href="#robo116">RecordGet</a>'
+  function call. An ID of -1 is returned if 'fieldName' is not valid.
+</p>
+
+<hr />
+<a name="RecordMod2fRecordLoadFileDesc"></a>
+<a name="robo125"></a><h2>RecordMod/RecordLoadFileDesc [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo7">RecordMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>RecordLoadFileDesc</strong>: This subroutine reads a "File Description" file that is
+  used to describe the record layout in a "Record File".
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  subroutine <strong>RecordLoadFileDesc</strong>(fileName, unitNum)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  fileName: Name of the "File Description" file.
+</li>
+<li>  unitNum: Unit number of the "File Description" file.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: fileName
+    integer, intent(in) :: unitNum
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  This subroutine reads a "File Description" (FD) file that is used to
+  describe the record layout in a "Record File" (RF). It should be
+  called before using the other routines in this module. 
+</p>
+
+<p>  The RF contains one record per line and each record has multiple fixed-width
+  fields in it. The FD describes the RF by giving the name of each field and
+  how many characters are contained in each field. So the FD file
+  should, essentially, have two columns. The first column contains the
+  names of the fields in the RF, and the second column contains the
+  size of the corresponding field. The first and second columns should
+  be separated by spaces (not tabs). The number of rows in the FD file
+  should correspond to the number of fields in each record in the RF.
+  Comment lines and blank lines are allowed in the FD file and are
+  ignored. A comment line must begin with an exclamation mark (!) as
+  the first character on the line. The name of the FD file is passed
+  to this subroutine in the variable 'fileName'. Additionally, the
+  user must pass in any available unit number (in 'unitNum') that this
+  subroutine can use to open the FD file and read it in. It will close
+  this file at the end of the subroutine so the user can re-use that
+  unit number later in the program.
+</p>
+
+<p>  For example, say you have a file
+  that contains people's Social Security number, sex, and age. And the
+  file is fixed-width so that the first nine characters are the SSN,
+  the next 1 is the person's sex ("M" or "F") and the last 3 are the
+  person's age. The contents of the RF may look like this:
+</p>
+<pre>     000000001M 51
+     000000002M  3
+     000000003F102
+     000000004F 47
+     000000005M 22
+</pre>
+<p>  This module is used to read the file and have easy access to the
+  fields of each record. You would create a FD file that looks like
+  this:
+</p>
+<pre>     ! This is a file description for a file where the first 9 characters
+     ! are the SSN, then next 1 is the sex of the person, and the last 3
+     ! are person's age.
+     ! Field Name        Number Of Characters
+     ssn                 10
+     sex                  1
+     Age                  3
+</pre>
+<p>  Near the beginning of your program you would have a call to this
+  subroutine that would look something like this:
+</p>
+<pre>     call <strong>RecordLoadFileDesc</strong>("myFileDesc", 10)
+</pre>
+<p>  Then, at later points in the program you could call '<a href="#robo116">RecordGet</a>' (or
+  '<a href="#robo127">RecordSet</a>') to get (or set) different fields of a record. See the
+  documentation for these two functions.
+</p>
+
+<hr />
+<a name="RecordMod2fRecordRead"></a>
+<a name="robo126"></a><h2>RecordMod/RecordRead [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo7">RecordMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>RecordRead</strong>: This function is used for reading a record.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  integer function <strong>RecordRead</strong>(rec, unitNum) result(rv)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  rec: Record being read.
+</li>
+<li>  unitNum: Unit number of the file to be opened.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(out) :: rec
+    integer, intent(in) :: unitNum
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Integer: Returns 0 if successful; otherwise non-zero.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function is used for reading a record. The record being read is from the
+  file associated with 'unitNum'. It does not open or close this file;
+  it just reads it. The entire record is read on one line and
+  will have spacing so that it will line up with the headings if
+  '<a href="#robo131">RecordWriteHeader</a>' was used to write out the headings. This
+  function returns 0 if it was successful; otherwise non-zero.
+</p>
+
+<hr />
+<a name="RecordMod2fRecordSet"></a>
+<a name="robo127"></a><h2>RecordMod/RecordSet [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo7">RecordMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>RecordSet</strong>: This function is used to set a value of a field in the record.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">!  integer function <strong>RecordSet</strong>(rec, field, newVal) result(rv)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  rec: Entire record line as a character string (of variable length).
+</li>
+<li>  field: Field can either be an integer or a character string (of variable
+    length).
+</li>
+<li>  newVal: New value used to set the value of a field, character string (of
+    variable length).
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">!  See ARGUMENTS section.
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Integer: Returns a 0 if successful; otherwise non-zero.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function is similar to '<a href="#robo116">RecordGet</a>'. (See the documentation for
+  '<a href="#robo116">RecordGet</a>'.) The only difference is that it is used to set the
+  value of a field in the record instead of to retrieve a value. The
+  new value to be used is 'newVal'. Note that this only changes the
+  characters of 'rec' -- it does not write them back out to the file
+  containing the records. So these changes are not permanent (from one
+  program run to the next), unless the user explicitly writes out the
+  record after it has been changed. This function returns 0 if it was
+  successful; otherwise non-zero.
+</p>
+
+<hr />
+<a name="RecordMod2fRecordWrite"></a>
+<a name="robo128"></a><h2>RecordMod/RecordWrite [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo7">RecordMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>RecordWrite</strong>: This function is used for writing out a record.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  integer function <strong>RecordWrite</strong>(rec, unitNum) result(rv)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  rec: Record to write to the file.
+</li>
+<li>  unitNum: Unit number of the file to be opened.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: rec
+    integer, intent(in) :: unitNum
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Integer: Returns 0 if successful; otherwise non-zero.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function is used for writing out a record. It is written to the
+  file associated with 'unitNum'. It does not open or close this file;
+  it just writes to it. The entire record is written on one line and
+  will have spacing so that it will line up with the headings if
+  '<a href="#robo131">RecordWriteHeader</a>' was used to write out the headings. This
+  function returns 0 if it was successful; otherwise non-zero.
+</p>
+
+<hr />
+<a name="RecordMod2fRecordWriteFileDesc"></a>
+<a name="robo129"></a><h2>RecordMod/RecordWriteFileDesc [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo7">RecordMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>RecordWriteFileDesc</strong>: This subroutine is mainly used for debugging to make
+  sure the "File Descrption" file was read in correctly.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  subroutine <strong>RecordWriteFileDesc</strong>(unitNum)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  unitNum: Unit number of the file.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    integer, intent(in) :: unitNum
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  This subroutine is mainly used for debugging to make sure the "File
+  Descrption" file (see documentation of '<a href="#robo125">RecordLoadFileDesc</a>') was
+  read in correctly. It prints out (to 'unitNum') some details about
+  the "File Description" file that was previously read in through the
+  subroutine '<a href="#robo125">RecordLoadFileDesc</a>'. The user is in charge of making
+  sure that the file associated with 'unitNum' is already open. The
+  number 6 can be passed in as the 'unitNum' if the output should go
+  to standard out (usually the screen).
+</p>
+
+<hr />
+<a name="RecordMod2fRecordWriteFull"></a>
+<a name="robo130"></a><h2>RecordMod/RecordWriteFull [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo7">RecordMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>RecordWriteFull</strong>: This function is used for writing out a record.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  integer function <strong>RecordWriteFull</strong>(rec, unitNum) result(rv)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  rec: Record to write to the file.
+</li>
+<li>  unitNum: Unit number of the file.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    character (len = *), intent(in) :: rec
+    integer, intent(in) :: unitNum
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Integer: Returns 0 if successful; otherwise non-zero.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function is used for writing out a record. It calls
+  '<a href="#robo131">RecordWriteHeader</a>' first, to write out the field names. Then it
+  call '<a href="#robo128">RecordWrite</a>' to write out that value of each field. The
+  spacing will be such that the field names will line up with the
+  field values. This function returns 0 if it was successful;
+  otherwise non-zero.
+</p>
+
+<hr />
+<a name="RecordMod2fRecordWriteHeader"></a>
+<a name="robo131"></a><h2>RecordMod/RecordWriteHeader [ Functions ]</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo7">RecordMod</a> ] [ <a href="./robo_functions.html#robo_top_of_doc">Functions</a> ]</p>
+<p class="item_name">NAME</p>
+<p>  <strong>RecordWriteHeader</strong>: This function writes out the field names on one line.
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre class="source">  integer function <strong>RecordWriteHeader</strong>(unitNum) result(rv)
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<ul><li>  unitNum: Unit number of the file.
+</li>
+</ul>
+<p></p>
+<p class="item_name">ARGUMENT DECLARATIONS</p>
+<pre class="source">    integer, intent(in) :: unitNum
+</pre>
+<p class="item_name">RETURNS</p>
+<p>  Integer: Returns 0 if successful; otherwise non-zero.
+</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function writes out the field names on one line. They are written
+  to the file associated with 'unitNum'. It does not open or close the
+  file; it just writes to it. All of the field names will be written
+  on one line and will have spacing so that it will line up with the
+  records written out subsequently with '<a href="#robo128">RecordWrite</a>'. This function
+  returns 0 if it was successful; otherwise non-zero.
+</p>
+
+</div> <!-- content -->
+<div id="footer">
+<p>Generated from ./source/RecordMod.f90 with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.36 on Tue May 09 2023 10:30:03
+</p>
+</div> <!-- footer -->
+</body>
+</html>
